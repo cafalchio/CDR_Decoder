@@ -2,7 +2,7 @@ use std::fmt::{self};
 
 #[derive(Debug, Clone, Copy)]
 pub struct BCD {
-    value: u8,
+    pub value: u8,
 }
 
 impl BCD {
@@ -24,8 +24,8 @@ impl fmt::Display for BCD {
 
 #[derive(Debug, Clone, Copy)]
 pub struct BCDWord {
-    high: BCD,
-    low: BCD,
+    pub high: BCD,
+    pub low: BCD,
 }
 
 impl BCDWord {
