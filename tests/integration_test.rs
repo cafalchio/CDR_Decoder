@@ -21,4 +21,5 @@ mod tests {
         let expected_display = "1234";
         assert_eq!(format!("{}", bcd_word.as_dec()), expected_display);
     }
+
 }

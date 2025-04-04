@@ -1,6 +1,8 @@
 use std::fmt::{self};
 
 #[derive(Debug, Clone, Copy)]
+
+
 pub struct BCD {
     pub value: u8,
 }
@@ -38,7 +40,7 @@ impl fmt::Display for BCDWord {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(
             f,
-            "{:02X}{:02X})",
+            "{:02X}{:02X}",
             self.high.as_dec(), self.low.as_dec()
         )
     }
