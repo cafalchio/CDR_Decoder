@@ -3,48 +3,44 @@ use std::fmt::{self};
 #[derive(Debug, Clone, Copy)]
 
 
+pub struct Word {
+    // hexadecimal word
+    pub value: u16,
+}
+impl Word {
+    fn new(value: [u8; 2]) -> Word {
+        let word: u16 = u16::from_be_bytes(value);
+        Word { value: word }
+    }
+}
+
+
 pub struct BCD {
     pub value: u8,
 }
 
 impl BCD {
-    pub fn as_dec(&self) -> u8 {
-        let low = self.value & 0x0F;
-        let high = (self.value >> 4) & 0x0F;
-        high * 10 + low
-    }
-}
-impl fmt::Display for BCD {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "{:02X}",
-            self.as_dec()
-        )
+    fn new(value: u8) -> BCD {
+        let low: u8 = value & 0x0F;
+        let high: u8 = (value >> 4) & 0x0F;
+        let _decimal: u8 = high * 10 + low;
+        BCD { value: _decimal }
     }
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct BCDWord {
-    pub high: BCD,
-    pub low: BCD,
+    pub value: u8,
 }
 
 impl BCDWord {
-    pub fn as_dec(&self) -> u16 {
-        self.high.as_dec() as u16 * 100 + self.low.as_dec() as u16
+    pub fn new(value: [BCD; 2]) -> BCDWord {
+        let dec = value[1].value * 100 + value[0].value;
+        BCDWord { value: dec }
     }
+}
 
-}
-impl fmt::Display for BCDWord {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "{:02X}{:02X}",
-            self.high.as_dec(), self.low.as_dec()
-        )
-    }
-}
+// Work in progress ----------------------------------------------------
+
 
 #[derive(Debug, Clone, Copy)]
 pub struct BcdTimestamp {
