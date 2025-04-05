@@ -1,7 +1,4 @@
-use std::hint;
-
 #[derive(Debug, Clone, Copy)]
-
 pub struct HByte {
     pub value: u32,
 }
@@ -12,18 +9,20 @@ impl HByte {
     }
 }
 
-
+#[derive(Debug, Clone, Copy)]
 pub struct HWord {
     pub value: u32,
 }
 impl HWord {
     pub fn new(value: &[u8]) -> HWord {
         let hbytes = u16::from_le_bytes([value[0], value[1]]);
-        HWord { value: hbytes.into() }
+        HWord {
+            value: hbytes.into(),
+        }
     }
 }
 
-
+#[derive(Debug, Clone, Copy)]
 pub struct Word {
     // hexadecimal word
     pub value: u32,
@@ -35,6 +34,7 @@ impl Word {
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct BCD {
     pub value: u32,
 }
@@ -43,10 +43,13 @@ impl BCD {
         let low = value & 0b0000_1111;
         let high = (value >> 4) & 0b0000_1111;
         let decimal = high * 10 + low;
-        BCD { value: decimal as u32 }
+        BCD {
+            value: decimal as u32,
+        }
     }
 }
 
+#[derive(Debug, Clone, Copy)]
 pub struct BCDWord {
     pub value: u32,
 }
@@ -54,8 +57,9 @@ impl BCDWord {
     pub fn new(bytes: &[u8]) -> BCDWord {
         let high = BCD::new(&bytes[1]);
         let low = BCD::new(&bytes[0]);
-        BCDWord { value: (high.value * 100 + low.value) }
-        
+        BCDWord {
+            value: (high.value * 100 + low.value),
+        }
     }
 }
 
@@ -82,7 +86,10 @@ impl BcdTimestamp {
         let hour = BCD::new(&bytes[2]).value;
         let minute = BCD::new(&bytes[1]).value;
         let second = BCD::new(&bytes[0]).value;
-        let timestamp = format!("{:02}/{:02}/{:04} {:02}:{:02}:{:02}",day, month, year, hour, minute, second);
-        BcdTimestamp { value: timestamp } 
+        let timestamp = format!(
+            "{:02}/{:02}/{:04} {:02}:{:02}:{:02}",
+            day, month, year, hour, minute, second
+        );
+        BcdTimestamp { value: timestamp }
     }
 }

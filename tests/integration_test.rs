@@ -21,14 +21,14 @@ mod tests {
 
     #[test]
     fn test_bcd_dword() {
-        let bytes:[u8; 4] = [0x01, 0x00, 0x00, 0x00];
+        let bytes: [u8; 4] = [0x01, 0x00, 0x00, 0x00];
         let bcd_dword = BCD2uword::new(&bytes);
         assert_eq!(bcd_dword.value, 1);
     }
 
     #[test]
     fn test_timestamp() {
-        let bytes: [u8; 7] = [0x40, 0x15, 0x12, 0x10,  0x11, 0x98, 0x19];
+        let bytes: [u8; 7] = [0x40, 0x15, 0x12, 0x10, 0x11, 0x98, 0x19];
         let timestamp: BcdTimestamp = BcdTimestamp::new(&bytes);
         assert_eq!("10/11/1998 12:15:40", timestamp.value);
     }
@@ -37,7 +37,7 @@ mod tests {
     fn test_hbyte() {
         let byte: [u8; 1] = [0x12];
         let hexbyte = HByte::new(&byte);
-         assert_eq!(18, hexbyte.value);
+        assert_eq!(18, hexbyte.value);
     }
 
     #[test]
@@ -46,6 +46,4 @@ mod tests {
         let hword = HWord::new(&bytes);
         assert_eq!(111, hword.value);
     }
-
-
 }
