@@ -14,13 +14,27 @@ pub struct HWord {
     pub value: u32,
 }
 impl HWord {
-    pub fn new(value: &[u8]) -> HWord {
-        let hbytes = u16::from_le_bytes([value[0], value[1]]);
+    pub fn new(bytes: &[u8]) -> HWord {
+        let hbytes = u16::from_le_bytes([bytes[0], bytes[1]]);
         HWord {
             value: hbytes.into(),
         }
     }
 }
+
+#[derive(Debug, Clone, Copy)]
+pub struct HDWord {
+    pub value: u32,
+}
+impl HDWord {
+    pub fn new(bytes: &[u8]) -> HDWord {
+        let hdword: u32 = u32::from_be_bytes([bytes[0],bytes[1], bytes[2], bytes[3]]);
+        HDWord { 
+            value: hdword
+        }
+    }
+}
+
 
 #[derive(Debug, Clone, Copy)]
 pub struct Word {
@@ -93,3 +107,10 @@ impl BcdTimestamp {
         BcdTimestamp { value: timestamp }
     }
 }
+
+// 3/4 bcd bytes (except PNI)
+// The numerical value in bcd form.
+
+
+// 8 - 16 bcd/hex bytes (and also PNI)
+// Used in IMSI, IMEI, subscriber numbers, and exchange ID.

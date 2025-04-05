@@ -13,7 +13,7 @@ mod tests {
     }
 
     #[test]
-    fn test_bcdword_parse_value() {
+    fn test_bcd_word() {
         let bytes: [u8; 2] = [0x00, 0x05];
         let bcd_word: BCDWord = BCDWord::new(&bytes);
         assert_eq!(bcd_word.value, 500);
@@ -45,5 +45,13 @@ mod tests {
         let bytes = [0x6F, 0x00];
         let hword = HWord::new(&bytes);
         assert_eq!(111, hword.value);
+    }
+
+    #[test]
+    fn test_hdword() {
+        let bytes = [0x00, 0x02, 0x00, 0xA0];
+        let hdword = HDWord::new(&bytes);
+        assert_eq!(131232, hdword.value);
+
     }
 }
