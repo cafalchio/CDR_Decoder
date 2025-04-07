@@ -82,7 +82,7 @@ pub struct BCD2uword {
 }
 impl BCD2uword {
     pub fn new(bytes: &[u8]) -> BCD2uword {
-        let high = BCDWord::new(&bytes[2..]);
+        let high = BCDWord::new(&bytes[2..4]);
         let low = BCDWord::new(&bytes[0..2]);
         let decimal = high.value * 10000 + low.value;
         BCD2uword { value: decimal }
@@ -110,7 +110,6 @@ impl BcdTimestamp {
 
 // 3/4 bcd bytes (except PNI)
 // The numerical value in bcd form.
-
 
 // 8 - 16 bcd/hex bytes (and also PNI)
 // Used in IMSI, IMEI, subscriber numbers, and exchange ID.
