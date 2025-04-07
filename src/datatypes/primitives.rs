@@ -64,7 +64,8 @@ impl BCD {
 }
 
 
-#[derive(Debug, Clone, Copy)]
+
+
 pub struct BCDWord {
     pub value: u32,
 }

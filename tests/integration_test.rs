@@ -1,5 +1,6 @@
 use cdr_decoder::datatypes::primitives::*;
-use cdr_decoder::datatypes::blocks::Header;
+use cdr_decoder::datatypes::blocks::*;
+use cdr_decoder::datatypes::mixed::*;
 
 #[cfg(test)]
 mod tests {
@@ -77,6 +78,25 @@ mod tests {
         assert_eq!(header.call_reference, "comp:4131 process:0024 focus:00");
         assert_eq!(header.exchange_id, "49177387"); 
         
+    }
+
+    #[test]
+    fn test_acceptable_channel_codings() {
+        let byte = 0x00;
+        let acceptable_codings = AcceptableChannelCodings::new(byte);
+        assert_eq!("", acceptable_codings.value);
+
+        let byte = 0x01;
+        let acceptable_codings = AcceptableChannelCodings::new(byte);
+        assert_eq!("4,8 kbit/s", acceptable_codings.value);
+
+        let byte = 0x03;
+        let acceptable_codings = AcceptableChannelCodings::new(byte);
+        assert_eq!("4,8 9,6 kbit/s", acceptable_codings.value);
+
+        let byte = 0x33;
+        let acceptable_codings = AcceptableChannelCodings::new(byte);
+        assert_eq!("4,8 9,6 28,8 32,0 kbit/s", acceptable_codings.value);
     }
 
 }

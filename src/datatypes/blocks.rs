@@ -1,7 +1,6 @@
 use crate::datatypes::primitives::*;
 use crate::datatypes::mixed::*;
 
-#[derive(Debug)]
 pub struct Header {
     pub record_length: u32,     // W(1) at offset 0
     pub record_type: String,       // BCD(1) at offset 2
