@@ -1,5 +1,5 @@
-use crate::datatypes::primitives::*;
 use crate::datatypes::mixed::*;
+use crate::datatypes::primitives::*;
 
 pub struct Header {
     pub record_length: u32,     // W(1) at offset 0
@@ -11,11 +11,11 @@ pub struct Header {
     pub exchange_id: String,    // C(10) at offset 15
 }
 impl Header {
-    pub fn new(bytes:&[u8]) -> Header {
+    pub fn new(bytes: &[u8]) -> Header {
         let record_length = HWord::new(&bytes[0..2]).value as u32;
         let record_type = RecordType::try_from(bytes[2]).unwrap().to_string();
-        let record_number = BCD2uword::new(&bytes[3..7]).value; 
-        let mut record_status: String = "".to_string();  
+        let record_number = BCD2uword::new(&bytes[3..7]).value;
+        let mut record_status: String = "".to_string();
         if (record_type != "Header".to_string()) & (record_type != "Trailer".to_string()) {
             record_status = RecordStatus::try_from(bytes[7]).unwrap().to_string();
         }

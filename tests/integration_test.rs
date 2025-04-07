@@ -1,7 +1,6 @@
-use cdr_decoder::datatypes::primitives::*;
-use cdr_decoder::datatypes::mixed::*;
 use cdr_decoder::data_blocks::header::Header;
-
+use cdr_decoder::datatypes::mixed::*;
+use cdr_decoder::datatypes::primitives::*;
 
 #[cfg(test)]
 mod tests {
@@ -57,17 +56,16 @@ mod tests {
         assert_eq!(131232, hdword.value);
     }
 
-
     #[test]
     fn test_header() {
         let bytes: [u8; 25] = [
             0x26, 0x02, // record_lenght
-            0x01,  // record type
+            0x01, // record type
             0x03, 0x00, 0x00, 0x00, // record number
             0x00, // record status
             0xD7, 0x8D, // checksum
-            0x31, 0x41, 0x24, 0x00, 0x00,
-            0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+            0x31, 0x41, 0x24, 0x00, 0x00, 0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+            0xFF,
             // 0x00, 0x00, 0x00
         ];
         let header = Header::new(&bytes);
@@ -77,8 +75,7 @@ mod tests {
         assert_eq!(header.record_status, "Normal");
         assert_eq!(header.check_sum, 36311);
         assert_eq!(header.call_reference, "comp:4131 process:0024 focus:00");
-        assert_eq!(header.exchange_id, "49177387"); 
-        
+        assert_eq!(header.exchange_id, "49177387");
     }
 
     #[test]
@@ -99,5 +96,4 @@ mod tests {
         let acceptable_codings = AcceptableChannelCodings::new(byte);
         assert_eq!("4,8 9,6 28,8 32,0 kbit/s", acceptable_codings.value);
     }
-
 }

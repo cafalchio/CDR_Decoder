@@ -2,7 +2,6 @@ use crate::datatypes::primitives::*;
 use std::convert::TryFrom;
 use std::fmt;
 
-
 #[derive(Debug)]
 pub enum RecordType {
     Header,
@@ -154,21 +153,23 @@ impl fmt::Display for RecordStatus {
         };
         write!(f, "{s}")
     }
-}   
+}
 
 pub struct CallReference {
     // word + word + byte
     pub value: String,
 }
 impl CallReference {
-    pub fn new(bytes: &[u8]) ->  CallReference {
+    pub fn new(bytes: &[u8]) -> CallReference {
         let comp = BCDWord::new(&bytes[0..2]).value;
         let process = BCDWord::new(&bytes[2..4]).value;
         let mut focus: u8 = 0;
-        if  bytes[4] != 0xFF {
+        if bytes[4] != 0xFF {
             focus = bytes[4];
         }
-        CallReference { value: format!("comp:{} process:{:04} focus:{:02}", comp, process, focus)}
+        CallReference {
+            value: format!("comp:{} process:{:04} focus:{:02}", comp, process, focus),
+        }
     }
 }
 
@@ -178,23 +179,24 @@ pub struct ExchangeId {
 
 impl ExchangeId {
     pub fn new(bytes: &[u8]) -> ExchangeId {
-        ExchangeId { value: decode_bcds(bytes) }
+        ExchangeId {
+            value: decode_bcds(bytes),
+        }
     }
 }
 
 pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
-    let mut decoded = String::new(); 
+    let mut decoded = String::new();
     for &byte in bcd_bytes.iter() {
         if byte == 0xFF {
-            continue;  // skip 0xFF
+            continue; // skip 0xFF
         }
-        let low = (byte >> 4) & 0b0000_1111; 
-        let high = byte &  0b0000_1111; 
-        decoded.push_str(&format!("{}{}", high, low)); 
+        let low = (byte >> 4) & 0b0000_1111;
+        let high = byte & 0b0000_1111;
+        decoded.push_str(&format!("{}{}", high, low));
     }
-    decoded 
+    decoded
 }
-
 
 // acceptable_channel_codings
 pub struct AcceptableChannelCodings {
@@ -207,7 +209,7 @@ impl AcceptableChannelCodings {
             "4,8",  // bit 1
             "9,6",  // bit 2
             "14,4", // bit 3
-            "", // bit 4 not used
+            "",     // bit 4 not used
             "28,8", // bit 5
             "32,0", // bit 6
             "43,2", // bit 7
@@ -220,8 +222,8 @@ impl AcceptableChannelCodings {
         if acceptable_codings.len() > 0 {
             acceptable_codings.push("kbit/s");
         }
-        AcceptableChannelCodings { value: acceptable_codings.join(" ") }
+        AcceptableChannelCodings {
+            value: acceptable_codings.join(" "),
+        }
     }
 }
-
-
