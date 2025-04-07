@@ -164,7 +164,10 @@ impl CallReference {
     pub fn new(bytes: &[u8]) ->  CallReference {
         let comp = BCDWord::new(&bytes[0..2]).value;
         let process = BCDWord::new(&bytes[2..4]).value;
-        let focus = bytes[4];
+        let mut focus: u8 = 0;
+        if  bytes[4] != 0xFF {
+            focus = bytes[4];
+        }
         CallReference { value: format!("comp:{} process:{:04} focus:{:02}", comp, process, focus)}
     }
 }
@@ -192,7 +195,7 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     decoded 
 }
 
-    
+
 // acceptable_channel_codings
 pub struct AcceptableChannelCodings {
     pub value: String,
