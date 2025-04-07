@@ -13,6 +13,7 @@ classifiers = [
 dynamic = ["version"]
 dependencies = [
     "ipython>=8.12.3",
+    "maturin>=1.8.3",
 ]
 [tool.maturin]
 features = ["pyo3/extension-module"]

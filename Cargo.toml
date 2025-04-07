@@ -9,4 +9,8 @@ name = "cdr_decoder"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-pyo3 = "0.23.1"
+flate2 = "1.1.1"
+
+[dependencies.pyo3]
+version = "0.23.1"
+features = ["extension-module", "abi3-py38"]
