@@ -129,7 +129,7 @@ impl fmt::Display for RecordType {
 }
 
 #[derive(Debug)]
-enum RecordStatus {
+pub enum RecordStatus {
     Normal,
     SynchronisingError,
     DifferentContents,
@@ -157,33 +157,38 @@ impl fmt::Display for RecordStatus {
     }
 }   
 
-#[derive(Debug)]
-pub struct Header {
-    pub record_length: u32,     // W(1) at offset 0
-    pub record_type: String,       // BCD(1) at offset 2
-    pub record_number: u32, // BCD(4) at offset 3
-    // pub record_status: String,    // C(1) at offset 7
-    // pub check_sum: u32,         // W(1) at offset 8
-    // pub call_reference: String,  // C(5) at offset 10
-    // pub exchange_id: String,    // C(10) at offset 15
+pub struct CallReference {
+    // word + word + byte
+    pub value: String,
 }
-impl Header {
-    pub fn new(bytes:&[u8]) -> Header {
-        let record_length = HWord::new(&bytes[0..2]).value as u32;
-        let record_type = RecordType::try_from(bytes[2]).unwrap().to_string();
-        let record_number = BCD2uword::new(&bytes[3..5]).value;      
-        // let record_status = RecordStatus::try_from(bytes[7]).unwrap().to_string();
-        // let check_sum = HDWord::new(&bytes[8..12]).value;
-        // let call_reference = String::from_utf8_lossy(&bytes[12..17]).to_string();
-        // let exchange_id = String::from_utf8_lossy(&bytes[17..27]).to_string();
-        Header {
-            record_length,
-            record_type,
-            record_number,
-            // record_status,
-            // check_sum,
-            // call_reference,
-            // exchange_id,
-        }
+impl CallReference {
+    pub fn new(bytes: &[u8]) ->  CallReference {
+        let comp = BCDWord::new(&bytes[0..2]).value;
+        let process = BCDWord::new(&bytes[2..4]).value;
+        let focus = bytes[4];
+        CallReference { value: format!("comp:{} process:{:04} focus:{:02}", comp, process, focus)}
     }
+}
+
+pub struct ExchangeId {
+    pub value: String,
+}
+
+impl ExchangeId {
+    pub fn new(bytes: &[u8]) -> ExchangeId {
+        ExchangeId { value: decode_bcds(bytes) }
+    }
+}
+
+pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
+    let mut decoded = String::new(); 
+    for &byte in bcd_bytes.iter() {
+        if byte == 0xFF {
+            continue;  // skip 0xFF
+        }
+        let low = (byte >> 4) & 0b0000_1111; 
+        let high = byte &  0b0000_1111; 
+        decoded.push_str(&format!("{}{}", high, low)); 
+    }
+    decoded 
 }

@@ -1,5 +1,5 @@
 use cdr_decoder::datatypes::primitives::*;
-use cdr_decoder::datatypes::mixed::*;
+use cdr_decoder::datatypes::blocks::Header;
 
 #[cfg(test)]
 mod tests {
@@ -53,28 +53,29 @@ mod tests {
         let bytes = [0x00, 0x02, 0x00, 0xA0];
         let hdword = HDWord::new(&bytes);
         assert_eq!(131232, hdword.value);
-
     }
+
 
     #[test]
     fn test_header() {
-        let bytes: [u8; 6] = [
+        let bytes: [u8; 25] = [
             0x26, 0x02, // record_lenght
             0x01,  // record type
-            0x03, 0x00, 0x00, // record number
-            // 0xD7, 0x8D,
-            // 0x31, 0x41, 0x24, 0x00, 0x00, 0x00, 0x00, 0x00,
-            // 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0x03, 0x00, 0x00, 0x00, // record number
+            0x00, // record status
+            0xD7, 0x8D, // checksum
+            0x31, 0x41, 0x24, 0x00, 0x00,
+            0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
             // 0x00, 0x00, 0x00
         ];
         let header = Header::new(&bytes);
         assert_eq!(header.record_length, 550);
         assert_eq!(header.record_type, "Mobile-Originated Call");
         assert_eq!(header.record_number, 3);
-        // assert_eq!(header.record_status, "Normal");
-        // assert_eq!(header.check_sum, 1);
-        // assert_eq!(header.call_reference, "\x00\x00\x00\x00\x00");
-        // assert_eq!(header.exchange_id, "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"); 
+        assert_eq!(header.record_status, "Normal");
+        assert_eq!(header.check_sum, 36311);
+        assert_eq!(header.call_reference, "comp:4131 process:0024 focus:00");
+        assert_eq!(header.exchange_id, "49177387"); 
         
     }
 
