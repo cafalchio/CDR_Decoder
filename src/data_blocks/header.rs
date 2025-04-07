@@ -3,11 +3,11 @@ use crate::datatypes::mixed::*;
 
 pub struct Header {
     pub record_length: u32,     // W(1) at offset 0
-    pub record_type: String,       // BCD(1) at offset 2
-    pub record_number: u32, // BCD(4) at offset 3
-    pub record_status: String,    // C(1) at offset 7
+    pub record_type: String,    // BCD(1) at offset 2
+    pub record_number: u32,     // BCD(4) at offset 3
+    pub record_status: String,  // C(1) at offset 7
     pub check_sum: u32,         // W(1) at offset 8
-    pub call_reference: String,  // C(5) at offset 10
+    pub call_reference: String, // C(5) at offset 10
     pub exchange_id: String,    // C(10) at offset 15
 }
 impl Header {

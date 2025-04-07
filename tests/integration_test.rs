@@ -1,6 +1,7 @@
 use cdr_decoder::datatypes::primitives::*;
-use cdr_decoder::datatypes::blocks::*;
 use cdr_decoder::datatypes::mixed::*;
+use cdr_decoder::data_blocks::header::Header;
+
 
 #[cfg(test)]
 mod tests {
