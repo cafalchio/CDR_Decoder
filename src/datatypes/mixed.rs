@@ -2,6 +2,40 @@ use crate::datatypes::primitives::*;
 use std::convert::TryFrom;
 use std::fmt;
 
+
+pub enum IntermediateChargingInd {
+    Normal,
+    Intermediate,
+    LastPartial,
+    NotUsed,
+    None,
+}
+
+impl TryFrom<u8> for IntermediateChargingInd {
+    type Error = &'static str;
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        match value {
+            0 => Ok(IntermediateChargingInd::Normal),
+            1 => Ok(IntermediateChargingInd::Intermediate),
+            2 => Ok(IntermediateChargingInd::LastPartial),
+            0xFF => Ok(IntermediateChargingInd::NotUsed),
+            _ => panic!("Invalid intermediate"),
+        }
+    }
+}
+    impl fmt::Display for IntermediateChargingInd {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            let s = match self {
+                IntermediateChargingInd::Normal => "Normal",
+                IntermediateChargingInd::Intermediate => "Intermediate (partial)",
+                IntermediateChargingInd::LastPartial => "Last Partial",
+                IntermediateChargingInd::NotUsed => "Not Used",
+                _=> panic!("Invalid intermediate"),
+            };
+        write!(f, "{s}")
+    }
+}
+
 #[derive(Debug)]
 pub enum RecordType {
     Header,

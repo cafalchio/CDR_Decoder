@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 #[derive(Debug, Clone, Copy)]
 pub struct HByte {
     pub value: u32,
@@ -84,6 +85,8 @@ impl BCD2uword {
         BCD2uword { value: decimal }
     }
 }
+
+#[allow(dead_code)]
 pub struct BcdTimestamp {
     pub value: String,
 }
