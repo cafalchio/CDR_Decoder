@@ -13,11 +13,14 @@ pub struct Header {
 impl Header {
     pub fn new(bytes: &[u8]) -> Header {
         let record_length = HWord::new(&bytes[0..2]).value as u32;
-        let record_type = RecordType::try_from(bytes[2]).unwrap().to_string();
+        let record_type = RecordType::try_from(bytes[2]).unwrap().value().to_string();
         let record_number = BCD2uword::new(&bytes[3..7]).value;
         let mut record_status: String = "".to_string();
         if (record_type != "Header".to_string()) & (record_type != "Trailer".to_string()) {
-            record_status = RecordStatus::try_from(bytes[7]).unwrap().to_string();
+            record_status = RecordStatus::try_from(bytes[7])
+                .unwrap()
+                .value()
+                .to_string();
         }
         let check_sum = HWord::new(&bytes[8..10]).value;
         let call_reference = CallReference::new(&bytes[10..15]).value;
