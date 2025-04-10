@@ -77,7 +77,6 @@ pub enum RecordType {
 
 impl TryFrom<u8> for RecordType {
     type Error = ();
-
     fn try_from(value: u8) -> Result<Self, Self::Error> {
         let rt = match value {
             0 => RecordType::Header,
@@ -120,10 +119,9 @@ impl TryFrom<u8> for RecordType {
     }
 }
 
-impl RecordType {
-    // Method to return the string value corresponding to the variant
-    pub fn value(&self) -> &str {
-        match self {
+impl fmt::Display for RecordType {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let s = match self {
             RecordType::Header => "Header",
             RecordType::MobileOriginatedCall => "MobileOriginatedCall",
             RecordType::MobileTerminatedCall => "MobileTerminatedCall",
@@ -158,7 +156,8 @@ impl RecordType {
             RecordType::SipOriginatingMessage => "SipOriginatingMessage",
             RecordType::SipTerminatingMessage => "SipTerminatingMessage",
             RecordType::SipRegistrationCdr => "SipRegistrationCdr",
-        }
+        };
+        write!(f, "{s}")
     }
 }
 
@@ -168,10 +167,8 @@ pub enum RecordStatus {
     SynchronisingError,
     DifferentContents,
 }
-
 impl TryFrom<u8> for RecordStatus {
     type Error = &'static str;
-
     fn try_from(value: u8) -> Result<Self, Self::Error> {
         match value {
             0 => Ok(RecordStatus::Normal),
@@ -181,15 +178,14 @@ impl TryFrom<u8> for RecordStatus {
         }
     }
 }
-
-impl RecordStatus {
-    // Method to return the string value corresponding to the variant
-    pub fn value(&self) -> &str {
-        match self {
+impl fmt::Display for RecordStatus {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let s = match self {
             RecordStatus::Normal => "Normal",
-            RecordStatus::SynchronisingError => "SynchronisingError",
-            RecordStatus::DifferentContents => "DifferentContents",
-        }
+            RecordStatus::SynchronisingError => "Synchronising Error",
+            RecordStatus::DifferentContents => "Different Contents",
+        };
+        write!(f, "{s}")
     }
 }
 

@@ -70,7 +70,7 @@ mod tests {
         ];
         let header = Header::new(&bytes);
         assert_eq!(header.record_length, 550);
-        assert_eq!(header.record_type, "Mobile-Originated Call");
+        assert_eq!(header.record_type, "MobileOriginatedCall");
         assert_eq!(header.record_number, 3);
         assert_eq!(header.record_status, "Normal");
         assert_eq!(header.check_sum, 36311);
