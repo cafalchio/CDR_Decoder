@@ -1,6 +1,27 @@
 mod datatypes;
 use cdr_decoder::{core::process_file::*, data_blocks::header};
-use std::time::Instant;
+use std::{str::FromStr, time::Instant};
+use strum_macros::{Display, EnumString, FromRepr};
+
+// Updated trait that directly converts u8 to string
+
+pub struct IntermediateChargingInd(&'static str);
+
+impl IntermediateChargingInd {
+    pub fn new(value: u8) -> Self {
+        Self(match value {
+            0 => "Normal",
+            1 => "Intermediate",
+            2 => "Last Partial",
+            3 => "NotUsed",
+            _ => "Unknown",
+        })
+    }
+
+    pub fn value(&self) -> &str {
+        self.0
+    }
+}
 
 fn read_headers(bytes: &[u8]) {
     let before = Instant::now();
@@ -30,9 +51,10 @@ fn read_headers(bytes: &[u8]) {
 }
 
 fn main() {
-    read_multiple_files("/home/cafalchio/projects/cdr_decoder/data");
+    println!("{}", IntermediateChargingInd::new(0x02).value());
+    // read_multiple_files("/home/cafalchio/projects/cdr_decoder/data");
     let before = Instant::now();
-    println!("Running extraction");
+    // println!("Running extraction");
     // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
     // let mut next_header: usize = 0;
     // let mut counter = 0;

@@ -1,39 +1,28 @@
 use crate::datatypes::primitives::*;
 use std::convert::TryFrom;
 use std::fmt;
+use strum_macros::{EnumString, FromRepr, Display};
 
-pub enum IntermediateChargingInd {
-    Normal,
-    Intermediate,
-    LastPartial,
-    NotUsed,
-    None,
-}
+pub struct IntermediateChargingInd(&'static str);
+// pub enum RecordType
+// pub enum RecordStatus {
+// pub struct CallReference
+// pub struct ExchangeId
 
-impl TryFrom<u8> for IntermediateChargingInd {
-    type Error = &'static str;
-
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        match value {
-            0 => Ok(IntermediateChargingInd::Normal),
-            1 => Ok(IntermediateChargingInd::Intermediate),
-            2 => Ok(IntermediateChargingInd::LastPartial),
-            0xFF => Ok(IntermediateChargingInd::NotUsed),
-            _ => Err("Invalid value"),
-        }
-    }
-}
 
 impl IntermediateChargingInd {
-    // Direct method to return the string value
+    pub fn new(value: u8) -> Self {
+        Self(match value {
+            0 => "Normal",
+            1 => "Intermediate",
+            2 => "Last Partial",
+            3 => "NotUsed",
+            _ => "Unknown",
+        })
+    }
+
     pub fn value(&self) -> &str {
-        match self {
-            IntermediateChargingInd::Normal => "Normal",
-            IntermediateChargingInd::Intermediate => "Intermediate",
-            IntermediateChargingInd::LastPartial => "LastPartial",
-            IntermediateChargingInd::NotUsed => "NotUsed",
-            IntermediateChargingInd::None => "None",
-        }
+        self.0
     }
 }
 
@@ -75,118 +64,13 @@ pub enum RecordType {
     SipRegistrationCdr = 35,
 }
 
-impl TryFrom<u8> for RecordType {
-    type Error = ();
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        let rt = match value {
-            0 => RecordType::Header,
-            1 => RecordType::MobileOriginatedCall,
-            2 => RecordType::MobileTerminatedCall,
-            3 => RecordType::ForwardedCall,
-            4 => RecordType::CallToRoamingSubscriber,
-            5 => RecordType::SupplementaryService,
-            6 => RecordType::HlrInterrogation,
-            7 => RecordType::LocationUpdate,
-            8 => RecordType::SmsMo,
-            9 => RecordType::SmsMt,
-            10 => RecordType::Trailer,
-            11 => RecordType::PstnOriginatedCall,
-            12 => RecordType::PstnTerminatedCall,
-            13 => RecordType::PbxOriginatedCall,
-            14 => RecordType::PbxTerminatedCall,
-            15 => RecordType::UseOfHardware,
-            16 => RecordType::InData1,
-            17 => RecordType::UnsuccessfulCallAttempt,
-            18 => RecordType::InData2,
-            19 => RecordType::InData3,
-            20 => RecordType::DeviceOriginatedCall,
-            22 => RecordType::RemoteChargingControl,
-            23 => RecordType::InForwardedSms,
-            24 => RecordType::CamelOriginatedCall,
-            25 => RecordType::CamelTerminatedCall,
-            26 => RecordType::InData4,
-            27 => RecordType::LocationService,
-            28 => RecordType::InData5,
-            29 => RecordType::Ussd,
-            30 => RecordType::SipOriginatedCall,
-            31 => RecordType::SipTerminatedCall,
-            32 => RecordType::SipOriginatingMessage,
-            33 => RecordType::SipTerminatingMessage,
-            35 => RecordType::SipRegistrationCdr,
-            _ => return Err(()), // Invalid value, return an error
-        };
-        Ok(rt)
-    }
-}
 
-impl fmt::Display for RecordType {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let s = match self {
-            RecordType::Header => "Header",
-            RecordType::MobileOriginatedCall => "MobileOriginatedCall",
-            RecordType::MobileTerminatedCall => "MobileTerminatedCall",
-            RecordType::ForwardedCall => "ForwardedCall",
-            RecordType::CallToRoamingSubscriber => "CallToRoamingSubscriber",
-            RecordType::SupplementaryService => "SupplementaryService",
-            RecordType::HlrInterrogation => "HlrInterrogation",
-            RecordType::LocationUpdate => "LocationUpdate",
-            RecordType::SmsMo => "SmsMo",
-            RecordType::SmsMt => "SmsMt",
-            RecordType::Trailer => "Trailer",
-            RecordType::PstnOriginatedCall => "PstnOriginatedCall",
-            RecordType::PstnTerminatedCall => "PstnTerminatedCall",
-            RecordType::PbxOriginatedCall => "PbxOriginatedCall",
-            RecordType::PbxTerminatedCall => "PbxTerminatedCall",
-            RecordType::UseOfHardware => "UseOfHardware",
-            RecordType::InData1 => "InData1",
-            RecordType::UnsuccessfulCallAttempt => "UnsuccessfulCallAttempt",
-            RecordType::InData2 => "InData2",
-            RecordType::InData3 => "InData3",
-            RecordType::DeviceOriginatedCall => "DeviceOriginatedCall",
-            RecordType::RemoteChargingControl => "RemoteChargingControl",
-            RecordType::InForwardedSms => "InForwardedSms",
-            RecordType::CamelOriginatedCall => "CamelOriginatedCall",
-            RecordType::CamelTerminatedCall => "CamelTerminatedCall",
-            RecordType::InData4 => "InData4",
-            RecordType::LocationService => "LocationService",
-            RecordType::InData5 => "InData5",
-            RecordType::Ussd => "Ussd",
-            RecordType::SipOriginatedCall => "SipOriginatedCall",
-            RecordType::SipTerminatedCall => "SipTerminatedCall",
-            RecordType::SipOriginatingMessage => "SipOriginatingMessage",
-            RecordType::SipTerminatingMessage => "SipTerminatingMessage",
-            RecordType::SipRegistrationCdr => "SipRegistrationCdr",
-        };
-        write!(f, "{s}")
-    }
-}
 
 #[derive(Debug)]
 pub enum RecordStatus {
     Normal,
     SynchronisingError,
     DifferentContents,
-}
-impl TryFrom<u8> for RecordStatus {
-    type Error = &'static str;
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        match value {
-            0 => Ok(RecordStatus::Normal),
-            1 => Ok(RecordStatus::SynchronisingError),
-            2 => Ok(RecordStatus::DifferentContents),
-            _ => Err("Invalid record status"),
-        }
-    }
-}
-impl fmt::Display for RecordStatus {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let s = match self {
-            RecordStatus::Normal => "Normal",
-            RecordStatus::SynchronisingError => "Synchronising Error",
-            RecordStatus::DifferentContents => "Different Contents",
-        };
-        write!(f, "{s}")
-    }
 }
 
 pub struct CallReference {
@@ -285,74 +169,6 @@ enum SelectedCodec {
     FdhClearmode = 0xFD,    // FDHClearmode
 }
 
-impl SelectedCodec {
-    // Method to get the string description for the variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            SelectedCodec::FullRateCodecGSM => "Full rate codec for GSM",
-            SelectedCodec::HalfRateCodecGSM => "Half rate codec for GSM",
-            SelectedCodec::EnhancedFullRateCodecGSM => "Enhanced full rate codec for GSM",
-            SelectedCodec::NarrowbandFullRateAmrCodecGSM => {
-                "Narrowband full rate AMR codec for GSM"
-            }
-            SelectedCodec::NarrowbandHalfRateAmrCodecGSM => {
-                "Narrowband half rate AMR codec for GSM"
-            }
-            SelectedCodec::NarrowbandAmrCodecUmts20ms => {
-                "Narrowband AMR codec for UMTS with 20 ms Codec Mode"
-            }
-            SelectedCodec::NarrowbandAmrCodecUmts40ms => {
-                "Narrowband AMR codec for UMTS with 40 ms Codec Mode"
-            }
-            SelectedCodec::Spare1 => "Spare",
-            SelectedCodec::Spare2 => "Spare",
-            SelectedCodec::PcmALaw64k => "64 kbps PCM coding with A-law",
-            SelectedCodec::PcmULaw64k => "64 kbps PCM coding with U-law",
-            SelectedCodec::ItuT53k63kCodec => {
-                "ITU-T specified dual-rate speech codec at 5.3 and 6.3 kbit/s"
-            }
-            SelectedCodec::ItuTG7231Codec => {
-                "ITU-T dual-rate speech codec at 5.3 and 6.3 kbit/s with G.723.1"
-            }
-            SelectedCodec::ItuT8kCodec => "ITU-T widely used 8 kbit/s codec",
-            SelectedCodec::ItuTG729ACodec => "ITU-T widely used 8 kbit/s codec with G.729A",
-            SelectedCodec::InternetLowBitRateCodec => "Internet low bit-rate codec",
-            SelectedCodec::ComfortNoise => "Comfort noise",
-            SelectedCodec::FchRtp => "FCH Real-time Transport Protocol",
-            SelectedCodec::FdhClearmode => "FDHClearmode",
-        }
-    }
-}
-
-impl TryFrom<u8> for SelectedCodec {
-    type Error = ();
-
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        match value {
-            0x00 => Ok(SelectedCodec::FullRateCodecGSM),
-            0x01 => Ok(SelectedCodec::HalfRateCodecGSM),
-            0x02 => Ok(SelectedCodec::EnhancedFullRateCodecGSM),
-            0x03 => Ok(SelectedCodec::NarrowbandFullRateAmrCodecGSM),
-            0x04 => Ok(SelectedCodec::NarrowbandHalfRateAmrCodecGSM),
-            0x05 => Ok(SelectedCodec::NarrowbandAmrCodecUmts20ms),
-            0x06 => Ok(SelectedCodec::NarrowbandAmrCodecUmts40ms),
-            0x0E => Ok(SelectedCodec::Spare1),
-            0x0F => Ok(SelectedCodec::Spare2),
-            0x10 => Ok(SelectedCodec::PcmALaw64k),
-            0x11 => Ok(SelectedCodec::PcmULaw64k),
-            0x12 => Ok(SelectedCodec::ItuT53k63kCodec),
-            0x13 => Ok(SelectedCodec::ItuTG7231Codec),
-            0x14 => Ok(SelectedCodec::ItuT8kCodec),
-            0x15 => Ok(SelectedCodec::ItuTG729ACodec),
-            0x16 => Ok(SelectedCodec::InternetLowBitRateCodec),
-            0x17 => Ok(SelectedCodec::ComfortNoise),
-            0xF0 => Ok(SelectedCodec::FchRtp),
-            0xFD => Ok(SelectedCodec::FdhClearmode),
-            _ => Err(()),
-        }
-    }
-}
-
 #[derive(Debug)]
 enum Action {
     Registration = 0x00,                           // Registration
@@ -367,47 +183,6 @@ enum Action {
     Phase2ProcessUnstructuredSSDataNotify = 0x09,  // Phase 2 process unstructured SS data notify
 }
 
-impl Action {
-    // Method to get the string description for the enum variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            Action::Registration => "Registration",
-            Action::Erasure => "Erasure",
-            Action::Activation => "Activation",
-            Action::Deactivation => "Deactivation",
-            Action::Interrogation => "Interrogation",
-            Action::Invocation => "Invocation",
-            Action::PasswordRegistration => "Password registration",
-            Action::Phase1ProcessUnstructuredSSData => "Phase 1 process unstructured SS data",
-            Action::Phase2ProcessUnstructuredSSDataRequest => {
-                "Phase 2 process unstructured SS data request"
-            }
-            Action::Phase2ProcessUnstructuredSSDataNotify => {
-                "Phase 2 process unstructured SS data notify"
-            }
-        }
-    }
-}
-
-impl TryFrom<u8> for Action {
-    type Error = ();
-
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        match value {
-            0x00 => Ok(Action::Registration),
-            0x01 => Ok(Action::Erasure),
-            0x02 => Ok(Action::Activation),
-            0x03 => Ok(Action::Deactivation),
-            0x04 => Ok(Action::Interrogation),
-            0x05 => Ok(Action::Invocation),
-            0x06 => Ok(Action::PasswordRegistration),
-            0x07 => Ok(Action::Phase1ProcessUnstructuredSSData),
-            0x08 => Ok(Action::Phase2ProcessUnstructuredSSDataRequest),
-            0x09 => Ok(Action::Phase2ProcessUnstructuredSSDataNotify),
-            _ => Err(()),
-        }
-    }
-}
 
 #[derive(Debug)]
 enum ApplicationInfo {
@@ -416,29 +191,6 @@ enum ApplicationInfo {
     NotKnown = 0xFF,           // Not known
 }
 
-impl ApplicationInfo {
-    // Method to get the string description for the enum variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            ApplicationInfo::NormalShortMessage => "Normal short message",
-            ApplicationInfo::PictureMessage => "Picture message",
-            ApplicationInfo::NotKnown => "Not known",
-        }
-    }
-}
-
-impl TryFrom<u8> for ApplicationInfo {
-    type Error = ();
-
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        match value {
-            0x00 => Ok(ApplicationInfo::NormalShortMessage),
-            0x01 => Ok(ApplicationInfo::PictureMessage),
-            0xFF => Ok(ApplicationInfo::NotKnown),
-            _ => Err(()),
-        }
-    }
-}
 
 #[derive(Debug)]
 enum TeleserviceCode {
@@ -464,63 +216,6 @@ enum TeleserviceCode {
     DualNumbering = 0xD1,              // Dual numbering (alternate line service)
 }
 
-impl TeleserviceCode {
-    // Method to return the string description of the enum variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            TeleserviceCode::AllTeleservices => "All teleservices",
-            TeleserviceCode::SpeechTransmission => "Speech transmission",
-            TeleserviceCode::Telephony => "Telephony",
-            TeleserviceCode::EmergencyCalls => "Emergency calls",
-            TeleserviceCode::ShortMessageServices => "Short message services",
-            TeleserviceCode::ShortMessageMTPP => "Short message MT/PP",
-            TeleserviceCode::ShortMessageMOPP => "Short message MO/PP",
-            TeleserviceCode::DataMHS => "Data MHS",
-            TeleserviceCode::AdvancedMHSAccess => "Advanced MHS access",
-            TeleserviceCode::VideotexAccess => "Videotex access services",
-            TeleserviceCode::VideotexProfile1 => "Videotex access profile 1",
-            TeleserviceCode::VideotexProfile2 => "Videotex access profile 2",
-            TeleserviceCode::VideotexProfile3 => "Videotex access profile 3",
-            TeleserviceCode::TeletexService => "Teletex service",
-            TeleserviceCode::TeletexCS => "Teletex CS",
-            TeleserviceCode::TeletexPS => "Teletex PS",
-            TeleserviceCode::Facsimile => "Facsimile",
-            TeleserviceCode::FacsimileGroup3AlterSpeech => "Facsimile Group 3 and alter speech",
-            TeleserviceCode::AutomaticFacsimileGroup3 => "Automatic facsimile Group 3",
-            TeleserviceCode::DualNumbering => "Dual numbering (alternate line service)",
-        }
-    }
-}
-
-impl TryFrom<u8> for TeleserviceCode {
-    type Error = ();
-
-    fn try_from(value: u8) -> Result<Self, Self::Error> {
-        match value {
-            0x00 => Ok(TeleserviceCode::AllTeleservices),
-            0x10 => Ok(TeleserviceCode::SpeechTransmission),
-            0x11 => Ok(TeleserviceCode::Telephony),
-            0x12 => Ok(TeleserviceCode::EmergencyCalls),
-            0x20 => Ok(TeleserviceCode::ShortMessageServices),
-            0x21 => Ok(TeleserviceCode::ShortMessageMTPP),
-            0x22 => Ok(TeleserviceCode::ShortMessageMOPP),
-            0x30 => Ok(TeleserviceCode::DataMHS),
-            0x31 => Ok(TeleserviceCode::AdvancedMHSAccess),
-            0x40 => Ok(TeleserviceCode::VideotexAccess),
-            0x41 => Ok(TeleserviceCode::VideotexProfile1),
-            0x42 => Ok(TeleserviceCode::VideotexProfile2),
-            0x43 => Ok(TeleserviceCode::VideotexProfile3),
-            0x50 => Ok(TeleserviceCode::TeletexService),
-            0x51 => Ok(TeleserviceCode::TeletexCS),
-            0x52 => Ok(TeleserviceCode::TeletexPS),
-            0x60 => Ok(TeleserviceCode::Facsimile),
-            0x61 => Ok(TeleserviceCode::FacsimileGroup3AlterSpeech),
-            0x62 => Ok(TeleserviceCode::AutomaticFacsimileGroup3),
-            0xD1 => Ok(TeleserviceCode::DualNumbering),
-            _ => Err(()),
-        }
-    }
-}
 
 #[derive(Debug)]
 enum BearerServiceCode {
@@ -563,52 +258,6 @@ enum BearerServiceCode {
     ServiceNotUsed = 0xFF,          // Service not used
 }
 
-impl BearerServiceCode {
-    // Method to return the string description of the enum variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            BearerServiceCode::AllBearerServices => "All bearer services",
-            BearerServiceCode::KHz31Group => "3.1 kHz group",
-            BearerServiceCode::KHz31ExPLMN => "3.1 kHz ex PLMN",
-            BearerServiceCode::AlternateSpeech => "Alternate/speech",
-            BearerServiceCode::SpeechFollowedByKHz31 => "Speech followed by 3.1 kHz",
-            BearerServiceCode::DataCDA => "Data c.d.a",
-            BearerServiceCode::DataCDA300bps => "Data c.d.a 300 b/s",
-            BearerServiceCode::DataCDA1200bps => "Data c.d.a 1200 b/s",
-            BearerServiceCode::DataCDA120075bps => "Data c.d.a 1200-75 b/s",
-            BearerServiceCode::DataCDA2400bps => "Data c.d.a 2400 b/s",
-            BearerServiceCode::DataCDA4800bps => "Data c.d.a 4800 b/s",
-            BearerServiceCode::DataCDA9600bps => "Data c.d.a 9600 b/s",
-            BearerServiceCode::DataCDAGeneral => "Data c.d.a general",
-            BearerServiceCode::DataCDS => "Data c.d.s",
-            BearerServiceCode::DataCDS1200bps => "Data c.d.s 1200 b/s",
-            BearerServiceCode::DataCDS2400bps => "Data c.d.s 2400 b/s",
-            BearerServiceCode::DataCDS4800bps => "Data c.d.s 4800 b/s",
-            BearerServiceCode::DataCDS9600bps => "Data c.d.s 9600 b/s",
-            BearerServiceCode::DataCDSGeneral => "Data c.d.s general",
-            BearerServiceCode::PADAccessCDA => "PAD access c.d.a",
-            BearerServiceCode::PADAccessCDA300bps => "PAD access c.d.a 300 b/s",
-            BearerServiceCode::PADAccessCDA1200bps => "PAD access c.d.a 1200 b/s",
-            BearerServiceCode::PADAccessCDA120075bps => "PAD access c.d.a 1200-75 b/s",
-            BearerServiceCode::PADAccessCDA2400bps => "PAD access c.d.a 2400 b/s",
-            BearerServiceCode::PADAccessCDA4800bps => "PAD access c.d.a 4800 b/s",
-            BearerServiceCode::PADAccessCDA9600bps => "PAD access c.d.a 9600 b/s",
-            BearerServiceCode::PADAccessCDAGeneral => "PAD access c.d.a general",
-            BearerServiceCode::DataPDS => "Data p.d.s",
-            BearerServiceCode::DataPDS2400bps => "Data p.d.s 2400 b/s",
-            BearerServiceCode::DataPDS4800bps => "Data p.d.s 4800 b/s",
-            BearerServiceCode::DataPDS9600bps => "Data p.d.s 9600 b/s",
-            BearerServiceCode::DataPDSGeneral => "Data p.d.s general",
-            BearerServiceCode::AlternateSpeechDataCDA => "Alternate speech/data c.d.a",
-            BearerServiceCode::AlternateSpeechDataCDS => "Alternate speech/data c.d.s",
-            BearerServiceCode::SpeechFollowedByDataCDA => "Speech followed by data c.d.a",
-            BearerServiceCode::SpeechFollowedByDataCDS => "Speech followed by data c.d.s",
-            BearerServiceCode::ServiceNotUsed => "Service not used",
-        }
-    }
-}
-
-impl TryFrom<u8> for BearerServiceCode {
     type Error = ();
 
     fn try_from(value: u8) -> Result<Self, Self::Error> {
@@ -663,33 +312,6 @@ enum ChargingBlockSize {
     KB64 = 0x08, // 64 kB
 }
 
-impl ChargingBlockSize {
-    // Method to return the string description of the enum variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            ChargingBlockSize::KB2 => "2 kB",
-            ChargingBlockSize::KB8 => "8 kB",
-            ChargingBlockSize::KB16 => "16 kB",
-            ChargingBlockSize::KB32 => "32 kB",
-            ChargingBlockSize::KB64 => "64 kB",
-        }
-    }
-}
-
-impl TryFrom<u8> for ChargingBlockSize {
-    type Error = ();
-
-    fn try_from(byte: u8) -> Result<Self, Self::Error> {
-        match byte {
-            0x00 => Ok(ChargingBlockSize::KB2),
-            0x01 => Ok(ChargingBlockSize::KB8),
-            0x02 => Ok(ChargingBlockSize::KB16),
-            0x04 => Ok(ChargingBlockSize::KB32),
-            0x08 => Ok(ChargingBlockSize::KB64),
-            _ => Err(()),
-        }
-    }
-}
 
 #[derive(Debug)]
 enum ChargeType {
@@ -711,39 +333,7 @@ enum ChargeType {
     FreeFromAnalysisAndCallProgressMessageAndCDB = 0xC8, // C8H free from analysis, call progress message, and CDB
 }
 
-impl ChargeType {
-    // Method to return the string description of the enum variant
-    pub fn value(&self) -> &'static str {
-        match self {
-            ChargeType::ChargeableCall => "Chargeable call",
-            ChargeType::FreeFromAnalysis => "Free from analysis",
-            ChargeType::FreeFromAddressCompleteMessage => "Free from address complete message",
-            ChargeType::FreeFromAnswerMessage => "Free from answer message",
-            ChargeType::FreeFromAnalysisAndACM => "Free from analysis and ACM",
-            ChargeType::FreeFromAnalysisAndAnswerMessage => "Free from analysis and answer message",
-            ChargeType::FreeFromCallProgressMessage => "Free from call progress message",
-            ChargeType::FreeFromAnalysisAndCallProgressMessage => {
-                "Free from analysis and call progress message"
-            }
-            ChargeType::FreeFromCDB => "Free from CDB",
-            ChargeType::FreeFromAnalysisAndCDB => "Free from analysis and CDB",
-            ChargeType::FreeFromACMandCDB => "Free from ACM and CDB",
-            ChargeType::FreeFromAnalysisAndACMandCDB => "Free from analysis, ACM, and CDB",
-            ChargeType::FreeFromAnswerMessageAndCDB => "Free from answer message and CDB",
-            ChargeType::FreeFromAnalysisAndAnswerMessageAndCDB => {
-                "Free from analysis, answer message, and CDB"
-            }
-            ChargeType::FreeFromCallProgressMessageAndCDB => {
-                "Free from call progress message and CDB"
-            }
-            ChargeType::FreeFromAnalysisAndCallProgressMessageAndCDB => {
-                "Free from analysis, call progress message, and CDB"
-            }
-        }
-    }
-}
 
-impl TryFrom<u8> for ChargeType {
     type Error = ();
 
     fn try_from(byte: u8) -> Result<Self, Self::Error> {
