@@ -1,0 +1,2223 @@
+ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=1;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:11
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      1
+MESSAGE NUMBER:   dd98
+FORMAT TYPE NAME: MOC
+RECORD LENGTH:    322
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_imsi                                    C(  8)        28
+calling_imei                                    C(  8)        36
+calling_number                                  C( 10)        44
+calling_category                                HByte::new(&bytes[5]).value;        54
+calling_ms_classmark                            HByte::new(&bytes[5]).value;        55
+called_imsi                                     C(  8)        56
+called_imei                                     C(  8)        64
+called_number_ton                               HByte::new(&bytes[5]).value;        72
+called_number                                   C( 12)        73
+called_ms_classmark                             HByte::new(&bytes[5]).value;        85
+dialled_digits_ton                              HByte::new(&bytes[5]).value;        86
+dialled_digits                                  C( 12)        87
+calling_subs_first_lac                          Word::new(&bytes[0..2]).value as u32;        99
+calling_subs_first_ci                           Word::new(&bytes[0..2]).value as u32;       101
+calling_subs_last_ex_id                         C( 10)       103
+calling_subs_last_lac                           Word::new(&bytes[0..2]).value as u32;       113
+calling_subs_last_ci                            Word::new(&bytes[0..2]).value as u32;       115
+out_circuit_group                             BCDWord::new(&bytes[5]).value;       117
+out_circuit                                   BCDWord::new(&bytes[5]).value;       119
+basic_service_type                              HByte::new(&bytes[5]).value;       121
+basic_service_code                              HByte::new(&bytes[5]).value;       122
+facility_usage                                  C(  4)       123
+non_transparency_indicator                      HByte::new(&bytes[5]).value;       127
+channel_rate_indicator                          HByte::new(&bytes[5]).value;       128
+in_channel_allocated_time                       C(  7)       129
+charging_start_time                             C(  7)       136
+charging_end_time                               C(  7)       143
+cause_for_termination                          HDWord::new(&bytes[5..]).value;       150
+call_type                                       HByte::new(&bytes[5]).value;       154
+orig_mcz_chrg_type                              HByte::new(&bytes[5]).value;       155
+orig_mcz_duration                             BCD(  3)       156
+orig_mcz_tariff_class                         BCD(  3)       159
+orig_mcz_pulses                               BCDWord::new(&bytes[5]).value;       162
+called_msrn_ton                                 HByte::new(&bytes[5]).value;       164
+called_msrn                                     C( 12)       165
+calling_number_ton                              HByte::new(&bytes[5]).value;       177
+intermediate_chrg_cause                         C(  2)       178
+calling_modify_parameters                       C( 14)       180
+orig_mcz_modify_percent                         Word::new(&bytes[0..2]).value as u32;       194
+orig_mcz_modify_direction                       HByte::new(&bytes[5]).value;       196
+orig_dialling_class                             Word::new(&bytes[0..2]).value as u32;       197
+leg_call_reference                              C(  5)       199
+call_reference_time                             C(  7)       204
+speech_version                                  HByte::new(&bytes[5]).value;       211
+b_idle_time                                     C(  7)       212
+pni                                             C(  3)       219
+redirected_indicator                            HByte::new(&bytes[5]).value;       222
+orig_mcz_change_percent                         HByte::new(&bytes[5]).value;       223
+orig_mcz_change_direction                       HByte::new(&bytes[5]).value;       224
+calling_charging_area                           Word::new(&bytes[0..2]).value as u32;       225
+called_charging_area                            Word::new(&bytes[0..2]).value as u32;       227
+connected_to_number_ton                         HByte::new(&bytes[5]).value;       229
+connected_to_number                             C( 12)       230
+cug_interlock                                   C(  4)       242
+cug_outgoing_access                             HByte::new(&bytes[5]).value;       246
+cug_information                                 HByte::new(&bytes[5]).value;       247
+hot_billing_record_number                     BCD(  4)       248
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       252
+regional_subs_indicator                         HByte::new(&bytes[5]).value;       253
+regional_subs_location_type                     HByte::new(&bytes[5]).value;       254
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       255
+carrier_selection                               HByte::new(&bytes[5]).value;       257
+pic                                             Word::new(&bytes[0..2]).value as u32;       258
+routing_category                                HByte::new(&bytes[5]).value;       260
+called_category                                 HByte::new(&bytes[5]).value;       261
+calling_cell_band                               HByte::new(&bytes[5]).value;       262
+req_fixed_nw_user_rate                          HByte::new(&bytes[5]).value;       263
+req_other_modem_type                            HByte::new(&bytes[5]).value;       264
+acceptable_channel_codings                      HByte::new(&bytes[5]).value;       265
+req_number_of_channels                          HByte::new(&bytes[5]).value;       266
+req_air_interface_user_rate                     HByte::new(&bytes[5]).value;       267
+req_user_initiated_mod_ind                      HByte::new(&bytes[5]).value;       268
+used_number_of_channels                         HByte::new(&bytes[5]).value;       269
+used_other_modem_type                           HByte::new(&bytes[5]).value;       270
+used_fixed_nw_user_rate                         HByte::new(&bytes[5]).value;       271
+used_channel_coding                             HByte::new(&bytes[5]).value;       272
+camel_call_reference                            C(  8)       273
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       281
+camel_exchange_id                               C(  9)       282
+npdb_query_status                               HByte::new(&bytes[5]).value;       291
+scp_connection                                  HByte::new(&bytes[5]).value;       292
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       293
+loc_routing_number                              C( 12)       294
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       306
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       307
+out_bnc_connection_type                         HByte::new(&bytes[5]).value;       309
+outside_user_plane_index                      BCDWord::new(&bytes[5]).value;       310
+outside_control_plane_index                   BCDWord::new(&bytes[5]).value;       312
+emergency_call_category                         HByte::new(&bytes[5]).value;       314
+rate_adaption                                   HByte::new(&bytes[5]).value;       315
+ms_classmark3                                   HByte::new(&bytes[5]).value;       316
+collect_call_indicator                          HByte::new(&bytes[5]).value;       317
+calling_subs_last_ex_id_ton                     HByte::new(&bytes[5]).value;       318
+called_subs_last_ex_id_ton                      HByte::new(&bytes[5]).value;       319
+radio_network_type                              HByte::new(&bytes[5]).value;       320
+used_air_interface_user_rate                    HByte::new(&bytes[5]).value;       321
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=2;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:12
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      2
+MESSAGE NUMBER:   dd97
+FORMAT TYPE NAME: MTC
+RECORD LENGTH:    272
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_number                                  C( 10)        28
+called_imsi                                     C(  8)        38
+called_imei                                     C(  8)        46
+called_number                                   C( 12)        54
+called_category                                 HByte::new(&bytes[5]).value;        66
+called_ms_classmark                             HByte::new(&bytes[5]).value;        67
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        68
+in_circuit                                    BCDWord::new(&bytes[5]).value;        70
+called_subs_first_lac                           Word::new(&bytes[0..2]).value as u32;        72
+called_subs_first_ci                            Word::new(&bytes[0..2]).value as u32;        74
+called_subs_last_ex_id                          C( 10)        76
+called_subs_last_lac                            Word::new(&bytes[0..2]).value as u32;        86
+called_subs_last_ci                             Word::new(&bytes[0..2]).value as u32;        88
+basic_service_type                              HByte::new(&bytes[5]).value;        90
+basic_service_code                              HByte::new(&bytes[5]).value;        91
+facility_usage                                  C(  4)        92
+non_transparency_indicator                      HByte::new(&bytes[5]).value;        96
+channel_rate_indicator                          HByte::new(&bytes[5]).value;        97
+in_channel_allocated_time                       C(  7)        98
+charging_start_time                             C(  7)       105
+charging_end_time                               C(  7)       112
+cause_for_termination                          HDWord::new(&bytes[5..]).value;       119
+call_type                                       HByte::new(&bytes[5]).value;       123
+term_mcz_chrg_type                              HByte::new(&bytes[5]).value;       124
+term_mcz_duration                             BCD(  3)       125
+term_mcz_tariff_class                         BCD(  3)       128
+term_mcz_pulses                               BCDWord::new(&bytes[5]).value;       131
+calling_number_ton                              HByte::new(&bytes[5]).value;       133
+called_number_ton                               HByte::new(&bytes[5]).value;       134
+intermediate_chrg_cause                         C(  2)       135
+called_modify_parameters                        C( 14)       137
+term_mcz_modify_percent                         Word::new(&bytes[0..2]).value as u32;       151
+term_mcz_modify_direction                       HByte::new(&bytes[5]).value;       153
+leg_call_reference                              C(  5)       154
+out_channel_allocated_time                      C(  7)       159
+call_reference_time                             C(  7)       166
+speech_version                                  HByte::new(&bytes[5]).value;       173
+b_idle_time                                     C(  7)       174
+pni                                             C(  3)       181
+term_mcz_change_percent                         HByte::new(&bytes[5]).value;       184
+term_mcz_change_direction                       HByte::new(&bytes[5]).value;       185
+req_fixed_nw_user_rate                          HByte::new(&bytes[5]).value;       186
+req_other_modem_type                            HByte::new(&bytes[5]).value;       187
+acceptable_channel_codings                      HByte::new(&bytes[5]).value;       188
+req_number_of_channels                          HByte::new(&bytes[5]).value;       189
+req_air_interface_user_rate                     HByte::new(&bytes[5]).value;       190
+req_user_initiated_mod_ind                      HByte::new(&bytes[5]).value;       191
+used_number_of_channels                         HByte::new(&bytes[5]).value;       192
+used_other_modem_type                           HByte::new(&bytes[5]).value;       193
+used_fixed_nw_user_rate                         HByte::new(&bytes[5]).value;       194
+used_channel_coding                             HByte::new(&bytes[5]).value;       195
+camel_call_reference                            C(  8)       196
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       204
+camel_exchange_id                               C(  9)       205
+calling_charging_area                           Word::new(&bytes[0..2]).value as u32;       214
+called_charging_area                            Word::new(&bytes[0..2]).value as u32;       216
+cug_interlock                                   C(  4)       218
+cug_outgoing_access                             HByte::new(&bytes[5]).value;       222
+cug_information                                 HByte::new(&bytes[5]).value;       223
+called_cell_band                                HByte::new(&bytes[5]).value;       224
+routing_category                                HByte::new(&bytes[5]).value;       225
+ms_classmark3                                   HByte::new(&bytes[5]).value;       226
+loc_routing_number                              C( 12)       227
+ported_in                                       HByte::new(&bytes[5]).value;       239
+scp_connection                                  HByte::new(&bytes[5]).value;       240
+hot_billing_record_number                     BCD(  4)       241
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       245
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       246
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       247
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       248
+in_bnc_connection_type                          HByte::new(&bytes[5]).value;       250
+inside_user_plane_index                       BCDWord::new(&bytes[5]).value;       251
+inside_control_plane_index                    BCDWord::new(&bytes[5]).value;       253
+rate_adaption                                   HByte::new(&bytes[5]).value;       255
+collect_call_indicator                          HByte::new(&bytes[5]).value;       256
+redirecting_number                              C( 12)       257
+called_subs_last_ex_id_ton                      HByte::new(&bytes[5]).value;       269
+radio_network_type                              HByte::new(&bytes[5]).value;       270
+used_air_interface_user_rate                    HByte::new(&bytes[5]).value;       271
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=3;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:13
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      3
+MESSAGE NUMBER:   dd96
+FORMAT TYPE NAME: FORW
+RECORD LENGTH:    301
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+cause_for_forwarding                            HByte::new(&bytes[5]).value;        28
+forwarding_imsi                                 C(  8)        29
+forwarding_number                               C( 12)        37
+forwarded_to_imsi                               C(  8)        49
+forwarded_to_imei                               C(  8)        57
+forwarded_to_number                             C( 12)        65
+forwarded_to_ms_classmark                       HByte::new(&bytes[5]).value;        77
+orig_calling_number                             C( 10)        78
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        88
+in_circuit                                    BCDWord::new(&bytes[5]).value;        90
+out_circuit_group                             BCDWord::new(&bytes[5]).value;        92
+out_circuit                                   BCDWord::new(&bytes[5]).value;        94
+basic_service_type                              HByte::new(&bytes[5]).value;        96
+basic_service_code                              HByte::new(&bytes[5]).value;        97
+facility_usage                                  C(  4)        98
+non_transparency_indicator                      HByte::new(&bytes[5]).value;       102
+channel_rate_indicator                          HByte::new(&bytes[5]).value;       103
+in_channel_allocated_time                       C(  7)       104
+charging_start_time                             C(  7)       111
+charging_end_time                               C(  7)       118
+cause_for_termination                          HDWord::new(&bytes[5..]).value;       125
+call_type                                       HByte::new(&bytes[5]).value;       129
+forwarded_to_number_ton                         HByte::new(&bytes[5]).value;       130
+forw_mcz_chrg_type                              HByte::new(&bytes[5]).value;       131
+forw_mcz_duration                             BCD(  3)       132
+forw_mcz_tariff_class                         BCD(  3)       135
+forw_mcz_pulses                               BCDWord::new(&bytes[5]).value;       138
+forwarded_to_msrn_ton                           HByte::new(&bytes[5]).value;       140
+forwarded_to_msrn                               C( 12)       141
+forwarding_number_ton                           HByte::new(&bytes[5]).value;       153
+orig_calling_number_ton                         HByte::new(&bytes[5]).value;       154
+intermediate_chrg_cause                         C(  2)       155
+orig_dialling_class                             Word::new(&bytes[0..2]).value as u32;       157
+leg_call_reference                              C(  5)       159
+call_reference_time                             C(  7)       164
+speech_version                                  HByte::new(&bytes[5]).value;       171
+b_idle_time                                     C(  7)       172
+pni                                             C(  3)       179
+forw_mcz_change_percent                         HByte::new(&bytes[5]).value;       182
+forw_mcz_change_direction                       HByte::new(&bytes[5]).value;       183
+forwarding_charging_area                        Word::new(&bytes[0..2]).value as u32;       184
+forwarded_to_charging_area                      Word::new(&bytes[0..2]).value as u32;       186
+connected_to_number_ton                         HByte::new(&bytes[5]).value;       188
+connected_to_number                             C( 12)       189
+cug_interlock                                   C(  4)       201
+cug_outgoing_access                             HByte::new(&bytes[5]).value;       205
+cug_information                                 HByte::new(&bytes[5]).value;       206
+hot_billing_record_number                     BCD(  4)       207
+spare2                                          HByte::new(&bytes[5]).value;       211
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       212
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       213
+orig_called_number_ton                          HByte::new(&bytes[5]).value;       214
+orig_called_number                              C( 12)       215
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       227
+carrier_selection                               HByte::new(&bytes[5]).value;       229
+pic                                             Word::new(&bytes[0..2]).value as u32;       230
+routing_category                                HByte::new(&bytes[5]).value;       232
+ms_classmark3                                   HByte::new(&bytes[5]).value;       233
+forwarding_cell_band                            HByte::new(&bytes[5]).value;       234
+camel_call_reference                            C(  8)       235
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       243
+camel_exchange_id                               C(  9)       244
+npdb_query_status                               HByte::new(&bytes[5]).value;       253
+scp_connection                                  HByte::new(&bytes[5]).value;       254
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       255
+loc_routing_number                              C( 12)       256
+forwarding_msrn_ton                             HByte::new(&bytes[5]).value;       268
+forwarding_msrn                                 C( 12)       269
+optimal_routing_indicator                       HByte::new(&bytes[5]).value;       281
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       282
+in_bnc_connection_type                          HByte::new(&bytes[5]).value;       284
+inside_user_plane_index                       BCDWord::new(&bytes[5]).value;       285
+inside_control_plane_index                    BCDWord::new(&bytes[5]).value;       287
+out_bnc_connection_type                         HByte::new(&bytes[5]).value;       289
+outside_user_plane_index                      BCDWord::new(&bytes[5]).value;       290
+outside_control_plane_index                   BCDWord::new(&bytes[5]).value;       292
+collect_call_indicator                          HByte::new(&bytes[5]).value;       294
+forwarding_first_ci                             Word::new(&bytes[0..2]).value as u32;       295
+forwarding_last_ex_id_ton                       HByte::new(&bytes[5]).value;       297
+forwarded_to_last_ex_id_ton                     HByte::new(&bytes[5]).value;       298
+radio_network_type                              HByte::new(&bytes[5]).value;       299
+rate_adaption                                   HByte::new(&bytes[5]).value;       300
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=4;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:14
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      4
+MESSAGE NUMBER:   dd95
+FORMAT TYPE NAME: ROAM
+RECORD LENGTH:    219
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_number                                  C( 10)        28
+called_imsi                                     C(  8)        38
+called_number                                   C( 12)        46
+called_msrn                                     C( 12)        58
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        70
+in_circuit                                    BCDWord::new(&bytes[5]).value;        72
+out_circuit_group                             BCDWord::new(&bytes[5]).value;        74
+out_circuit                                   BCDWord::new(&bytes[5]).value;        76
+basic_service_type                              HByte::new(&bytes[5]).value;        78
+basic_service_code                              HByte::new(&bytes[5]).value;        79
+facility_usage                                  C(  4)        80
+in_channel_allocated_time                       C(  7)        84
+charging_start_time                             C(  7)        91
+charging_end_time                               C(  7)        98
+cause_for_termination                          HDWord::new(&bytes[5..]).value;       105
+call_type                                       HByte::new(&bytes[5]).value;       109
+roam_mcz_chrg_type                              HByte::new(&bytes[5]).value;       110
+roam_mcz_duration                             BCD(  3)       111
+roam_mcz_tariff_class                         BCD(  3)       114
+roam_mcz_pulses                               BCDWord::new(&bytes[5]).value;       117
+called_msrn_ton                                 HByte::new(&bytes[5]).value;       119
+calling_number_ton                              HByte::new(&bytes[5]).value;       120
+called_number_ton                               HByte::new(&bytes[5]).value;       121
+intermediate_chrg_cause                         C(  2)       122
+leg_call_reference                              C(  5)       124
+out_channel_allocated_time                      C(  7)       129
+call_reference_time                             C(  7)       136
+b_idle_time                                     C(  7)       143
+roam_mcz_change_percent                         HByte::new(&bytes[5]).value;       150
+roam_mcz_change_direction                       HByte::new(&bytes[5]).value;       151
+calling_charging_area                           Word::new(&bytes[0..2]).value as u32;       152
+called_charging_area                            Word::new(&bytes[0..2]).value as u32;       154
+routing_category                                HByte::new(&bytes[5]).value;       156
+cug_interlock                                   C(  4)       157
+cug_outgoing_access                             HByte::new(&bytes[5]).value;       161
+cug_information                                 HByte::new(&bytes[5]).value;       162
+hot_billing_record_number                     BCD(  4)       163
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       167
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       168
+carrier_selection                               HByte::new(&bytes[5]).value;       170
+pic                                             Word::new(&bytes[0..2]).value as u32;       171
+camel_call_reference                            C(  8)       173
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       181
+camel_exchange_id                               C(  9)       182
+scp_connection                                  HByte::new(&bytes[5]).value;       191
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       192
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       193
+in_bnc_connection_type                          HByte::new(&bytes[5]).value;       195
+inside_user_plane_index                       BCDWord::new(&bytes[5]).value;       196
+inside_control_plane_index                    BCDWord::new(&bytes[5]).value;       198
+out_bnc_connection_type                         HByte::new(&bytes[5]).value;       200
+outside_user_plane_index                      BCDWord::new(&bytes[5]).value;       201
+outside_control_plane_index                   BCDWord::new(&bytes[5]).value;       203
+collect_call_indicator                          HByte::new(&bytes[5]).value;       205
+redirecting_number                              C( 12)       206
+rate_adaption                                   HByte::new(&bytes[5]).value;       218
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=5;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:15
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      5
+MESSAGE NUMBER:   efcd
+FORMAT TYPE NAME: SUPS
+RECORD LENGTH:    157
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+ss_record_number                              BCDWord::new(&bytes[5]).value;        25
+served_imsi                                     C(  8)        26
+served_imei                                     C(  8)        34
+served_number                                   C( 10)        42
+served_subs_lac                                 Word::new(&bytes[0..2]).value as u32;        52
+served_subs_ci                                  Word::new(&bytes[0..2]).value as u32;        54
+supplementary_service_code                      HByte::new(&bytes[5]).value;        56
+action                                          HByte::new(&bytes[5]).value;        57
+in_channel_allocated_time                       C(  7)        58
+charging_time                                   C(  7)        65
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        72
+result_indicator                                Word::new(&bytes[0..2]).value as u32;        76
+parameters_length                               HByte::new(&bytes[5]).value;        78
+parameters                                      C( 30)        79
+served_number_ton                               HByte::new(&bytes[5]).value;       109
+served_ms_classmark                             HByte::new(&bytes[5]).value;       110
+basic_service_type                              HByte::new(&bytes[5]).value;       111
+basic_service_code                              HByte::new(&bytes[5]).value;       112
+leg_call_reference                              C(  5)       113
+call_reference_time                             C(  7)       118
+pni                                             C(  3)       125
+hot_billing_record_number                     BCD(  4)       128
+routing_category                                HByte::new(&bytes[5]).value;       132
+ms_classmark3                                   HByte::new(&bytes[5]).value;       133
+served_cell_band                                HByte::new(&bytes[5]).value;       134
+basic_call_state_model                          HByte::new(&bytes[5]).value;       135
+camel_call_reference                            C(  8)       136
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       144
+camel_exchange_id                               C(  9)       145
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       154
+radio_network_type                              HByte::new(&bytes[5]).value;       156
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=6;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:15
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      6
+MESSAGE NUMBER:   efcb
+FORMAT TYPE NAME: HLRI
+RECORD LENGTH:    67
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+called_imsi                                     C(  8)        25
+called_number                                   C( 10)        33
+routing_number                                  C( 12)        43
+charging_time                                   C(  7)        55
+number_of_forwardings                           HByte::new(&bytes[5]).value;        62
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        63
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=7;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:16
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      7
+MESSAGE NUMBER:   efcc
+FORMAT TYPE NAME: LOCA
+RECORD LENGTH:    86
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+served_imsi                                     C(  8)        25
+subs_old_lac                                    Word::new(&bytes[0..2]).value as u32;        33
+subs_old_ex_id                                  C( 10)        35
+subs_new_lac                                    Word::new(&bytes[0..2]).value as u32;        45
+subs_new_ex_id                                  C( 10)        47
+charging_time                                   C(  7)        57
+served_number_ton                               HByte::new(&bytes[5]).value;        64
+served_number                                   C( 12)        65
+call_reference_time                             C(  7)        77
+loc_up_indicator                                HByte::new(&bytes[5]).value;        84
+number_of_in_records                          BCDWord::new(&bytes[5]).value;        85
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=8;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:17
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      8
+MESSAGE NUMBER:   efc9
+FORMAT TYPE NAME: SMMO
+RECORD LENGTH:    150
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+calling_imsi                                    C(  8)        25
+calling_imei                                    C(  8)        33
+calling_number                                  C( 10)        41
+calling_category                                HByte::new(&bytes[5]).value;        51
+calling_ms_classmark                            HByte::new(&bytes[5]).value;        52
+sms_centre                                      C( 10)        53
+calling_subs_lac                                Word::new(&bytes[0..2]).value as u32;        63
+calling_subs_ci                                 Word::new(&bytes[0..2]).value as u32;        65
+incoming_time                                   C(  7)        67
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        74
+msc_type                                        HByte::new(&bytes[5]).value;        78
+called_number                                   C( 12)        79
+calling_number_ton                              HByte::new(&bytes[5]).value;        91
+called_number_ton                               HByte::new(&bytes[5]).value;        92
+calling_vmsc_number                             C( 10)        93
+sms_type                                        HByte::new(&bytes[5]).value;       103
+dialled_digits                                  C( 12)       104
+call_reference_time                             C(  7)       116
+tariff_class                                  BCD(  3)       123
+pni                                             C(  3)       126
+hot_billing_record_number                     BCD(  4)       129
+sms_length                                      HByte::new(&bytes[5]).value;       133
+command_type                                    HByte::new(&bytes[5]).value;       134
+message_reference                               HByte::new(&bytes[5]).value;       135
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       136
+num_of_concatenated_sms                         HByte::new(&bytes[5]).value;       137
+concatenated_record_number                      HByte::new(&bytes[5]).value;       138
+concatenated_sms_reference                      Word::new(&bytes[0..2]).value as u32;       139
+routing_category                                HByte::new(&bytes[5]).value;       141
+application_info                                HByte::new(&bytes[5]).value;       142
+dialled_digits_ton                              HByte::new(&bytes[5]).value;       143
+default_sms_handling                            HByte::new(&bytes[5]).value;       144
+camel_sms_modification                          C(  2)       145
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       147
+radio_network_type                              HByte::new(&bytes[5]).value;       149
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=9;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:18
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      9
+MESSAGE NUMBER:   efc8
+FORMAT TYPE NAME: SMMT
+RECORD LENGTH:    140
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+called_imsi                                     C(  8)        25
+called_imei                                     C(  8)        33
+called_number                                   C( 12)        41
+called_category                                 HByte::new(&bytes[5]).value;        53
+called_ms_classmark                             HByte::new(&bytes[5]).value;        54
+called_subs_lac                                 Word::new(&bytes[0..2]).value as u32;        55
+called_subs_ci                                  Word::new(&bytes[0..2]).value as u32;        57
+sms_centre                                      C( 10)        59
+incoming_time                                   C(  7)        69
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        76
+msc_type                                        HByte::new(&bytes[5]).value;        80
+calling_number                                  C( 11)        81
+called_vmsc_number                              C( 10)        92
+calling_number_ton                              HByte::new(&bytes[5]).value;       102
+called_number_ton                               HByte::new(&bytes[5]).value;       103
+sms_type                                        HByte::new(&bytes[5]).value;       104
+call_reference_time                             C(  7)       105
+hot_billing_record_number                     BCD(  4)       112
+tariff_class                                  BCD(  3)       116
+calling_vmsc_number                             C( 10)       119
+sms_length                                      HByte::new(&bytes[5]).value;       129
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       130
+num_of_concatenated_sms                         HByte::new(&bytes[5]).value;       131
+concatenated_record_number                      HByte::new(&bytes[5]).value;       132
+concatenated_sms_reference                      Word::new(&bytes[0..2]).value as u32;       133
+application_info                                HByte::new(&bytes[5]).value;       135
+routing_category                                HByte::new(&bytes[5]).value;       136
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       137
+radio_network_type                              HByte::new(&bytes[5]).value;       139
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=11;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:19
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      11
+MESSAGE NUMBER:   dd94
+FORMAT TYPE NAME: POC
+RECORD LENGTH:    200
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_number_ton                              HByte::new(&bytes[5]).value;        28
+calling_number                                  C( 12)        29
+called_number_ton                               HByte::new(&bytes[5]).value;        41
+called_number                                   C( 12)        42
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        54
+in_circuit                                    BCDWord::new(&bytes[5]).value;        56
+in_channel_allocated_time                       C(  7)        58
+charging_start_time                             C(  7)        65
+charging_end_time                               C(  7)        72
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        79
+call_type                                       HByte::new(&bytes[5]).value;        83
+ticket_type                                     HByte::new(&bytes[5]).value;        84
+iaz_chrg_type                                   HByte::new(&bytes[5]).value;        85
+iaz_duration                                  BCD(  3)        86
+iaz_tariff_class                              BCD(  3)        89
+iaz_pulses                                    BCDWord::new(&bytes[5]).value;        92
+called_msrn_ton                                 HByte::new(&bytes[5]).value;        94
+called_msrn                                     C( 12)        95
+intermediate_chrg_cause                         C(  2)       107
+orig_dialling_class                             Word::new(&bytes[0..2]).value as u32;       109
+leg_call_reference                              C(  5)       111
+basic_service_type                              HByte::new(&bytes[5]).value;       116
+basic_service_code                              HByte::new(&bytes[5]).value;       117
+call_reference_time                             C(  7)       118
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       125
+b_idle_time                                     C(  7)       126
+redirected_indicator                            HByte::new(&bytes[5]).value;       133
+loc_routing_number                              C( 12)       134
+npdb_query_status                               HByte::new(&bytes[5]).value;       146
+scp_connection                                  HByte::new(&bytes[5]).value;       147
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       148
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       149
+camel_call_reference                            C(  8)       150
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       158
+camel_exchange_id                               C(  9)       159
+in_bnc_connection_type                          HByte::new(&bytes[5]).value;       168
+inside_user_plane_index                       BCDWord::new(&bytes[5]).value;       169
+inside_control_plane_index                    BCDWord::new(&bytes[5]).value;       171
+collect_call_indicator                          HByte::new(&bytes[5]).value;       173
+redirecting_number                              C( 12)       174
+dialled_digits                                  C( 12)       186
+rate_adaption                                   HByte::new(&bytes[5]).value;       198
+calling_pstn_category                           HByte::new(&bytes[5]).value;       199
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=12;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:20
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      12
+MESSAGE NUMBER:   dd93
+FORMAT TYPE NAME: PTC
+RECORD LENGTH:    189
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_number_ton                              HByte::new(&bytes[5]).value;        28
+calling_number                                  C( 12)        29
+called_number_ton                               HByte::new(&bytes[5]).value;        41
+called_number                                   C( 12)        42
+out_circuit_group                             BCDWord::new(&bytes[5]).value;        54
+out_circuit                                   BCDWord::new(&bytes[5]).value;        56
+in_channel_allocated_time                       C(  7)        58
+charging_start_time                             C(  7)        65
+charging_end_time                               C(  7)        72
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        79
+call_type                                       HByte::new(&bytes[5]).value;        83
+ticket_type                                     HByte::new(&bytes[5]).value;        84
+oaz_chrg_type                                   HByte::new(&bytes[5]).value;        85
+oaz_duration                                  BCD(  3)        86
+oaz_tariff_class                              BCD(  3)        89
+oaz_pulses                                    BCDWord::new(&bytes[5]).value;        92
+called_msrn_ton                                 HByte::new(&bytes[5]).value;        94
+called_msrn                                     C( 12)        95
+intermediate_chrg_cause                         C(  2)       107
+leg_call_reference                              C(  5)       109
+out_channel_allocated_time                      C(  7)       114
+basic_service_type                              HByte::new(&bytes[5]).value;       121
+basic_service_code                              HByte::new(&bytes[5]).value;       122
+call_reference_time                             C(  7)       123
+b_idle_time                                     C(  7)       130
+redirected_indicator                            HByte::new(&bytes[5]).value;       137
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       138
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       139
+carrier_selection                               HByte::new(&bytes[5]).value;       141
+npdb_query_status                               HByte::new(&bytes[5]).value;       142
+loc_routing_number                              C( 12)       143
+scp_connection                                  HByte::new(&bytes[5]).value;       155
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       156
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       157
+out_bnc_connection_type                         HByte::new(&bytes[5]).value;       158
+outside_user_plane_index                      BCDWord::new(&bytes[5]).value;       159
+outside_control_plane_index                   BCDWord::new(&bytes[5]).value;       161
+collect_call_indicator                          HByte::new(&bytes[5]).value;       163
+outpulsed_number                                C( 12)       164
+redirecting_number                              C( 12)       176
+rate_adaption                                   HByte::new(&bytes[5]).value;       188
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=13;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:21
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      13
+MESSAGE NUMBER:   dd92
+FORMAT TYPE NAME: PBXO
+RECORD LENGTH:    186
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_number_ton                              HByte::new(&bytes[5]).value;        28
+calling_number                                  C( 12)        29
+called_number_ton                               HByte::new(&bytes[5]).value;        41
+called_number                                   C( 12)        42
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        54
+in_circuit                                    BCDWord::new(&bytes[5]).value;        56
+in_channel_allocated_time                       C(  7)        58
+charging_start_time                             C(  7)        65
+charging_end_time                               C(  7)        72
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        79
+call_type                                       HByte::new(&bytes[5]).value;        83
+iaz_chrg_type                                   HByte::new(&bytes[5]).value;        84
+iaz_duration                                  BCD(  3)        85
+iaz_tariff_class                              BCD(  3)        88
+iaz_pulses                                    BCDWord::new(&bytes[5]).value;        91
+called_msrn_ton                                 HByte::new(&bytes[5]).value;        93
+called_msrn                                     C( 12)        94
+intermediate_chrg_cause                         C(  2)       106
+orig_dialling_class                             Word::new(&bytes[0..2]).value as u32;       108
+leg_call_reference                              C(  5)       110
+call_reference_time                             C(  7)       115
+redirected_indicator                            HByte::new(&bytes[5]).value;       122
+pni                                             C(  3)       123
+b_idle_time                                     C(  7)       126
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       133
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       134
+carrier_selection                               HByte::new(&bytes[5]).value;       136
+pic                                             Word::new(&bytes[0..2]).value as u32;       137
+npdb_query_status                               HByte::new(&bytes[5]).value;       139
+loc_routing_number                              C( 12)       140
+scp_connection                                  HByte::new(&bytes[5]).value;       152
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       153
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       154
+camel_call_reference                            C(  8)       155
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       163
+camel_exchange_id                               C(  9)       164
+collect_call_indicator                          HByte::new(&bytes[5]).value;       173
+redirecting_number                              C( 12)       174
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=14;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:22
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      14
+MESSAGE NUMBER:   dd91
+FORMAT TYPE NAME: PBXT
+RECORD LENGTH:    134
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_number_ton                              HByte::new(&bytes[5]).value;        28
+calling_number                                  C( 12)        29
+called_number_ton                               HByte::new(&bytes[5]).value;        41
+called_number                                   C( 12)        42
+out_circuit_group                             BCDWord::new(&bytes[5]).value;        54
+out_circuit                                   BCDWord::new(&bytes[5]).value;        56
+in_channel_allocated_time                       C(  7)        58
+charging_start_time                             C(  7)        65
+charging_end_time                               C(  7)        72
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        79
+call_type                                       HByte::new(&bytes[5]).value;        83
+oaz_chrg_type                                   HByte::new(&bytes[5]).value;        84
+oaz_duration                                  BCD(  3)        85
+oaz_tariff_class                              BCD(  3)        88
+oaz_pulses                                    BCDWord::new(&bytes[5]).value;        91
+intermediate_chrg_cause                         C(  2)        93
+leg_call_reference                              C(  5)        95
+call_reference_time                             C(  7)       100
+redirected_indicator                            HByte::new(&bytes[5]).value;       107
+pni                                             C(  3)       108
+b_idle_time                                     C(  7)       111
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       118
+scp_connection                                  HByte::new(&bytes[5]).value;       119
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       120
+redirecting_number                              C( 12)       121
+collect_call_indicator                          HByte::new(&bytes[5]).value;       133
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=16;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:23
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      16
+MESSAGE NUMBER:   efc6
+FORMAT TYPE NAME: IN1
+RECORD LENGTH:    109
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+in_record_number                              BCDWord::new(&bytes[5]).value;        25
+in_data                                         C( 61)        26
+leg_call_reference                              C(  5)        87
+in_channel_allocated_time                       C(  7)        92
+in_data_length                                  Word::new(&bytes[0..2]).value as u32;        99
+call_reference_time                             C(  7)       101
+protocol_identification                         HByte::new(&bytes[5]).value;       108
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=17;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:25
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      17
+MESSAGE NUMBER:   dd8f
+FORMAT TYPE NAME: UCA
+RECORD LENGTH:    227
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        27
+calling_imsi                                    C(  8)        28
+calling_imei                                    C(  8)        36
+calling_number_ton                              HByte::new(&bytes[5]).value;        44
+calling_number                                  C( 10)        45
+called_number_ton                               HByte::new(&bytes[5]).value;        55
+called_number                                   C( 12)        56
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        68
+in_circuit                                    BCDWord::new(&bytes[5]).value;        70
+calling_subs_lac                                Word::new(&bytes[0..2]).value as u32;        72
+calling_subs_ci                                 Word::new(&bytes[0..2]).value as u32;        74
+basic_service_type                              HByte::new(&bytes[5]).value;        76
+basic_service_code                              HByte::new(&bytes[5]).value;        77
+start_time                                      C(  7)        78
+release_time                                    C(  7)        85
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        92
+routing_info                                    C(  2)        96
+call_state                                      HByte::new(&bytes[5]).value;        98
+dialled_digits                                  C( 12)        99
+calling_ms_classmark                            HByte::new(&bytes[5]).value;       111
+dialled_digits_ton                              HByte::new(&bytes[5]).value;       112
+facility_usage                                  C(  4)       113
+call_reference_time                             C(  7)       117
+out_channel_allocated_time                      C(  7)       124
+out_circuit_group                             BCDWord::new(&bytes[5]).value;       131
+out_circuit                                   BCDWord::new(&bytes[5]).value;       133
+forwarded_to_number_ton                         HByte::new(&bytes[5]).value;       135
+forwarded_to_number                             C( 12)       136
+called_imsi                                     C(  8)       148
+hot_billing_record_number                     BCD(  4)       156
+in_channel_allocated_time                       C(  7)       160
+routing_category                                HByte::new(&bytes[5]).value;       167
+camel_call_reference                            C(  8)       168
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       176
+camel_exchange_id                               C(  9)       177
+req_fixed_nw_user_rate                          HByte::new(&bytes[5]).value;       186
+req_other_modem_type                            HByte::new(&bytes[5]).value;       187
+acceptable_channel_codings                      HByte::new(&bytes[5]).value;       188
+req_number_of_channels                          HByte::new(&bytes[5]).value;       189
+req_air_interface_user_rate                     HByte::new(&bytes[5]).value;       190
+req_user_initiated_mod_ind                      HByte::new(&bytes[5]).value;       191
+used_number_of_channels                         HByte::new(&bytes[5]).value;       192
+used_other_modem_type                           HByte::new(&bytes[5]).value;       193
+used_fixed_nw_user_rate                         HByte::new(&bytes[5]).value;       194
+used_channel_coding                             HByte::new(&bytes[5]).value;       195
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       196
+ms_classmark3                                   HByte::new(&bytes[5]).value;       197
+calling_cell_band                               HByte::new(&bytes[5]).value;       198
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       199
+loc_routing_number_ton                          HByte::new(&bytes[5]).value;       200
+loc_routing_number                              C( 12)       201
+npdb_query_status                               HByte::new(&bytes[5]).value;       213
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       214
+pic                                             Word::new(&bytes[0..2]).value as u32;       216
+carrier_selection                               HByte::new(&bytes[5]).value;       218
+collect_call_indicator                          HByte::new(&bytes[5]).value;       219
+in_bnc_connection_type                          HByte::new(&bytes[5]).value;       220
+inside_user_plane_index                       BCDWord::new(&bytes[5]).value;       221
+inside_control_plane_index                    BCDWord::new(&bytes[5]).value;       223
+radio_network_type                              HByte::new(&bytes[5]).value;       225
+used_air_interface_user_rate                    HByte::new(&bytes[5]).value;       226
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=18;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:26
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      18
+MESSAGE NUMBER:   efc6
+FORMAT TYPE NAME: IN2
+RECORD LENGTH:    65
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+in_record_number                              BCDWord::new(&bytes[5]).value;        25
+in_data                                         C( 17)        26
+leg_call_reference                              C(  5)        43
+in_channel_allocated_time                       C(  7)        48
+in_data_length                                  Word::new(&bytes[0..2]).value as u32;        55
+call_reference_time                             C(  7)        57
+protocol_identification                         HByte::new(&bytes[5]).value;        64
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=19;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:27
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      19
+MESSAGE NUMBER:   efc6
+FORMAT TYPE NAME: IN3
+RECORD LENGTH:    358
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+in_record_number                              BCDWord::new(&bytes[5]).value;        25
+in_data                                         C(310)        26
+leg_call_reference                              C(  5)       336
+in_channel_allocated_time                       C(  7)       341
+in_data_length                                  Word::new(&bytes[0..2]).value as u32;       348
+call_reference_time                             C(  7)       350
+protocol_identification                         HByte::new(&bytes[5]).value;       357
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=20;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:28
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      20
+MESSAGE NUMBER:   dd8e
+FORMAT TYPE NAME: DOC
+RECORD LENGTH:    107
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+intermediate_chrg_cause                         C(  2)        27
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        29
+calling_number_ton                              HByte::new(&bytes[5]).value;        30
+calling_number                                  C( 12)        31
+called_number_ton                               HByte::new(&bytes[5]).value;        43
+called_number                                   C( 12)        44
+in_channel_allocated_time                       C(  7)        56
+charging_start_time                             C(  7)        63
+charging_end_time                               C(  7)        70
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        77
+call_type                                       HByte::new(&bytes[5]).value;        81
+orig_mcz_chrg_type                              HByte::new(&bytes[5]).value;        82
+orig_mcz_duration                             BCD(  3)        83
+orig_mcz_tariff_class                         BCD(  3)        86
+orig_mcz_pulses                               BCDWord::new(&bytes[5]).value;        89
+orig_mcz_change_percent                         HByte::new(&bytes[5]).value;        91
+orig_mcz_change_direction                       HByte::new(&bytes[5]).value;        92
+leg_call_reference                              C(  5)        93
+device_identifier                               HByte::new(&bytes[5]).value;        98
+service_identifier                              HByte::new(&bytes[5]).value;        99
+call_reference_time                             C(  7)       100
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=22;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:28
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      22
+MESSAGE NUMBER:   dd8d
+FORMAT TYPE NAME: RCC
+RECORD LENGTH:    216
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+intermediate_chrg_cause                         C(  2)        27
+number_of_ss_records                          BCDWord::new(&bytes[5]).value;        29
+dialled_digits                                  C( 12)        30
+calling_number_ton                              HByte::new(&bytes[5]).value;        42
+calling_number                                  C( 10)        43
+called_number_ton                               HByte::new(&bytes[5]).value;        53
+called_number                                   C( 12)        54
+in_circuit_group                              BCDWord::new(&bytes[5]).value;        66
+in_circuit                                    BCDWord::new(&bytes[5]).value;        68
+out_circuit_group                             BCDWord::new(&bytes[5]).value;        70
+out_circuit                                   BCDWord::new(&bytes[5]).value;        72
+basic_service_type                              HByte::new(&bytes[5]).value;        74
+basic_service_code                              HByte::new(&bytes[5]).value;        75
+facility_usage                                  C(  4)        76
+in_channel_allocated_time                       C(  7)        80
+charging_start_time                             C(  7)        87
+charging_end_time                               C(  7)        94
+cause_for_termination                          HDWord::new(&bytes[5..]).value;       101
+called_msrn_ton                                 HByte::new(&bytes[5]).value;       105
+called_msrn                                     C( 12)       106
+cug_interlock                                   C(  4)       118
+cug_outgoing_access                             HByte::new(&bytes[5]).value;       122
+cug_information                                 HByte::new(&bytes[5]).value;       123
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       124
+leg_call_reference                              C(  5)       125
+orig_mcz_chrg_type                              HByte::new(&bytes[5]).value;       130
+orig_mcz_duration                             BCD(  3)       131
+orig_mcz_tariff_class                         BCD(  3)       134
+orig_mcz_pulses                               BCDWord::new(&bytes[5]).value;       137
+orig_mcz_change_percent                         HByte::new(&bytes[5]).value;       139
+orig_mcz_change_direction                       HByte::new(&bytes[5]).value;       140
+tns_carrier_code                                Word::new(&bytes[0..2]).value as u32;       141
+carrier_selection                               HByte::new(&bytes[5]).value;       143
+pic                                             Word::new(&bytes[0..2]).value as u32;       144
+dialled_digits_ton                              HByte::new(&bytes[5]).value;       146
+calling_category                                HByte::new(&bytes[5]).value;       147
+called_ms_classmark                             HByte::new(&bytes[5]).value;       148
+calling_charging_area                           Word::new(&bytes[0..2]).value as u32;       149
+called_charging_area                            Word::new(&bytes[0..2]).value as u32;       151
+pni                                             C(  3)       153
+called_imsi                                     C(  8)       156
+called_imei                                     C(  8)       164
+connected_to_number_ton                         HByte::new(&bytes[5]).value;       172
+connected_to_number                             C( 12)       173
+scp_connection                                  HByte::new(&bytes[5]).value;       185
+number_of_all_in_records                      BCDWord::new(&bytes[5]).value;       186
+call_reference_time                             C(  7)       187
+in_bnc_connection_type                          HByte::new(&bytes[5]).value;       194
+inside_user_plane_index                       BCDWord::new(&bytes[5]).value;       195
+inside_control_plane_index                    BCDWord::new(&bytes[5]).value;       197
+out_bnc_connection_type                         HByte::new(&bytes[5]).value;       199
+outside_user_plane_index                      BCDWord::new(&bytes[5]).value;       200
+outside_control_plane_index                   BCDWord::new(&bytes[5]).value;       202
+redirecting_number                              C( 12)       204
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=23;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:29
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      23
+MESSAGE NUMBER:   efca
+FORMAT TYPE NAME: SMMF
+RECORD LENGTH:    151
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+called_imsi                                     C(  8)        25
+called_imei                                     C(  8)        33
+called_number_ton                               HByte::new(&bytes[5]).value;        41
+called_number                                   C( 12)        42
+called_category                                 HByte::new(&bytes[5]).value;        54
+sms_centre                                      C( 10)        55
+incoming_time                                   C(  7)        65
+delivery_time                                   C(  7)        72
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        79
+basic_service_type                              HByte::new(&bytes[5]).value;        83
+basic_service_code                              HByte::new(&bytes[5]).value;        84
+msc_type                                        HByte::new(&bytes[5]).value;        85
+calling_number_ton                              HByte::new(&bytes[5]).value;        86
+calling_number                                  C( 11)        87
+called_vmsc_number                              C( 10)        98
+sms_type                                        HByte::new(&bytes[5]).value;       108
+sms_length                                      HByte::new(&bytes[5]).value;       109
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       110
+forwarded_to_number_ton                         HByte::new(&bytes[5]).value;       111
+forwarded_to_number                             C( 12)       112
+forwarded_to_smsc                               C( 12)       124
+num_of_concatenated_sms                         HByte::new(&bytes[5]).value;       136
+concatenated_record_number                      HByte::new(&bytes[5]).value;       137
+concatenated_sms_reference                      Word::new(&bytes[0..2]).value as u32;       138
+routing_category                                HByte::new(&bytes[5]).value;       140
+application_info                                HByte::new(&bytes[5]).value;       141
+add_routing_category                            Word::new(&bytes[0..2]).value as u32;       142
+call_reference_time                             C(  7)       144
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=24;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:30
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      24
+MESSAGE NUMBER:   dd8c
+FORMAT TYPE NAME: COC
+RECORD LENGTH:    135
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+in_channel_allocated_time                       C(  7)        27
+leg_call_reference                              C(  5)        34
+intermediate_chrg_cause                         C(  2)        39
+camel_call_reference                            C(  8)        41
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;        49
+camel_exchange_id                               C(  9)        50
+charging_start_time                             C(  7)        59
+charging_end_time                               C(  7)        66
+duration_before_answer                        BCD(  3)        73
+chargeable_duration                           BCD(  3)        76
+basic_call_state_model                          HByte::new(&bytes[5]).value;        79
+scf_address_ton                                 HByte::new(&bytes[5]).value;        80
+scf_address                                     C(  9)        81
+camel_service_key                              HDWord::new(&bytes[5..]).value;        90
+default_call_handling                           HByte::new(&bytes[5]).value;        94
+destination_number_ton                          HByte::new(&bytes[5]).value;        95
+destination_number                              C( 12)        96
+level_of_camel_service                          HByte::new(&bytes[5]).value;       108
+camel_modification                              C(  4)       109
+camel_modify_parameters                         C( 14)       113
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       127
+call_reference_time                             C(  7)       128
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=25;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:31
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      25
+MESSAGE NUMBER:   dd8b
+FORMAT TYPE NAME: CTC
+RECORD LENGTH:    135
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+intermediate_record_number                    BCDWord::new(&bytes[5]).value;        25
+intermediate_charging_ind                       HByte::new(&bytes[5]).value;        26
+in_channel_allocated_time                       C(  7)        27
+leg_call_reference                              C(  5)        34
+intermediate_chrg_cause                         C(  2)        39
+camel_call_reference                            C(  8)        41
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;        49
+camel_exchange_id                               C(  9)        50
+charging_start_time                             C(  7)        59
+charging_end_time                               C(  7)        66
+duration_before_answer                        BCD(  3)        73
+chargeable_duration                           BCD(  3)        76
+basic_call_state_model                          HByte::new(&bytes[5]).value;        79
+scf_address_ton                                 HByte::new(&bytes[5]).value;        80
+scf_address                                     C(  9)        81
+camel_service_key                              HDWord::new(&bytes[5..]).value;        90
+default_call_handling                           HByte::new(&bytes[5]).value;        94
+destination_number_ton                          HByte::new(&bytes[5]).value;        95
+destination_number                              C( 12)        96
+level_of_camel_service                          HByte::new(&bytes[5]).value;       108
+camel_modification                              C(  4)       109
+camel_modify_parameters                         C( 14)       113
+call_reference_time                             C(  7)       127
+number_of_in_records                          BCDWord::new(&bytes[5]).value;       134
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=26;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:32
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      26
+MESSAGE NUMBER:   dd8a
+FORMAT TYPE NAME: IN4
+RECORD LENGTH:    108
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+in_record_number                              BCDWord::new(&bytes[5]).value;        25
+in_data                                         C( 40)        26
+leg_call_reference                              C(  5)        66
+in_channel_allocated_time                       C(  7)        71
+in_data_length                                  Word::new(&bytes[0..2]).value as u32;        78
+basic_call_state_model                          HByte::new(&bytes[5]).value;        80
+party_to_charge                                 HByte::new(&bytes[5]).value;        81
+protocol_identification                         HByte::new(&bytes[5]).value;        82
+call_reference_time                             C(  7)        83
+camel_call_reference                            C(  8)        90
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;        98
+camel_exchange_id                               C(  9)        99
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=27;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:33
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      27
+MESSAGE NUMBER:   e20d
+FORMAT TYPE NAME: LCS
+RECORD LENGTH:    164
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+served_imsi                                     C(  8)        25
+served_imei                                     C(  8)        33
+service_time                                    C(  7)        41
+served_number_ton                               HByte::new(&bytes[5]).value;        48
+served_number                                   C( 10)        49
+served_subs_lac                                 Word::new(&bytes[0..2]).value as u32;        59
+served_subs_ci                                  Word::new(&bytes[0..2]).value as u32;        61
+location_estimate                               C( 20)        63
+location_request_type                           HByte::new(&bytes[5]).value;        83
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        84
+used_position_method                            C(  8)        88
+response_time                                   HByte::new(&bytes[5]).value;        96
+vertical_accuracy                               HByte::new(&bytes[5]).value;        97
+horizontal_accuracy                             HByte::new(&bytes[5]).value;        98
+gmlc_address                                    C(  9)        99
+subs_roaming_status                             HByte::new(&bytes[5]).value;       108
+gps_data_length                                 HByte::new(&bytes[5]).value;       109
+gps_data                                        C( 38)       110
+client_external_id                              C( 12)       148
+client_external_id_ton                          HByte::new(&bytes[5]).value;       160
+age_of_estimate                                 Word::new(&bytes[0..2]).value as u32;       161
+radio_network_type                              HByte::new(&bytes[5]).value;       163
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=28;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:34
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      28
+MESSAGE NUMBER:   dd8a
+FORMAT TYPE NAME: IN5
+RECORD LENGTH:    228
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+in_record_number                              BCDWord::new(&bytes[5]).value;        25
+in_data                                         C(160)        26
+leg_call_reference                              C(  5)       186
+in_channel_allocated_time                       C(  7)       191
+in_data_length                                  Word::new(&bytes[0..2]).value as u32;       198
+camel_call_reference                            C(  8)       200
+camel_exchange_id_ton                           HByte::new(&bytes[5]).value;       208
+camel_exchange_id                               C(  9)       209
+basic_call_state_model                          HByte::new(&bytes[5]).value;       218
+party_to_charge                                 HByte::new(&bytes[5]).value;       219
+protocol_identification                         HByte::new(&bytes[5]).value;       220
+call_reference_time                             C(  7)       221
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  ZGAP:0:ST=A,UF=NORMAL,OF=T,FT=29;
+
+LOADING PROGRAM VERSION 2.12-0
+
+MSCi      MSSRJ05                   2014-10-03  10:29:35
+
+DISPLAY OPERATION FOR SERVICE   0
+IN TABLE FORMAT
+
+
+FILENAME:       Y00AN1MX.IMG
+SERVICE:        00
+STATE:          ACTIVE
+USED FOR:       NORMAL
+BLOCK VERSION:  60060100
+VERSION NUMBER: 016
+
+
+FORMAT TYPE:      29
+MESSAGE NUMBER:   efc5
+FORMAT TYPE NAME: USSD
+RECORD LENGTH:    88
+
+HEADER:
+FIELD NAME                                   DATA TYPE  POSITION
+
+record_length                                   Word::new(&bytes[0..2]).value as u32;         0
+record_type                                   BCDWord::new(&bytes[5]).value;         2
+record_number                                 BCD(  4)         3
+record_status                                   HByte::new(&bytes[5]).value;         7
+check_sum                                       Word::new(&bytes[0..2]).value as u32;         8
+call_reference                                  C(  5)        10
+exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+DATA:
+FIELD NAME                                   DATA TYPE  POSITION
+
+served_imsi                                     C(  8)        25
+served_imei                                     C(  8)        33
+served_number_ton                               HByte::new(&bytes[5]).value;        41
+served_number                                   C( 10)        42
+initiator                                       HByte::new(&bytes[5]).value;        52
+action                                          HByte::new(&bytes[5]).value;        53
+start_time                                      C(  7)        54
+end_time                                        C(  7)        61
+cause_for_termination                          HDWord::new(&bytes[5..]).value;        68
+served_subs_lac                                 Word::new(&bytes[0..2]).value as u32;        72
+served_subs_ci                                  Word::new(&bytes[0..2]).value as u32;        74
+number_of_transactions                        BCDWord::new(&bytes[5]).value;        76
+service_code                                    C( 10)        77
+radio_network_type                              HByte::new(&bytes[5]).value;        87
+                                                                                                                            
+
+COMMAND EXECUTED
+
+
+DYNAMIC DATA HANDLING COMMAND <GA_>
+<  

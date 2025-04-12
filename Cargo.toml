@@ -10,6 +10,10 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 flate2 = "1.1.1"
+indicatif = "0.17.11"
+strum = "0.27"
+strum_macros = "0.27"
+walkdir = "2.5.0"
 
 [dependencies.pyo3]
 version = "0.23.1"

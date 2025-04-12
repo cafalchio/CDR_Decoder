@@ -1,3 +1,4 @@
+#[allow(dead_code)]
 #[derive(Debug, Clone, Copy)]
 pub struct HByte {
     pub value: u32,
@@ -28,13 +29,10 @@ pub struct HDWord {
 }
 impl HDWord {
     pub fn new(bytes: &[u8]) -> HDWord {
-        let hdword: u32 = u32::from_be_bytes([bytes[0],bytes[1], bytes[2], bytes[3]]);
-        HDWord { 
-            value: hdword
-        }
+        let hdword: u32 = u32::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]);
+        HDWord { value: hdword }
     }
 }
-
 
 #[derive(Debug, Clone, Copy)]
 pub struct Word {
@@ -63,9 +61,6 @@ impl BCD {
     }
 }
 
-
-
-
 pub struct BCDWord {
     pub value: u32,
 }
@@ -90,6 +85,8 @@ impl BCD2uword {
         BCD2uword { value: decimal }
     }
 }
+
+#[allow(dead_code)]
 pub struct BcdTimestamp {
     pub value: String,
 }
