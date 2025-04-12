@@ -1,7 +1,4 @@
 use crate::datatypes::primitives::*;
-use std::convert::TryFrom;
-use std::fmt;
-use strum_macros::{Display, EnumString, FromRepr};
 
 pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     let mut decoded = String::new();
@@ -17,10 +14,13 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
 }
 
 // Charging data fields
-
 pub struct IntermediateChargingInd(&'static str);
-pub struct RecordType(&'static str);
-pub struct RecordStatus(&'static str);
+pub struct RecordType{
+    pub value: String,
+}
+pub struct RecordStatus{
+    pub value: String,
+}
 pub struct SelectedCodec(&'static str);
 pub struct ApplicationInfo(&'static str);
 pub struct Action(&'static str);
@@ -43,13 +43,18 @@ pub struct Category(&'static str);
 pub struct CauseForForwarding(&'static str);
 pub struct EllBand(&'static str);
 pub struct CfInformation(&'static str);
-pub struct ChangeDirection(&'static str);
-pub struct ChangePercent(String);
-
 pub struct CallReference {
     // word + word + byte
     pub value: String,
 }
+pub struct ChangeDirection(&'static str);
+
+// pub struct ChangePercent(String);
+
+
+
+
+
 
 impl IntermediateChargingInd {
     pub fn new(value: u8) -> Self {
@@ -68,8 +73,8 @@ impl IntermediateChargingInd {
 }
 
 impl RecordType {
-    pub fn new(&self) -> Self {
-        Self(match value {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
             0 => "Header",
             1 => "Mobile-originated call",
             2 => "Mobile-terminated call",
@@ -105,24 +110,30 @@ impl RecordType {
             33 => "SIP-terminating message",
             35 => "SIP CDR for registration",
             _ => "",
-        })
+        };
+        Self {
+            value: value.to_string(),
+        }
     }
     pub fn value(&self) -> &str {
-        self.0
+        &self.value
     }
 }
 
 impl RecordStatus {
     pub fn new(value: u8) -> Self {
-        Self(match value {
+        let value = match value {
             0 => "normal ok",
             1 => "synchronising error",
             2 => "different contents",
             _ => "",
-        })
+        };
+        Self {
+            value: value.to_string(),
+        }
     }
     pub fn value(&self) -> &str {
-        self.0
+        &self.value
     }
 }
 
@@ -389,29 +400,29 @@ impl CugInformation {
     }
 }
 
-impl CommandType {
-    pub fn new(value: u8) -> Self {
-        Self(match value {
-            0x00 => "00 - Enquiry relating to previously submitted short message".to_string(),
-            0x01 => {
-                "01 - Cancel status report request relating to previously submitted short message"
-                    .to_string()
-            }
-            0x02 => "02 - Delete previously submitted short message".to_string(),
-            0x03 => {
-                "03 - Enable status report request relating to previously submitted short message"
-                    .to_string()
-            }
-            0x04..=0x1F => format!("{:02X} - Reserved unspecified", value),
-            0x20..=0xDF => format!("{:02X} - Not used", value),
-            0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
-            _ => "".to_string(),
-        })
-    }
-    pub fn value(&self) -> &str {
-        &self.0
-    }
-}
+// impl CommandType {
+//     pub fn new(value: u8) -> Self {
+//         Self(match value {
+//             0x00 => "00 - Enquiry relating to previously submitted short message".to_string(),
+//             0x01 => {
+//                 "01 - Cancel status report request relating to previously submitted short message"
+//                     .to_string()
+//             }
+//             0x02 => "02 - Delete previously submitted short message".to_string(),
+//             0x03 => {
+//                 "03 - Enable status report request relating to previously submitted short message"
+//                     .to_string()
+//             }
+//             0x04..=0x1F => format!("{:02X} - Reserved unspecified", value),
+//             0x20..=0xDF => format!("{:02X} - Not used", value),
+//             0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
+//             _ => "".to_string(),
+//         })
+//     }
+//     pub fn value(&self) -> &str {
+//         &self.0
+//     }
+// }
 
 impl CugOutgoingAccess {
     pub fn new(value: u8) -> Self {

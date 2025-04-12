@@ -70,9 +70,9 @@ mod tests {
         ];
         let header = Header::new(&bytes);
         assert_eq!(header.record_length, 550);
-        assert_eq!(header.record_type, "MobileOriginatedCall");
+        assert_eq!(header.record_type, "Mobile-originated call");
         assert_eq!(header.record_number, 3);
-        assert_eq!(header.record_status, "Normal");
+        assert_eq!(header.record_status, "normal ok");
         assert_eq!(header.check_sum, 36311);
         assert_eq!(header.call_reference, "comp:4131 process:0024 focus:00");
         assert_eq!(header.exchange_id, "49177387");

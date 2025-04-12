@@ -10,15 +10,13 @@ pub struct Header {
     pub call_reference: String, // C(5) at offset 10
     pub exchange_id: String,    // C(10) at offset 15
 }
+
 impl Header {
     pub fn new(bytes: &[u8]) -> Header {
         let record_length = HWord::new(&bytes[0..2]).value as u32;
-        let record_type = RecordType::try_from(bytes[2]).unwrap().to_string();
+        let record_type = RecordType::new(bytes[2]).value;
         let record_number = BCD2uword::new(&bytes[3..7]).value;
-        let mut record_status: String = "".to_string();
-        if (record_type != "Header".to_string()) & (record_type != "Trailer".to_string()) {
-            record_status = RecordStatus::try_from(bytes[7]).unwrap().to_string();
-        }
+        let record_status = RecordStatus::new(bytes[7]).value;
         let check_sum = HWord::new(&bytes[8..10]).value;
         let call_reference = CallReference::new(&bytes[10..15]).value;
         let exchange_id = ExchangeId::new(&bytes[15..25]).value;
