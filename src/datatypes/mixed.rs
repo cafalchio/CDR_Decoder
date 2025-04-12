@@ -47,7 +47,9 @@ pub struct BearerServiceCode{
 pub struct CugInformation{
     pub value: String,
 }
-pub struct CommandType(String);
+pub struct CommandType{
+    value: String,
+}
 pub struct CugOutgoingAccess{
     pub value: String,
 }
@@ -95,10 +97,9 @@ pub struct ChangeDirection{
     pub value: String,
 }
 
-// pub struct ChangePercent(String);
-
-
-
+pub struct ChangePercent{
+    pub value: String,
+}
 
 
 
@@ -474,32 +475,32 @@ Self {
     }
 }
 
-// impl CommandType {
-//     pub fn new(value: u8) -> Self {
-//        let value = match value {
-//             0x00 => "00 - Enquiry relating to previously submitted short message".to_string(),
-//             0x01 => {
-//                 "01 - Cancel status report request relating to previously submitted short message"
-//                     .to_string()
-//             }
-//             0x02 => "02 - Delete previously submitted short message".to_string(),
-//             0x03 => {
-//                 "03 - Enable status report request relating to previously submitted short message"
-//                     .to_string()
-//             }
-//             0x04..=0x1F => format!("{:02X} - Reserved unspecified", value),
-//             0x20..=0xDF => format!("{:02X} - Not used", value),
-//             0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
-//             _ => "".to_string(),
-//         };
-// Self {
-//             value: value.to_string(),
-//         }
-//     }
-//     pub fn value(&self) -> &str {
-//         &&self.value
-//     }
-// }
+impl CommandType {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+            0x00 => "00 - Enquiry relating to previously submitted short message".to_string(),
+            0x01 => {
+                "01 - Cancel status report request relating to previously submitted short message"
+                    .to_string()
+            }
+            0x02 => "02 - Delete previously submitted short message".to_string(),
+            0x03 => {
+                "03 - Enable status report request relating to previously submitted short message"
+                    .to_string()
+            }
+            0x04..=0x1F => format!("{:02X} - Reserved unspecified", value),
+            0x20..=0xDF => format!("{:02X} - Not used", value),
+            0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
+            _ => "".to_string(),
+        };
+        Self {
+            value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
 impl CugOutgoingAccess {
     pub fn new(value: u8) -> Self {
@@ -796,22 +797,22 @@ Self {
     }
 }
 
-// impl ChangePercent {
-//     pub fn new(value: u8) -> Self {
-//        let value = match value {
-//             0x00 => "Normal".to_string(),
-//             0x01..0x64 => format!("Valid percent (charge decreased): {}", value),
-//             0xFF => "Unused".to_string(),
-//             _ => "".to_string(),
-//         };
-// Self {
-//             value: value.to_string(),
-//         }
-//     }
-//     pub fn value(&self) -> String {
-//         &self.value
-//     }
-// }
+impl ChangePercent {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+            0x00 => "Normal".to_string(),
+            0x01..0x64 => format!("Valid percent (charge decreased): {}", value),
+            0xFF => "Unused".to_string(),
+            _ => "".to_string(),
+        };
+        Self {
+            value: value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
 // #[repr(u8)]
 // #[derive(Debug)]
