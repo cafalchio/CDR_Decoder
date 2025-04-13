@@ -101,6 +101,41 @@ pub struct ChangePercent{
     pub value: String,
 }
 
+pub struct DtmfIndicator{
+    pub value: String,
+}
+
+
+pub struct DisconnectingParty{
+    pub value: String,
+}
+
+pub struct DeviceIdentifier{
+    pub value: String,
+}
+
+pub struct DefaultSmsHandling{
+    pub value: String,
+}
+
+
+pub struct DefaultCallHandling{
+    pub value: String,
+}
+
+pub struct ChrgType{
+    pub value: String,
+}
+
+pub struct ChargingArea{
+    pub value: String,
+}
+
+
+pub struct ChargeNature{
+    pub value: String,
+}
+
 
 
 impl IntermediateChargingInd {
@@ -110,13 +145,12 @@ impl IntermediateChargingInd {
             1 => "Intermediate",
             2 => "Last Partial",
             0xFF => "NotUsed",
-            _ => "Unknown",
+            _ => "",
         };
-Self {
+    Self {
             value: value.to_string(),
         }
     }
-
 
     pub fn value(&self) -> &str {
         &self.value
@@ -852,346 +886,187 @@ impl ChangePercent {
 //     }
 // }
 
-// #[derive(Debug)]
-// enum ChargeNature {
-//     NotFound = 0x00,        // SS did not find the field or CC told SS not to put it there
-//     Unknown = 0x02,         // Field value unknown to SS (and to DX)
-//     AniNotAvailable = 0x04, // Automatic Number Identification (ANI) not available or not provided
-//     AniCallingParty = 0x05, // ANI of the calling party
-//     AniCalledParty = 0x06,  // ANI of the called party
-//     OliAndCpnReceived = 0x07, // Originating Line Information (OLI) and CPN received, CN not received
-// }
 
-// impl ChargeNature {
-//     pub fn description(&self) -> String {
-//         match self {
-//             ChargeNature::NotFound => {
-//                 String::from("SS did not find the field or CC told SS not to put it there")
-//             }
-//             ChargeNature::Unknown => String::from("Field value unknown to SS (and to DX)"),
-//             ChargeNature::AniNotAvailable => {
-//                 String::from("Automatic Number Identification (ANI) not available or not provided")
-//             }
-//             ChargeNature::AniCallingParty => String::from("ANI of the calling party"),
-//             ChargeNature::AniCalledParty => String::from("ANI of the called party"),
-//             ChargeNature::OliAndCpnReceived => {
-//                 String::from("Originating Line Information (OLI) and CPN received, CN not received")
-//             }
-//         }
-//     }
-// }
 
-// impl std::convert::TryFrom<u8> for ChargeNature {
-//     type Error = ();
 
-//     fn try_from(byte: u8) -> Result<Self, Self::Error> {
-//         match byte {
-//             0x00 => Ok(ChargeNature::NotFound),
-//             0x02 => Ok(ChargeNature::Unknown),
-//             0x04 => Ok(ChargeNature::AniNotAvailable),
-//             0x05 => Ok(ChargeNature::AniCallingParty),
-//             0x06 => Ok(ChargeNature::AniCalledParty),
-//             0x07 => Ok(ChargeNature::OliAndCpnReceived),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
 
-// #[repr(u8)]
-// #[derive(Debug)]
-// enum ChargingArea {
-//     DoesNotExist = 0x00, // Does not exist
-//     Valid(u8),           // Valid area range from 0x01 to 0x10
-//     Spare(u8),           // Spare area range from 0x11 to 0xFE
-//     Unused = 0xFF,       // Unused
-// }
+impl ChargeNature {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+        0x00 =>"SS did not find the field or CC told SS not to put it there",
+        0x02 =>"Field value unknown to SS (and to DX)",
+        0x04 =>"Automatic Number Identification (ANI) not available or not provided",
+        0x05 =>"ANI of the calling party",
+        0x06 =>"ANI of the called party",
+        0x07 =>"Originating Line Information (OLI) and CPN received, CN not received",
+            _ => "",
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
 
-// impl ChargingArea {
-//     pub fn description(&self) -> String {
-//         match self {
-//             ChargingArea::DoesNotExist => String::from("Does not exist"),
-//             ChargingArea::Valid(_) => String::from("Valid"),
-//             ChargingArea::Spare(_) => String::from("Spare"),
-//             ChargingArea::Unused => String::from("Unused"),
-//         }
-//     }
-// }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-// impl std::convert::TryFrom<u8> for ChargingArea {
-//     type Error = ();
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0x00 => Ok(ChargingArea::DoesNotExist),
-//             0xFF => Ok(ChargingArea::Unused),
-//             0x01..=0x10 => Ok(ChargingArea::Valid(value)),
-//             0x11..=0xFE => Ok(ChargingArea::Spare(value)),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
 
-// #[repr(u8)]
-// enum ChrgType {
-//     ChargeableCall = 0x00,                               // 00000000b
-//     FreeFromAnalysis = 0x08,                             // 00001000b
-//     FreeFromAddressCompleteMessage = 0x10,               // 00010000b
-//     FreeFromAnswerMessage = 0x20,                        // 00100000b
-//     FreeFromAnalysisAndACM = 0x18,                       // 00011000b
-//     FreeFromAnalysisAndAnswerMessage = 0x28,             // 00101000b
-//     FreeFromCallProgressMessage = 0x40,                  // 01000000b
-//     FreeFromAnalysisAndCallProgressMessage = 0x48,       // 01001000b
-//     FreeFromCDB = 0x80,                                  // 10000000b
-//     FreeFromAnalysisAndCDB = 0x88,                       // 10001000b
-//     FreeFromACMAndCDB = 0x90,                            // 10010000b
-//     FreeFromAnalysisAndACMAndCDB = 0x98,                 // 10011000b
-//     FreeFromAnswerMessageAndCDB = 0xA0,                  // 10100000b
-//     FreeFromAnalysisAndAnswerMessageAndCDB = 0xA8,       // 10101000b
-//     FreeFromCallProgressMessageAndCDB = 0xC0,            // 11000000b
-//     FreeFromAnalysisAndCallProgressMessageAndCDB = 0xC8, // 11001000b
-// }
+impl ChargingArea {
+    pub fn new(hword: &[u8]) -> Self {
+        let hword_val = HWord::new(&hword).value;
+        let value = match hword_val {
+            0x0000 => "Does not exist",
+            0x0001..=0x2710 => "Valid",
+            0x2711..=0xFFFE => "Spare",
+            0xFFFF => "Unused",
+            _ => "",
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-// impl ChrgType {
-//     pub fn description(&self) -> String {
-//         match self {
-//             ChrgType::ChargeableCall => String::from("Chargeable call"),
-//             ChrgType::FreeFromAnalysis => String::from("Free of charge from analysis"),
-//             ChrgType::FreeFromAddressCompleteMessage => {
-//                 String::from("Free of charge from address complete message (ACM)")
-//             }
-//             ChrgType::FreeFromAnswerMessage => String::from("Free of charge from answer message"),
-//             ChrgType::FreeFromAnalysisAndACM => {
-//                 String::from("Free of charge from analysis and ACM")
-//             }
-//             ChrgType::FreeFromAnalysisAndAnswerMessage => {
-//                 String::from("Free of charge from analysis and answer message")
-//             }
-//             ChrgType::FreeFromCallProgressMessage => {
-//                 String::from("Free of charge from call progress message")
-//             }
-//             ChrgType::FreeFromAnalysisAndCallProgressMessage => {
-//                 String::from("Free of charge from analysis and call progress message")
-//             }
-//             ChrgType::FreeFromCDB => String::from("Free of charge from CDB"),
-//             ChrgType::FreeFromAnalysisAndCDB => {
-//                 String::from("Free of charge from analysis and CDB")
-//             }
-//             ChrgType::FreeFromACMAndCDB => {
-//                 String::from("Free of charge from address complete message (ACM) and CDB")
-//             }
-//             ChrgType::FreeFromAnalysisAndACMAndCDB => {
-//                 String::from("Free of charge from analysis and ACM and CDB")
-//             }
-//             ChrgType::FreeFromAnswerMessageAndCDB => {
-//                 String::from("Free of charge from answer message and CDB")
-//             }
-//             ChrgType::FreeFromAnalysisAndAnswerMessageAndCDB => {
-//                 String::from("Free of charge from analysis and answer message and CDB")
-//             }
-//             ChrgType::FreeFromCallProgressMessageAndCDB => {
-//                 String::from("Free of charge from call progress message and CDB")
-//             }
-//             ChrgType::FreeFromAnalysisAndCallProgressMessageAndCDB => {
-//                 String::from("Free of charge from analysis and call progress message and CDB")
-//             }
-//         }
-//     }
-// }
 
-// impl std::convert::TryFrom<u8> for ChrgType {
-//     type Error = ();
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0x00 => Ok(ChrgType::ChargeableCall),
-//             0x08 => Ok(ChrgType::FreeFromAnalysis),
-//             0x10 => Ok(ChrgType::FreeFromAddressCompleteMessage),
-//             0x20 => Ok(ChrgType::FreeFromAnswerMessage),
-//             0x18 => Ok(ChrgType::FreeFromAnalysisAndACM),
-//             0x28 => Ok(ChrgType::FreeFromAnalysisAndAnswerMessage),
-//             0x40 => Ok(ChrgType::FreeFromCallProgressMessage),
-//             0x48 => Ok(ChrgType::FreeFromAnalysisAndCallProgressMessage),
-//             0x80 => Ok(ChrgType::FreeFromCDB),
-//             0x88 => Ok(ChrgType::FreeFromAnalysisAndCDB),
-//             0x90 => Ok(ChrgType::FreeFromACMAndCDB),
-//             0x98 => Ok(ChrgType::FreeFromAnalysisAndACMAndCDB),
-//             0xA0 => Ok(ChrgType::FreeFromAnswerMessageAndCDB),
-//             0xA8 => Ok(ChrgType::FreeFromAnalysisAndAnswerMessageAndCDB),
-//             0xC0 => Ok(ChrgType::FreeFromCallProgressMessageAndCDB),
-//             0xC8 => Ok(ChrgType::FreeFromAnalysisAndCallProgressMessageAndCDB),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
 
-// #[repr(u8)]
-// enum DefaultCallHandling {
-//     NotUsed = 0xFF,               // Not used
-//     NotUsedInCallHandling = 0x00, // Default call handling is not used
-//     UsedInCallHandling = 0x01,    // Default call handling is used
-// }
+impl ChrgType {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+        0x00 => "Chargeable call",
+        0x08 => "Free of charge from analysis",
+        0x10 => "Free of charge from address complete message (ACM)",
+        0x20 => "Free of charge from answer message",
+        0x18 => "Free of charge from analysis and ACM",
+        0x28 => "Free of charge from analysis and answer message",
+        0x40 => "Free of charge from call progress message",
+        0x48 => "Free of charge from analysis and call progress message",
+        0x80 => "Free of charge from CDB",
+        0x88 => "Free of charge from analysis and CDB",
+        0x90 => "Free of charge from address complete message (ACM) and CDB",
+        0x98 => "Free of charge from analysis and ACM and CDB",
+        0xA0 => "Free of charge from answer message and CDB",
+        0xA8 => "Free of charge from analysis and answer message and CDB",
+        0xC0 => "Free of charge from call progress message and CDB",
+        0xC8 => "Free of charge from analysis and call progress message and CDB",
+        _ => "",
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
 
-// impl DefaultCallHandling {
-//     pub fn description(&self) -> String {
-//         match self {
-//             DefaultCallHandling::NotUsed => String::from("Not used"),
-//             DefaultCallHandling::NotUsedInCallHandling => {
-//                 String::from("Default call handling is not used")
-//             }
-//             DefaultCallHandling::UsedInCallHandling => {
-//                 String::from("Default call handling is used")
-//             }
-//         }
-//     }
-// }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-// impl std::convert::TryFrom<u8> for DefaultCallHandling {
-//     type Error = ();
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0xFF => Ok(DefaultCallHandling::NotUsed),
-//             0x00 => Ok(DefaultCallHandling::NotUsedInCallHandling),
-//             0x01 => Ok(DefaultCallHandling::UsedInCallHandling),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
 
-// #[repr(u8)]
-// enum DefaultSmsHandling {
-//     NotAvailable = 0xFF, // Not available
-//     NotUsed = 0x00,      // Default SMS handling is not used
-//     Used = 0x01,         // Default SMS handling is used
-// }
 
-// impl DefaultSmsHandling {
-//     pub fn description(&self) -> String {
-//         match self {
-//             DefaultSmsHandling::NotAvailable => String::from("Not available"),
-//             DefaultSmsHandling::NotUsed => String::from("Default SMS handling is not used"),
-//             DefaultSmsHandling::Used => String::from("Default SMS handling is used"),
-//         }
-//     }
-// }
+impl DefaultCallHandling {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+            0 => "Default call handling is not used",
+            1 => "Default call handling is used",
+            0xFF => "Not used",
+            _ => "",
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-// impl std::convert::TryFrom<u8> for DefaultSmsHandling {
-//     type Error = ();
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0xFF => Ok(DefaultSmsHandling::NotAvailable),
-//             0x00 => Ok(DefaultSmsHandling::NotUsed),
-//             0x01 => Ok(DefaultSmsHandling::Used),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
 
-// #[repr(u8)]
-// enum DeviceIdentifier {
-//     Unknown = 0x00,                // Unknown device identifier
-//     ScfInitiated = 0x01,           // SCF initiated
-//     OnlineCallMonitoring = 0x02,   // Online call monitoring
-//     ExternalIp = 0x03,             // External IP
-//     ParallelRingingGroup = 0x06,   // Parallel Ringing group
-//     ExternalRingtoneServer = 0x07, // External ringtone server
-//     NotUsed = 0xFF,                // Device identifier not used
-// }
 
-// impl DeviceIdentifier {
-//     pub fn description(&self) -> String {
-//         match self {
-//             DeviceIdentifier::Unknown => String::from("Unknown device identifier"),
-//             DeviceIdentifier::ScfInitiated => String::from("SCF initiated"),
-//             DeviceIdentifier::OnlineCallMonitoring => String::from("Online call monitoring"),
-//             DeviceIdentifier::ExternalIp => String::from("External IP"),
-//             DeviceIdentifier::ParallelRingingGroup => String::from("Parallel Ringing group"),
-//             DeviceIdentifier::ExternalRingtoneServer => String::from("External ringtone server"),
-//             DeviceIdentifier::NotUsed => String::from("Device identifier not used"),
-//         }
-//     }
-// }
+impl DefaultSmsHandling {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+            0 => "Default SMS handling is not used",
+            1 => "Default SMS handling is used",
+            0xFF => "Not available",
+            _ => "",
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
 
-// impl std::convert::TryFrom<u8> for DeviceIdentifier {
-//     type Error = ();
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0x00 => Ok(DeviceIdentifier::Unknown),
-//             0x01 => Ok(DeviceIdentifier::ScfInitiated),
-//             0x02 => Ok(DeviceIdentifier::OnlineCallMonitoring),
-//             0x03 => Ok(DeviceIdentifier::ExternalIp),
-//             0x06 => Ok(DeviceIdentifier::ParallelRingingGroup),
-//             0x07 => Ok(DeviceIdentifier::ExternalRingtoneServer),
-//             0xFF => Ok(DeviceIdentifier::NotUsed),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
 
-// #[repr(u8)]
-// enum DisconnectingParty {
-//     Unknown = 0x00,      // Release direction is unknown
-//     IncomingSide = 0x01, // Released from incoming side
-//     OutgoingSide = 0x02, // Released from outgoing side
-//     OwnSystem = 0x03,    // Released inside of own system
-//     MapInitiated = 0x04, // Release initiated from MAP
-//     ScpInitiated = 0x05, // Release initiated from SCP
-// }
+impl DeviceIdentifier {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+            0x00 => "Unknown device identifier", 
+            0x01 => "SCF initiated",
+            0x02 => "Online call monitoring",
+            0x03 => "External IP",
+            0x06 => "Parallel Ringing group",
+            0x07 => "External ringtone server",
+            0xFF => "Device identifier not used",
+            _ => ""
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
 
-// impl DisconnectingParty {
-//     pub fn description(&self) -> String {
-//         match self {
-//             DisconnectingParty::Unknown => String::from("Release direction is unknown"),
-//             DisconnectingParty::IncomingSide => String::from("Released from incoming side"),
-//             DisconnectingParty::OutgoingSide => String::from("Released from outgoing side"),
-//             DisconnectingParty::OwnSystem => String::from("Released inside of own system"),
-//             DisconnectingParty::MapInitiated => String::from("Release initiated from MAP"),
-//             DisconnectingParty::ScpInitiated => String::from("Release initiated from SCP"),
-//         }
-//     }
-// }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-// impl std::convert::TryFrom<u8> for DisconnectingParty {
-//     type Error = ();
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0x00 => Ok(DisconnectingParty::Unknown),
-//             0x01 => Ok(DisconnectingParty::IncomingSide),
-//             0x02 => Ok(DisconnectingParty::OutgoingSide),
-//             0x03 => Ok(DisconnectingParty::OwnSystem),
-//             0x04 => Ok(DisconnectingParty::MapInitiated),
-//             0x05 => Ok(DisconnectingParty::ScpInitiated),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
+impl DisconnectingParty {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+        0x00 => "Release direction is unknown",
+        0x01 => "Released from incoming side",
+        0x02 => "Released from outgoing side",
+        0x03 => "Released inside of own system",
+        0x04 => "Release initiated from MAP",
+        0x05 => "Release initiated from SCP",
+         _ => ""
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
 
-// #[repr(u8)]
-// enum DtmfIndicator {
-//     Off = 0x00, // DTMF is off
-//     On = 0x01,  // DTMF is on
-// }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
-// impl DtmfIndicator {
-//     pub fn description(&self) -> String {
-//         match self {
-//             DtmfIndicator::Off => String::from("DTMF is off"),
-//             DtmfIndicator::On => String::from("DTMF is on"),
-//         }
-//     }
-// }
 
-// impl std::convert::TryFrom<u8> for DtmfIndicator {
-//     type Error = ();
+impl DtmfIndicator {
+    pub fn new(value: u8) -> Self {
+       let value = match value {
+            0 => "DTMF is off",
+            1 => "DTMF is on",
+            _ => "",
+        };
+    Self {
+            value: value.to_string(),
+        }
+    }
 
-//     fn try_from(value: u8) -> Result<Self, Self::Error> {
-//         match value {
-//             0x00 => Ok(DtmfIndicator::Off),
-//             0x01 => Ok(DtmfIndicator::On),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
