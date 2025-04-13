@@ -14,140 +14,137 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
 }
 
 // Charging data fields
-pub struct IntermediateChargingInd{
+pub struct IntermediateChargingInd {
     pub value: String,
 }
-pub struct RecordType{
+pub struct RecordType {
     pub value: String,
 }
-pub struct RecordStatus{
+pub struct RecordStatus {
     pub value: String,
 }
-pub struct SelectedCodec{
+pub struct SelectedCodec {
     pub value: String,
 }
-pub struct ApplicationInfo{
+pub struct ApplicationInfo {
     pub value: String,
 }
-pub struct Action{
+pub struct Action {
     pub value: String,
 }
-pub struct TeleserviceCode{
+pub struct TeleserviceCode {
     pub value: String,
 }
-pub struct ChargingBlockSize{
+pub struct ChargingBlockSize {
     pub value: String,
 }
-pub struct ChargeType{
+pub struct ChargeType {
     pub value: String,
 }
-pub struct BearerServiceCode{
+pub struct BearerServiceCode {
     pub value: String,
 }
-pub struct CugInformation{
+pub struct CugInformation {
     pub value: String,
 }
-pub struct CommandType{
+pub struct CommandType {
     value: String,
 }
-pub struct CugOutgoingAccess{
+pub struct CugOutgoingAccess {
     pub value: String,
 }
-pub struct BasicCallStateModel{
+pub struct BasicCallStateModel {
     pub value: String,
 }
-pub struct BasicServiceType{
+pub struct BasicServiceType {
     pub value: String,
 }
-pub struct BncConnectionType{
+pub struct BncConnectionType {
     pub value: String,
 }
-pub struct CallMedia{
+pub struct CallMedia {
     pub value: String,
 }
-pub struct CallState{
+pub struct CallState {
     pub value: String,
 }
-pub struct CallType{
+pub struct CallType {
     pub value: String,
 }
-pub struct CallingPSTNCategory{
+pub struct CallingPSTNCategory {
     pub value: String,
 }
-pub struct CarrierSelection{
+pub struct CarrierSelection {
     pub value: String,
 }
-pub struct Category{
+pub struct Category {
     pub value: String,
 }
-pub struct CauseForForwarding{
+pub struct CauseForForwarding {
     pub value: String,
 }
-pub struct EllBand{
+pub struct EllBand {
     pub value: String,
 }
-pub struct CfInformation{
+pub struct CfInformation {
     pub value: String,
 }
 pub struct CallReference {
     // word + word + byte
     pub value: String,
 }
-pub struct ChangeDirection{
+pub struct ChangeDirection {
     pub value: String,
 }
 
-pub struct ChangePercent{
+pub struct ChangePercent {
     pub value: String,
 }
 
-pub struct DtmfIndicator{
+pub struct DtmfIndicator {
     pub value: String,
 }
 
-
-pub struct DisconnectingParty{
+pub struct DisconnectingParty {
     pub value: String,
 }
 
-pub struct DeviceIdentifier{
+pub struct DeviceIdentifier {
     pub value: String,
 }
 
-pub struct DefaultSmsHandling{
+pub struct DefaultSmsHandling {
     pub value: String,
 }
 
-
-pub struct DefaultCallHandling{
+pub struct DefaultCallHandling {
     pub value: String,
 }
 
-pub struct ChrgType{
+pub struct ChrgType {
     pub value: String,
 }
 
-pub struct ChargingArea{
+pub struct ChargingArea {
     pub value: String,
 }
 
-
-pub struct ChargeNature{
+pub struct ChargeNature {
     pub value: String,
 }
 
-
+// Implementation of the fields
 
 impl IntermediateChargingInd {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "Normal",
             1 => "Intermediate",
             2 => "Last Partial",
             0xFF => "NotUsed",
             _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -280,7 +277,7 @@ impl AcceptableChannelCodings {
 
 impl SelectedCodec {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "Full rate codec for GSM",
             0x01 => "Half rate codec for GSM",
             0x02 => "Enhanced full rate codec for GSM",
@@ -302,7 +299,7 @@ impl SelectedCodec {
             0xFD => "FDHClearmode",
             _ => "",
         };
-            Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -313,7 +310,7 @@ impl SelectedCodec {
 
 impl Action {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "Registration",
             0x01 => "Erasure",
             0x02 => "Activation",
@@ -326,7 +323,7 @@ impl Action {
             0x09 => "Phase 2 process unstructured SS data notify",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -338,13 +335,13 @@ Self {
 
 impl ApplicationInfo {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "NormalShortMessage",
             1 => "PictureMessage",
             0xFF => "NotKnown",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -356,7 +353,7 @@ Self {
 
 impl TeleserviceCode {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "All teleservices",
             0x10 => "Speech transmission",
             0x11 => "Telephony",
@@ -379,7 +376,7 @@ impl TeleserviceCode {
             0xD1 => "Dual numbering (alternate line service)",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -391,7 +388,7 @@ Self {
 
 impl BearerServiceCode {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "All bearer services",
             0x10 => "3.1 kHz group",
             0x11 => "3.1 kHz ex PLMN",
@@ -431,7 +428,7 @@ impl BearerServiceCode {
             0xFF => "Service not used",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -442,7 +439,7 @@ Self {
 
 impl ChargingBlockSize {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "2 kB",
             0x01 => "8 kB",
             0x02 => "16 kB",
@@ -450,7 +447,7 @@ impl ChargingBlockSize {
             0x08 => "64 kB",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -461,7 +458,7 @@ Self {
 
 impl ChargeType {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "00H chargeable call",
             0x08 => "08H free from analysis",
             0x10 => "10H free from address complete message",
@@ -480,7 +477,7 @@ impl ChargeType {
             0xC8 => "C8H free from analysis, call progress message, and CDB",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -492,14 +489,14 @@ Self {
 
 impl CugInformation {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "00 - Not supported or available",
             0x01 => "01 - Subscribers belong to the same group",
             0x02 => "02 - Subscribers do not belong to the same group",
             0x03 => "03 - Subscribers may belong to the same group; this is not known in the originating side",
             _ => "FF - Invalid or unknown value",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -511,7 +508,7 @@ Self {
 
 impl CommandType {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "00 - Enquiry relating to previously submitted short message".to_string(),
             0x01 => {
                 "01 - Cancel status report request relating to previously submitted short message"
@@ -527,9 +524,7 @@ impl CommandType {
             0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
             _ => "".to_string(),
         };
-        Self {
-            value,
-        }
+        Self { value }
     }
     pub fn value(&self) -> &str {
         &self.value
@@ -538,7 +533,7 @@ impl CommandType {
 
 impl CugOutgoingAccess {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "00 - SS did not find the field from network signal or CC tells SS not to put it there",
             0x02 => "02 - Field value unknown to SS (and to DX)",
             0x04 => "04 - Ordinary call",
@@ -546,7 +541,7 @@ impl CugOutgoingAccess {
             0x06 => "06 - Outgoing access not allowed",
             _ => "FF - Invalid or unknown value",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -557,7 +552,7 @@ Self {
 
 impl BasicCallStateModel {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "00H Type of basic call state model not defined",
             0x01 => "01H Basic call state model for originating side",
             0x02 => "02H Basic call state model for terminating side",
@@ -570,7 +565,7 @@ impl BasicCallStateModel {
             0x03 => "03H Originating SMS state model",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -581,13 +576,13 @@ Self {
 
 impl BasicServiceType {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "Teleservice",
             1 => "Bearer service",
             0xFF => "FFH Not used",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -598,7 +593,7 @@ Self {
 
 impl BncConnectionType {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "No connection",
             0x01 => "ATM Adaptation Layer 1 (AAL1)",
             0x02 => "ATM Adaptation Layer 2 (AAL2)",
@@ -612,7 +607,7 @@ impl BncConnectionType {
             0xFF => "Not defined",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -624,13 +619,13 @@ Self {
 
 impl CallMedia {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "Doesn't exist",
             1 => "Speech",
             2 => "Multimedia",
             _ => "Unknown",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -641,14 +636,14 @@ Self {
 
 impl CallState {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "Setup",
             0x01 => "A seized",
             0x02 => "B seized",
             0x03 => "Signalling phase completed",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -660,7 +655,7 @@ Self {
 
 impl CallType {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "incoming",
             0x01 => "forwarded",
             0x02 => "re-routed",
@@ -673,7 +668,7 @@ impl CallType {
             0x20 => "international A-subscriber",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -685,7 +680,7 @@ Self {
 
 impl CallingPSTNCategory {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x14 => "TUP 10 14H",
             0x19 => "TUP 12 19H",
             0x00 => "TUP 14 00H",
@@ -693,7 +688,7 @@ impl CallingPSTNCategory {
             0x04 => "TUP 19 04H",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -705,7 +700,7 @@ Self {
 
 impl CarrierSelection {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "SS did not find the field from the network signalling",
             0x02 => "Field value unknown to SS",
             0x04 => "No indication",
@@ -717,7 +712,7 @@ impl CarrierSelection {
             0x08 => "Selected carrier identification not presubscribed and input by calling party",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -729,7 +724,7 @@ Self {
 
 impl Category {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "Ordinary",
             0x02 => "Ordinary, no charge",
             0x05 => "Pay phone",
@@ -741,7 +736,7 @@ impl Category {
             0xFF => "Unknown",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -753,7 +748,7 @@ Self {
 
 impl CauseForForwarding {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x21 => "Unconditional",
             0x29 => "Called party busy",
             0x2A => "No reply",
@@ -768,7 +763,7 @@ impl CauseForForwarding {
             0xF5 => "SCP initiated",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -780,7 +775,7 @@ Self {
 
 impl EllBand {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0x00 => "Not defined",
             0x01 => "GSM",
             0x02 => "DCS",
@@ -788,7 +783,7 @@ impl EllBand {
             0xFF => "Does not exist",
             _ => "Unknown",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -799,12 +794,12 @@ Self {
 
 impl CfInformation {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "Call has not been forwarded",
             1 => "Call has been forwarded",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -816,12 +811,12 @@ Self {
 
 impl ChangeDirection {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "The charge of the call is increased",
             1 => "The charge of the call is decreased",
             _ => "",
         };
-Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -833,75 +828,13 @@ Self {
 
 impl ChangePercent {
     pub fn new(value: u8) -> Self {
-       let value = match value {
-            0x00 => "Normal".to_string(),
-            0x01..0x64 => format!("Valid percent (charge decreased): {}", value),
-            0xFF => "Unused".to_string(),
+        let value = match value {
+            0x00 => "No change in charge".to_string(),
+            0x01..0xFD => format!("{}%", value),
+            0xFF => "NotUsed".to_string(),
             _ => "".to_string(),
         };
         Self {
-            value: value,
-        }
-    }
-    pub fn value(&self) -> &str {
-        &self.value
-    }
-}
-
-// #[repr(u8)]
-// #[derive(Debug)]
-// enum ChangePercent {
-//     NoChange = 0x00,    // No change in charge
-//     ValidDecreased(u8), // Valid value if the charge is decreased (01H to 64H)
-//     ValidIncreased(u8), // Valid value if the charge is increased (01H to FEH)
-//     Unused = 0xFF,      // Unused value
-// }
-
-// impl ChangePercent {
-//     pub fn description(&self) -> String {
-//         match self {
-//             ChangePercent::NoChange => String::from("No change in charge"),
-//             ChangePercent::ValidDecreased(percent) => {
-//                 format!("Valid percent (charge decreased): {}", percent)
-//             }
-//             ChangePercent::ValidIncreased(percent) => {
-//                 format!("Valid percent (charge increased): {}", percent)
-//             }
-//             ChangePercent::Unused => String::from("Unused"),
-//         }
-//     }
-// }
-
-// impl std::convert::TryFrom<u8> for ChangePercent {
-//     type Error = ();
-
-//     fn try_from(byte: u8) -> Result<Self, Self::Error> {
-//         match byte {
-//             0x00 => Ok(ChangePercent::NoChange),
-//             0xFF => Ok(ChangePercent::Unused),
-//             0x01..=0x64 => Ok(ChangePercent::ValidDecreased(byte)),
-//             0x01..=0xFE => Ok(ChangePercent::ValidIncreased(byte)),
-//             _ => Err(()), // Invalid value
-//         }
-//     }
-// }
-
-
-
-
-
-impl ChargeNature {
-    pub fn new(value: u8) -> Self {
-       let value = match value {
-        0x00 =>"SS did not find the field or CC told SS not to put it there",
-        0x02 =>"Field value unknown to SS (and to DX)",
-        0x04 =>"Automatic Number Identification (ANI) not available or not provided",
-        0x05 =>"ANI of the calling party",
-        0x06 =>"ANI of the called party",
-        0x07 =>"Originating Line Information (OLI) and CPN received, CN not received",
-            _ => "",
-        };
-    Self {
             value: value.to_string(),
         }
     }
@@ -911,7 +844,26 @@ impl ChargeNature {
     }
 }
 
+impl ChargeNature {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "SS did not find the field or CC told SS not to put it there",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Automatic Number Identification (ANI) not available or not provided",
+            0x05 => "ANI of the calling party",
+            0x06 => "ANI of the called party",
+            0x07 => "Originating Line Information (OLI) and CPN received, CN not received",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
 
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
 impl ChargingArea {
     pub fn new(hword: &[u8]) -> Self {
@@ -923,7 +875,7 @@ impl ChargingArea {
             0xFFFF => "Unused",
             _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -931,32 +883,29 @@ impl ChargingArea {
         &self.value
     }
 }
-
-
-
 
 impl ChrgType {
     pub fn new(value: u8) -> Self {
-       let value = match value {
-        0x00 => "Chargeable call",
-        0x08 => "Free of charge from analysis",
-        0x10 => "Free of charge from address complete message (ACM)",
-        0x20 => "Free of charge from answer message",
-        0x18 => "Free of charge from analysis and ACM",
-        0x28 => "Free of charge from analysis and answer message",
-        0x40 => "Free of charge from call progress message",
-        0x48 => "Free of charge from analysis and call progress message",
-        0x80 => "Free of charge from CDB",
-        0x88 => "Free of charge from analysis and CDB",
-        0x90 => "Free of charge from address complete message (ACM) and CDB",
-        0x98 => "Free of charge from analysis and ACM and CDB",
-        0xA0 => "Free of charge from answer message and CDB",
-        0xA8 => "Free of charge from analysis and answer message and CDB",
-        0xC0 => "Free of charge from call progress message and CDB",
-        0xC8 => "Free of charge from analysis and call progress message and CDB",
-        _ => "",
+        let value = match value {
+            0x00 => "Chargeable call",
+            0x08 => "Free of charge from analysis",
+            0x10 => "Free of charge from address complete message (ACM)",
+            0x20 => "Free of charge from answer message",
+            0x18 => "Free of charge from analysis and ACM",
+            0x28 => "Free of charge from analysis and answer message",
+            0x40 => "Free of charge from call progress message",
+            0x48 => "Free of charge from analysis and call progress message",
+            0x80 => "Free of charge from CDB",
+            0x88 => "Free of charge from analysis and CDB",
+            0x90 => "Free of charge from address complete message (ACM) and CDB",
+            0x98 => "Free of charge from analysis and ACM and CDB",
+            0xA0 => "Free of charge from answer message and CDB",
+            0xA8 => "Free of charge from analysis and answer message and CDB",
+            0xC0 => "Free of charge from call progress message and CDB",
+            0xC8 => "Free of charge from analysis and call progress message and CDB",
+            _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -966,18 +915,15 @@ impl ChrgType {
     }
 }
 
-
-
-
 impl DefaultCallHandling {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "Default call handling is not used",
             1 => "Default call handling is used",
             0xFF => "Not used",
             _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -986,18 +932,15 @@ impl DefaultCallHandling {
     }
 }
 
-
-
-
 impl DefaultSmsHandling {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "Default SMS handling is not used",
             1 => "Default SMS handling is used",
             0xFF => "Not available",
             _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -1007,20 +950,19 @@ impl DefaultSmsHandling {
     }
 }
 
-
 impl DeviceIdentifier {
     pub fn new(value: u8) -> Self {
-       let value = match value {
-            0x00 => "Unknown device identifier", 
+        let value = match value {
+            0x00 => "Unknown device identifier",
             0x01 => "SCF initiated",
             0x02 => "Online call monitoring",
             0x03 => "External IP",
             0x06 => "Parallel Ringing group",
             0x07 => "External ringtone server",
             0xFF => "Device identifier not used",
-            _ => ""
+            _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -1029,20 +971,19 @@ impl DeviceIdentifier {
         &self.value
     }
 }
-
 
 impl DisconnectingParty {
     pub fn new(value: u8) -> Self {
-       let value = match value {
-        0x00 => "Release direction is unknown",
-        0x01 => "Released from incoming side",
-        0x02 => "Released from outgoing side",
-        0x03 => "Released inside of own system",
-        0x04 => "Release initiated from MAP",
-        0x05 => "Release initiated from SCP",
-         _ => ""
+        let value = match value {
+            0x00 => "Release direction is unknown",
+            0x01 => "Released from incoming side",
+            0x02 => "Released from outgoing side",
+            0x03 => "Released inside of own system",
+            0x04 => "Release initiated from MAP",
+            0x05 => "Release initiated from SCP",
+            _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -1052,15 +993,14 @@ impl DisconnectingParty {
     }
 }
 
-
 impl DtmfIndicator {
     pub fn new(value: u8) -> Self {
-       let value = match value {
+        let value = match value {
             0 => "DTMF is off",
             1 => "DTMF is on",
             _ => "",
         };
-    Self {
+        Self {
             value: value.to_string(),
         }
     }
@@ -1069,4 +1009,3 @@ impl DtmfIndicator {
         &self.value
     }
 }
-
