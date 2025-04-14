@@ -14,6 +14,248 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
 }
 
 // Charging data fields
+
+pub struct AcceptableChannelCodings {
+    pub value: String,
+}
+pub struct Action {
+    pub value: String,
+}
+
+pub struct AddRoutingCategory {
+    pub value: HDWord,
+}
+
+pub struct AgeOfEstimate {
+    pub value: String,
+}
+
+pub struct AnswerTime {
+    pub value: String,
+}
+
+pub struct AocIndicator {
+    pub value: String,
+}
+pub struct ApplicationInfo {
+    pub value: String,
+}
+pub struct BasicCallStateModel {
+    pub value: String,
+}
+
+pub struct BasicServiceCode {
+    pub value: String,
+}
+
+pub struct BasicServiceType {
+    pub value: String,
+}
+
+pub struct BatchSeqNumber {
+    pub value: String,
+}
+
+pub struct BlockSeqNumber {
+    pub value: String,
+}
+
+pub struct BncConnectionType {
+    pub value: String,
+}
+
+pub struct BIdleTime {
+    pub value: String,
+}
+
+pub struct CallMedia {
+    pub value: String,
+}
+pub struct CallReference {
+    // word + word + byte
+    pub value: String,
+}
+
+pub struct CallReferenceTime {
+    pub value: String,
+}
+pub struct CallState {
+    pub value: String,
+}
+pub struct CallType {
+    pub value: String,
+}
+
+pub struct CallingNumber {
+    //TODO
+    pub value: String,
+}
+
+pub struct CallingPSTNCategory {
+    pub value: String,
+}
+
+pub struct CAMEL_CALL_REFERENCE {
+    //TODO
+    pub value: String,
+}
+
+pub struct CAMEL_EXCHANGE_ID {
+    //TODO
+    pub value: String,
+}
+
+pub struct CAMEL_MODIFY_PARAMETERS {
+    //TODO
+    pub value: String,
+}
+
+pub struct CAMEL_MODIFICATION {
+    //TODO
+    pub value: String,
+}
+
+pub struct CAMEL_SERVICE_KEY {
+    //TODO
+    pub value: String,
+}
+
+pub struct CAMEL_SMS_MODIFICATION {
+    //TODO
+    pub value: String,
+}
+pub struct CarrierSelection {
+    pub value: String,
+}
+pub struct Category {
+    pub value: String,
+}
+pub struct CauseForForwarding {
+    pub value: String,
+}
+pub struct CAUSE_FOR_TERMINATION {
+    //TODO
+    pub value: String,
+}
+
+pub struct CELL_BAND {
+    //TODO
+    pub value: String,
+}
+pub struct CDB_INDICATOR {
+    //TODO
+    pub value: String,
+}
+pub struct CfInformation {
+    pub value: String,
+}
+
+pub struct ChangeDirection {
+    pub value: String,
+}
+pub struct ChangePercent {
+    pub value: String,
+}
+
+pub struct CHANNEL_RATE_INDICATOR {
+    //TODO
+    pub value: String,
+}
+
+pub struct ChargeNature {
+    pub value: String,
+}
+
+pub struct ChargingArea {
+    pub value: String,
+}
+pub struct ChargingBlockSize {
+    pub value: String,
+}
+pub struct CHARGING_END_TIME {
+    //TODO
+    pub value: String,
+}
+
+pub struct CHARGING_START_TIME {
+    //TODO
+    pub value: String,
+}
+pub struct CHARGING_TIME {
+    //TODO
+    pub value: String,
+}
+
+pub struct CHECK_SUM {
+    //TODO
+    pub value: String,
+}
+
+pub struct ChargeType {
+    pub value: String,
+}
+
+pub struct CI {
+    //TODO
+    pub value: String,
+}
+
+pub struct CIP_CARRIER_CODE {
+    //TODO
+    pub value: String,
+}
+
+pub struct CLIENT_EXTERNAL_ID {
+    //TODO
+    pub value: String,
+}
+pub struct CommandType {
+    value: String,
+}
+
+pub struct CONCATENATED_RECORD_NUMBER {
+    //TODO
+    pub value: String,
+}
+
+pub struct CONCATENATED_SMS_REFERENCE {
+    //TODO
+    pub value: String,
+}
+
+pub struct CONTROL_PLANE_INDEX {
+    //TODO
+    pub value: String,
+}
+
+pub struct CugInformation {
+    pub value: String,
+}
+pub struct CugOutgoingAccess {
+    pub value: String,
+}
+
+pub struct DATA_LENGTH_IN_BLOCK {
+    //TODO
+    pub value: String,
+}
+
+pub struct DATA_VOLUME {
+    //TODO
+    pub value: String,
+}
+pub struct DefaultCallHandling {
+    pub value: String,
+}
+pub struct DefaultSmsHandling {
+    pub value: String,
+}
+
+pub struct DELIVERY_TIME {
+    //TODO
+    pub value: String,
+}
+
 pub struct IntermediateChargingInd {
     pub value: String,
 }
@@ -26,78 +268,13 @@ pub struct RecordStatus {
 pub struct SelectedCodec {
     pub value: String,
 }
-pub struct ApplicationInfo {
-    pub value: String,
-}
-pub struct Action {
-    pub value: String,
-}
 pub struct TeleserviceCode {
-    pub value: String,
-}
-pub struct ChargingBlockSize {
-    pub value: String,
-}
-pub struct ChargeType {
     pub value: String,
 }
 pub struct BearerServiceCode {
     pub value: String,
 }
-pub struct CugInformation {
-    pub value: String,
-}
-pub struct CommandType {
-    value: String,
-}
-pub struct CugOutgoingAccess {
-    pub value: String,
-}
-pub struct BasicCallStateModel {
-    pub value: String,
-}
-pub struct BasicServiceType {
-    pub value: String,
-}
-pub struct BncConnectionType {
-    pub value: String,
-}
-pub struct CallMedia {
-    pub value: String,
-}
-pub struct CallState {
-    pub value: String,
-}
-pub struct CallType {
-    pub value: String,
-}
-pub struct CallingPSTNCategory {
-    pub value: String,
-}
-pub struct CarrierSelection {
-    pub value: String,
-}
-pub struct Category {
-    pub value: String,
-}
-pub struct CauseForForwarding {
-    pub value: String,
-}
 pub struct EllBand {
-    pub value: String,
-}
-pub struct CfInformation {
-    pub value: String,
-}
-pub struct CallReference {
-    // word + word + byte
-    pub value: String,
-}
-pub struct ChangeDirection {
-    pub value: String,
-}
-
-pub struct ChangePercent {
     pub value: String,
 }
 
@@ -113,26 +290,6 @@ pub struct DeviceIdentifier {
     pub value: String,
 }
 
-pub struct DefaultSmsHandling {
-    pub value: String,
-}
-
-pub struct DefaultCallHandling {
-    pub value: String,
-}
-
-pub struct ChrgType {
-    pub value: String,
-}
-
-pub struct ChargingArea {
-    pub value: String,
-}
-
-pub struct ChargeNature {
-    pub value: String,
-}
-
 // Implementation of the fields
 
 impl IntermediateChargingInd {
@@ -142,6 +299,66 @@ impl IntermediateChargingInd {
             1 => "Intermediate",
             2 => "Last Partial",
             0xFF => "NotUsed",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AgeOfEstimate {
+    pub fn new(value: &[u8]) -> Self {
+        let mut val = HDWord::new(value).value;
+        if val > 32767 {
+            val = 32767;
+        }
+        Self {
+            value: format!("{} min", val),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AnswerTime {
+    pub fn new(value: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(value).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AocIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0 => "no AoC",
+            1 => "AoC",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ApplicationInfo {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0 => "NormalShortMessage",
+            1 => "PictureMessage",
+            0xFF => "NotKnown",
             _ => "",
         };
         Self {
@@ -231,6 +448,19 @@ impl CallReference {
             value: format!("comp:{} process:{:04} focus:{:02}", comp, process, focus),
         }
     }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CallReferenceTime {
+    pub fn new(bytes: &[u8]) -> CallReferenceTime {
+        let val = BcdTimestamp::new(bytes).value;
+        Self { value: val }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
 }
 
 pub struct ExchangeId {
@@ -243,10 +473,6 @@ impl ExchangeId {
             value: decode_bcds(bytes),
         }
     }
-}
-
-pub struct AcceptableChannelCodings {
-    pub value: String,
 }
 
 impl AcceptableChannelCodings {
@@ -321,24 +547,6 @@ impl Action {
             0x07 => "Phase 1 process unstructured SS data",
             0x08 => "Phase 2 process unstructured SS data request",
             0x09 => "Phase 2 process unstructured SS data notify",
-            _ => "",
-        };
-        Self {
-            value: value.to_string(),
-        }
-    }
-
-    pub fn value(&self) -> &str {
-        &self.value
-    }
-}
-
-impl ApplicationInfo {
-    pub fn new(value: u8) -> Self {
-        let value = match value {
-            0 => "NormalShortMessage",
-            1 => "PictureMessage",
-            0xFF => "NotKnown",
             _ => "",
         };
         Self {
@@ -591,6 +799,112 @@ impl BasicServiceType {
     }
 }
 
+impl BasicServiceCode {
+    // TODO: put this together with the Basic service type byte
+    pub fn new(value: u8, basic_service_type: u8) -> Self {
+        if basic_service_type == 0 {
+            let value = match value {
+                // TeleServiceCodes
+                0x00 => "All teleservices",
+                0x10 => "Speech transmission",
+                0x11 => "Telephony",
+                0x12 => "Emergency calls",
+                0x20 => "Short messages services",
+                0x21 => "Short message MT/PP",
+                0x22 => "Short message MO/PP",
+                0x30 => "Data MHS",
+                0x31 => "Advanced MHS access",
+                0x40 => "Videotex access services",
+                0x41 => "Videotex access profile 1",
+                0x42 => "Videotex access profile 2",
+                0x43 => "Videotex access profile 3",
+                0x50 => "Teletex service",
+                0x51 => "Teletex CS",
+                0x52 => "Teletex PS",
+                0x60 => "Facsimile",
+                0x61 => "Facsimile Group 3 and alter speech",
+                0x62 => "Automatic facsimile Group 3",
+                0xD1 => "Dual numbering (alternate line service)",
+                0xFF => "Not Used",
+                _ => "",
+            };
+        }
+        if basic_service_type == 1 {
+            let value = match value {
+                // BearerServiceCode
+                0x00 => "All bearer services",
+                0x10 => "3.1 kHz group",
+                0x11 => "3.1 kHz ex PLMN",
+                0x12 => "alternate/speech",
+                0x13 => "speech followed by 3.1 kHz",
+                0x20 => "Data c.d.a",
+                0x21 => "Data c.d.a 300 b/s",
+                0x22 => "Data c.d.a 1200 b/s",
+                0x23 => "Data c.d.a 1200-75 b/s",
+                0x24 => "Data c.d.a 2400 b/s",
+                0x25 => "Data c.d.a 4800 b/s",
+                0x26 => "Data c.d.a 9600 b/s",
+                0x27 => "Data c.d.a general",
+                0x30 => "Data c.d.s",
+                0x32 => "Data c.d.s 1200 b/s",
+                0x34 => "Data c.d.s 2400 b/s",
+                0x35 => "Data c.d.s 4800 b/s",
+                0x36 => "Data c.d.s 9600 b/s",
+                0x37 => "Data c.d.s general",
+                0x40 => "PAD access c.d.a",
+                0x41 => "PAD access c.d.a 300 b/s",
+                0x42 => "PAD access c.d.a 1200 b/s",
+                0x43 => "PAD access c.d.a 1200-75 b/s",
+                0x44 => "PAD access c.d.a 2400 b/s",
+                0x45 => "PAD access c.d.a 4800 b/s",
+                0x46 => "PAD access c.d.a 9600 b/s",
+                0x47 => "PAD access c.d.a general",
+                0x50 => "Data p.d.s",
+                0x54 => "Data p.d.s 2400 b/s",
+                0x55 => "Data p.d.s 4800 b/s",
+                0x56 => "Data p.d.s 9600 b/s",
+                0x57 => "Data p.d.s general",
+                0x60 => "Alternate speech/data c.d.a",
+                0x70 => "Alternate speech/ data c.d.s",
+                0x80 => "Speech followed by data c.d.a",
+                0x90 => "Speech followed by data c.d.s",
+                0xFF => "Not Used",
+                _ => "",
+            };
+        }
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl BatchSeqNumber {
+    pub fn new(value: &[u8]) -> Self {
+        let val = BCDWord::new(value).value;
+        Self {
+            value: format!("{}", val),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl BlockSeqNumber {
+    pub fn new(value: &[u8]) -> Self {
+        let val = BCDWord::new(value).value;
+        Self {
+            value: format!("{}", val),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
 impl BncConnectionType {
     pub fn new(value: u8) -> Self {
         let value = match value {
@@ -611,7 +925,16 @@ impl BncConnectionType {
             value: value.to_string(),
         }
     }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
+impl BIdleTime {
+    pub fn new(value: &[u8]) -> Self {
+        let val = BcdTimestamp::new(value).value;
+        Self { value: val }
+    }
     pub fn value(&self) -> &str {
         &self.value
     }
