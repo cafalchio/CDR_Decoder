@@ -1,5 +1,5 @@
 use cdr_decoder::data_blocks::header::Header;
-use cdr_decoder::datatypes::mixed::*;
+use cdr_decoder::datatypes::charging_fields::*;
 use cdr_decoder::datatypes::primitives::*;
 
 #[cfg(test)]
