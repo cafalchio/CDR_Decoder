@@ -1,3 +1,4 @@
+use crate::datatypes::charging_fields::*;
 use crate::datatypes::primitives::*;
 
 pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
@@ -12,285 +13,6 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     }
     decoded
 }
-
-// Charging data fields
-
-pub struct AcceptableChannelCodings {
-    pub value: String,
-}
-pub struct Action {
-    pub value: String,
-}
-
-pub struct AddRoutingCategory {
-    pub value: HDWord,
-}
-
-pub struct AgeOfEstimate {
-    pub value: String,
-}
-
-pub struct AnswerTime {
-    pub value: String,
-}
-
-pub struct AocIndicator {
-    pub value: String,
-}
-pub struct ApplicationInfo {
-    pub value: String,
-}
-pub struct BasicCallStateModel {
-    pub value: String,
-}
-
-pub struct BasicServiceCode {
-    pub value: String,
-}
-
-pub struct BasicServiceType {
-    pub value: String,
-}
-
-pub struct BatchSeqNumber {
-    pub value: String,
-}
-
-pub struct BlockSeqNumber {
-    pub value: String,
-}
-
-pub struct BncConnectionType {
-    pub value: String,
-}
-
-pub struct BIdleTime {
-    pub value: String,
-}
-
-pub struct CallMedia {
-    pub value: String,
-}
-pub struct CallReference {
-    // word + word + byte
-    pub value: String,
-}
-
-pub struct CallReferenceTime {
-    pub value: String,
-}
-pub struct CallState {
-    pub value: String,
-}
-pub struct CallType {
-    pub value: String,
-}
-
-pub struct CallingNumber {
-    //TODO
-    pub value: String,
-}
-
-pub struct CallingPSTNCategory {
-    pub value: String,
-}
-
-pub struct CAMEL_CALL_REFERENCE {
-    //TODO
-    pub value: String,
-}
-
-pub struct CAMEL_EXCHANGE_ID {
-    //TODO
-    pub value: String,
-}
-
-pub struct CAMEL_MODIFY_PARAMETERS {
-    //TODO
-    pub value: String,
-}
-
-pub struct CAMEL_MODIFICATION {
-    //TODO
-    pub value: String,
-}
-
-pub struct CAMEL_SERVICE_KEY {
-    //TODO
-    pub value: String,
-}
-
-pub struct CAMEL_SMS_MODIFICATION {
-    //TODO
-    pub value: String,
-}
-pub struct CarrierSelection {
-    pub value: String,
-}
-pub struct Category {
-    pub value: String,
-}
-pub struct CauseForForwarding {
-    pub value: String,
-}
-pub struct CAUSE_FOR_TERMINATION {
-    //TODO
-    pub value: String,
-}
-
-pub struct CELL_BAND {
-    //TODO
-    pub value: String,
-}
-pub struct CDB_INDICATOR {
-    //TODO
-    pub value: String,
-}
-pub struct CfInformation {
-    pub value: String,
-}
-
-pub struct ChangeDirection {
-    pub value: String,
-}
-pub struct ChangePercent {
-    pub value: String,
-}
-
-pub struct CHANNEL_RATE_INDICATOR {
-    //TODO
-    pub value: String,
-}
-
-pub struct ChargeNature {
-    pub value: String,
-}
-
-pub struct ChargingArea {
-    pub value: String,
-}
-pub struct ChargingBlockSize {
-    pub value: String,
-}
-pub struct CHARGING_END_TIME {
-    //TODO
-    pub value: String,
-}
-
-pub struct CHARGING_START_TIME {
-    //TODO
-    pub value: String,
-}
-pub struct CHARGING_TIME {
-    //TODO
-    pub value: String,
-}
-
-pub struct CHECK_SUM {
-    //TODO
-    pub value: String,
-}
-
-pub struct ChargeType {
-    pub value: String,
-}
-
-pub struct CI {
-    //TODO
-    pub value: String,
-}
-
-pub struct CIP_CARRIER_CODE {
-    //TODO
-    pub value: String,
-}
-
-pub struct CLIENT_EXTERNAL_ID {
-    //TODO
-    pub value: String,
-}
-pub struct CommandType {
-    value: String,
-}
-
-pub struct CONCATENATED_RECORD_NUMBER {
-    //TODO
-    pub value: String,
-}
-
-pub struct CONCATENATED_SMS_REFERENCE {
-    //TODO
-    pub value: String,
-}
-
-pub struct CONTROL_PLANE_INDEX {
-    //TODO
-    pub value: String,
-}
-
-pub struct CugInformation {
-    pub value: String,
-}
-pub struct CugOutgoingAccess {
-    pub value: String,
-}
-
-pub struct DATA_LENGTH_IN_BLOCK {
-    //TODO
-    pub value: String,
-}
-
-pub struct DATA_VOLUME {
-    //TODO
-    pub value: String,
-}
-pub struct DefaultCallHandling {
-    pub value: String,
-}
-pub struct DefaultSmsHandling {
-    pub value: String,
-}
-
-pub struct DELIVERY_TIME {
-    //TODO
-    pub value: String,
-}
-
-pub struct IntermediateChargingInd {
-    pub value: String,
-}
-pub struct RecordType {
-    pub value: String,
-}
-pub struct RecordStatus {
-    pub value: String,
-}
-pub struct SelectedCodec {
-    pub value: String,
-}
-pub struct TeleserviceCode {
-    pub value: String,
-}
-pub struct BearerServiceCode {
-    pub value: String,
-}
-pub struct EllBand {
-    pub value: String,
-}
-
-pub struct DtmfIndicator {
-    pub value: String,
-}
-
-pub struct DisconnectingParty {
-    pub value: String,
-}
-
-pub struct DeviceIdentifier {
-    pub value: String,
-}
-
-// Implementation of the fields
 
 impl IntermediateChargingInd {
     pub fn new(value: u8) -> Self {
@@ -462,7 +184,6 @@ impl CallReferenceTime {
         &self.value
     }
 }
-
 pub struct ExchangeId {
     pub value: String,
 }
@@ -664,37 +385,6 @@ impl ChargingBlockSize {
     }
 }
 
-impl ChargeType {
-    pub fn new(value: u8) -> Self {
-        let value = match value {
-            0x00 => "00H chargeable call",
-            0x08 => "08H free from analysis",
-            0x10 => "10H free from address complete message",
-            0x20 => "20H free from answer message",
-            0x18 => "18H free from analysis and ACM",
-            0x28 => "28H free from analysis and answer message",
-            0x40 => "40H free from call progress message",
-            0x48 => "48H free from analysis and call progress message",
-            0x80 => "80H free from CDB",
-            0x88 => "88H free from analysis and CDB",
-            0x90 => "90H free from ACM and CDB",
-            0x98 => "98H free from analysis, ACM, and CDB",
-            0xA0 => "A0H free from answer message and CDB",
-            0xA8 => "A8H free from analysis, answer message, and CDB",
-            0xC0 => "C0H free from call progress message and CDB",
-            0xC8 => "C8H free from analysis, call progress message, and CDB",
-            _ => "",
-        };
-        Self {
-            value: value.to_string(),
-        }
-    }
-
-    pub fn value(&self) -> &str {
-        &self.value
-    }
-}
-
 impl CugInformation {
     pub fn new(value: u8) -> Self {
         let value = match value {
@@ -730,9 +420,8 @@ impl CommandType {
             0x04..=0x1F => format!("{:02X} - Reserved unspecified", value),
             0x20..=0xDF => format!("{:02X} - Not used", value),
             0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
-            _ => "".to_string(),
         };
-        Self { value }
+        Self { value: value }
     }
     pub fn value(&self) -> &str {
         &self.value
@@ -800,11 +489,9 @@ impl BasicServiceType {
 }
 
 impl BasicServiceCode {
-    // TODO: put this together with the Basic service type byte
     pub fn new(value: u8, basic_service_type: u8) -> Self {
-        if basic_service_type == 0 {
-            let value = match value {
-                // TeleServiceCodes
+        let description = match basic_service_type {
+            0 => match value {
                 0x00 => "All teleservices",
                 0x10 => "Speech transmission",
                 0x11 => "Telephony",
@@ -827,11 +514,8 @@ impl BasicServiceCode {
                 0xD1 => "Dual numbering (alternate line service)",
                 0xFF => "Not Used",
                 _ => "",
-            };
-        }
-        if basic_service_type == 1 {
-            let value = match value {
-                // BearerServiceCode
+            },
+            1 => match value {
                 0x00 => "All bearer services",
                 0x10 => "3.1 kHz group",
                 0x11 => "3.1 kHz ex PLMN",
@@ -870,10 +554,12 @@ impl BasicServiceCode {
                 0x90 => "Speech followed by data c.d.s",
                 0xFF => "Not Used",
                 _ => "",
-            };
-        }
+            },
+            _ => "",
+        };
+
         Self {
-            value: value.to_string(),
+            value: description.to_string(),
         }
     }
     pub fn value(&self) -> &str {
@@ -1207,7 +893,7 @@ impl ChargingArea {
     }
 }
 
-impl ChrgType {
+impl ChargeType {
     pub fn new(value: u8) -> Self {
         let value = match value {
             0x00 => "Chargeable call",
