@@ -1,3 +1,4 @@
+use crate::datatypes::charging_fields::*;
 use crate::datatypes::primitives::*;
 
 pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
@@ -13,127 +14,16 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     decoded
 }
 
-// Charging data fields
-pub struct IntermediateChargingInd {
-    pub value: String,
+pub fn decode_hexs(hex_bytes: &[u8]) -> String {
+    let mut decoded = String::new();
+    for &byte in hex_bytes.iter() {
+        if byte == 0xFF {
+            continue; // skip 0xFF
+        }
+        decoded.push_str(&format!("{}", &byte));
+    }
+    decoded
 }
-pub struct RecordType {
-    pub value: String,
-}
-pub struct RecordStatus {
-    pub value: String,
-}
-pub struct SelectedCodec {
-    pub value: String,
-}
-pub struct ApplicationInfo {
-    pub value: String,
-}
-pub struct Action {
-    pub value: String,
-}
-pub struct TeleserviceCode {
-    pub value: String,
-}
-pub struct ChargingBlockSize {
-    pub value: String,
-}
-pub struct ChargeType {
-    pub value: String,
-}
-pub struct BearerServiceCode {
-    pub value: String,
-}
-pub struct CugInformation {
-    pub value: String,
-}
-pub struct CommandType {
-    value: String,
-}
-pub struct CugOutgoingAccess {
-    pub value: String,
-}
-pub struct BasicCallStateModel {
-    pub value: String,
-}
-pub struct BasicServiceType {
-    pub value: String,
-}
-pub struct BncConnectionType {
-    pub value: String,
-}
-pub struct CallMedia {
-    pub value: String,
-}
-pub struct CallState {
-    pub value: String,
-}
-pub struct CallType {
-    pub value: String,
-}
-pub struct CallingPSTNCategory {
-    pub value: String,
-}
-pub struct CarrierSelection {
-    pub value: String,
-}
-pub struct Category {
-    pub value: String,
-}
-pub struct CauseForForwarding {
-    pub value: String,
-}
-pub struct EllBand {
-    pub value: String,
-}
-pub struct CfInformation {
-    pub value: String,
-}
-pub struct CallReference {
-    // word + word + byte
-    pub value: String,
-}
-pub struct ChangeDirection {
-    pub value: String,
-}
-
-pub struct ChangePercent {
-    pub value: String,
-}
-
-pub struct DtmfIndicator {
-    pub value: String,
-}
-
-pub struct DisconnectingParty {
-    pub value: String,
-}
-
-pub struct DeviceIdentifier {
-    pub value: String,
-}
-
-pub struct DefaultSmsHandling {
-    pub value: String,
-}
-
-pub struct DefaultCallHandling {
-    pub value: String,
-}
-
-pub struct ChrgType {
-    pub value: String,
-}
-
-pub struct ChargingArea {
-    pub value: String,
-}
-
-pub struct ChargeNature {
-    pub value: String,
-}
-
-// Implementation of the fields
 
 impl IntermediateChargingInd {
     pub fn new(value: u8) -> Self {
@@ -142,6 +32,66 @@ impl IntermediateChargingInd {
             1 => "Intermediate",
             2 => "Last Partial",
             0xFF => "NotUsed",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AgeOfEstimate {
+    pub fn new(value: &[u8]) -> Self {
+        let mut val = HDWord::new(value).value;
+        if val > 32767 {
+            val = 32767;
+        }
+        Self {
+            value: format!("{} min", val),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AnswerTime {
+    pub fn new(value: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(value).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AocIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0 => "no AoC",
+            1 => "AoC",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ApplicationInfo {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0 => "NormalShortMessage",
+            1 => "PictureMessage",
+            0xFF => "NotKnown",
             _ => "",
         };
         Self {
@@ -231,8 +181,20 @@ impl CallReference {
             value: format!("comp:{} process:{:04} focus:{:02}", comp, process, focus),
         }
     }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
 }
 
+impl CallReferenceTime {
+    pub fn new(bytes: &[u8]) -> CallReferenceTime {
+        let val = BcdTimestamp::new(bytes).value;
+        Self { value: val }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 pub struct ExchangeId {
     pub value: String,
 }
@@ -243,10 +205,6 @@ impl ExchangeId {
             value: decode_bcds(bytes),
         }
     }
-}
-
-pub struct AcceptableChannelCodings {
-    pub value: String,
 }
 
 impl AcceptableChannelCodings {
@@ -321,24 +279,6 @@ impl Action {
             0x07 => "Phase 1 process unstructured SS data",
             0x08 => "Phase 2 process unstructured SS data request",
             0x09 => "Phase 2 process unstructured SS data notify",
-            _ => "",
-        };
-        Self {
-            value: value.to_string(),
-        }
-    }
-
-    pub fn value(&self) -> &str {
-        &self.value
-    }
-}
-
-impl ApplicationInfo {
-    pub fn new(value: u8) -> Self {
-        let value = match value {
-            0 => "NormalShortMessage",
-            1 => "PictureMessage",
-            0xFF => "NotKnown",
             _ => "",
         };
         Self {
@@ -456,37 +396,6 @@ impl ChargingBlockSize {
     }
 }
 
-impl ChargeType {
-    pub fn new(value: u8) -> Self {
-        let value = match value {
-            0x00 => "00H chargeable call",
-            0x08 => "08H free from analysis",
-            0x10 => "10H free from address complete message",
-            0x20 => "20H free from answer message",
-            0x18 => "18H free from analysis and ACM",
-            0x28 => "28H free from analysis and answer message",
-            0x40 => "40H free from call progress message",
-            0x48 => "48H free from analysis and call progress message",
-            0x80 => "80H free from CDB",
-            0x88 => "88H free from analysis and CDB",
-            0x90 => "90H free from ACM and CDB",
-            0x98 => "98H free from analysis, ACM, and CDB",
-            0xA0 => "A0H free from answer message and CDB",
-            0xA8 => "A8H free from analysis, answer message, and CDB",
-            0xC0 => "C0H free from call progress message and CDB",
-            0xC8 => "C8H free from analysis, call progress message, and CDB",
-            _ => "",
-        };
-        Self {
-            value: value.to_string(),
-        }
-    }
-
-    pub fn value(&self) -> &str {
-        &self.value
-    }
-}
-
 impl CugInformation {
     pub fn new(value: u8) -> Self {
         let value = match value {
@@ -522,9 +431,8 @@ impl CommandType {
             0x04..=0x1F => format!("{:02X} - Reserved unspecified", value),
             0x20..=0xDF => format!("{:02X} - Not used", value),
             0xE0..=0xFF => format!("{:02X} - Values specific for each SMSC", value),
-            _ => "".to_string(),
         };
-        Self { value }
+        Self { value: value }
     }
     pub fn value(&self) -> &str {
         &self.value
@@ -591,6 +499,109 @@ impl BasicServiceType {
     }
 }
 
+impl BasicServiceCode {
+    pub fn new(value: u8, basic_service_type: u8) -> Self {
+        let description = match basic_service_type {
+            0 => match value {
+                0x00 => "All teleservices",
+                0x10 => "Speech transmission",
+                0x11 => "Telephony",
+                0x12 => "Emergency calls",
+                0x20 => "Short messages services",
+                0x21 => "Short message MT/PP",
+                0x22 => "Short message MO/PP",
+                0x30 => "Data MHS",
+                0x31 => "Advanced MHS access",
+                0x40 => "Videotex access services",
+                0x41 => "Videotex access profile 1",
+                0x42 => "Videotex access profile 2",
+                0x43 => "Videotex access profile 3",
+                0x50 => "Teletex service",
+                0x51 => "Teletex CS",
+                0x52 => "Teletex PS",
+                0x60 => "Facsimile",
+                0x61 => "Facsimile Group 3 and alter speech",
+                0x62 => "Automatic facsimile Group 3",
+                0xD1 => "Dual numbering (alternate line service)",
+                0xFF => "Not Used",
+                _ => "",
+            },
+            1 => match value {
+                0x00 => "All bearer services",
+                0x10 => "3.1 kHz group",
+                0x11 => "3.1 kHz ex PLMN",
+                0x12 => "alternate/speech",
+                0x13 => "speech followed by 3.1 kHz",
+                0x20 => "Data c.d.a",
+                0x21 => "Data c.d.a 300 b/s",
+                0x22 => "Data c.d.a 1200 b/s",
+                0x23 => "Data c.d.a 1200-75 b/s",
+                0x24 => "Data c.d.a 2400 b/s",
+                0x25 => "Data c.d.a 4800 b/s",
+                0x26 => "Data c.d.a 9600 b/s",
+                0x27 => "Data c.d.a general",
+                0x30 => "Data c.d.s",
+                0x32 => "Data c.d.s 1200 b/s",
+                0x34 => "Data c.d.s 2400 b/s",
+                0x35 => "Data c.d.s 4800 b/s",
+                0x36 => "Data c.d.s 9600 b/s",
+                0x37 => "Data c.d.s general",
+                0x40 => "PAD access c.d.a",
+                0x41 => "PAD access c.d.a 300 b/s",
+                0x42 => "PAD access c.d.a 1200 b/s",
+                0x43 => "PAD access c.d.a 1200-75 b/s",
+                0x44 => "PAD access c.d.a 2400 b/s",
+                0x45 => "PAD access c.d.a 4800 b/s",
+                0x46 => "PAD access c.d.a 9600 b/s",
+                0x47 => "PAD access c.d.a general",
+                0x50 => "Data p.d.s",
+                0x54 => "Data p.d.s 2400 b/s",
+                0x55 => "Data p.d.s 4800 b/s",
+                0x56 => "Data p.d.s 9600 b/s",
+                0x57 => "Data p.d.s general",
+                0x60 => "Alternate speech/data c.d.a",
+                0x70 => "Alternate speech/ data c.d.s",
+                0x80 => "Speech followed by data c.d.a",
+                0x90 => "Speech followed by data c.d.s",
+                0xFF => "Not Used",
+                _ => "",
+            },
+            _ => "",
+        };
+
+        Self {
+            value: description.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl BatchSeqNumber {
+    pub fn new(value: &[u8]) -> Self {
+        let val = BCDWord::new(value).value;
+        Self {
+            value: format!("{}", val),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl BlockSeqNumber {
+    pub fn new(value: &[u8]) -> Self {
+        let val = BCDWord::new(value).value;
+        Self {
+            value: format!("{}", val),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
 impl BncConnectionType {
     pub fn new(value: u8) -> Self {
         let value = match value {
@@ -611,7 +622,16 @@ impl BncConnectionType {
             value: value.to_string(),
         }
     }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
+impl BIdleTime {
+    pub fn new(value: &[u8]) -> Self {
+        let val = BcdTimestamp::new(value).value;
+        Self { value: val }
+    }
     pub fn value(&self) -> &str {
         &self.value
     }
@@ -884,7 +904,7 @@ impl ChargingArea {
     }
 }
 
-impl ChrgType {
+impl ChargeType {
     pub fn new(value: u8) -> Self {
         let value = match value {
             0x00 => "Chargeable call",
@@ -1005,6 +1025,248 @@ impl DtmfIndicator {
         }
     }
 
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CallingNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        CallingNumber {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelCallReference {
+    pub fn new(bytes: &[u8]) -> Self {
+        CamelCallReference {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelExchangeId {
+    pub fn new(bytes: &[u8]) -> Self {
+        CamelExchangeId {
+            value: decode_bcds(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelModifyParameters {
+    pub fn new(bytes: &[u8]) -> Self {
+        CamelModifyParameters {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelModification {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut modifications = vec![];
+
+        let byte0 = bytes[3];
+        let byte1 = bytes[2];
+        let byte2 = bytes[1];
+        // let byte3 = bytes[0]; // unused
+
+        if byte0 & 0b0000_0001 != 0 {
+            modifications.push("calling category");
+        }
+        if byte0 & 0b0000_0010 != 0 {
+            modifications.push("original called number");
+        }
+        if byte0 & 0b0000_0100 != 0 {
+            modifications.push("additional Calling line identity");
+        }
+        if byte0 & 0b0000_1000 != 0 {
+            modifications.push("redirecting number");
+        }
+        if byte0 & 0b0001_0000 != 0 {
+            modifications.push("redirection counter");
+        }
+        if byte0 & 0b0010_0000 != 0 {
+            modifications.push("carrier information");
+        }
+        if byte0 & 0b0100_0000 != 0 {
+            modifications.push("originating line information");
+        }
+        if byte0 & 0b1000_0000 != 0 {
+            modifications.push("charge number");
+        }
+
+        if byte1 & 0b0000_0001 != 0 {
+            modifications.push("forward conference");
+        }
+        if byte1 & 0b0000_0010 != 0 {
+            modifications.push("call diversion");
+        }
+        if byte1 & 0b0000_0100 != 0 {
+            modifications.push("calling party restriction");
+        }
+        if byte1 & 0b0000_1000 != 0 {
+            modifications.push("backward conference");
+        }
+        if byte1 & 0b0001_0000 != 0 {
+            modifications.push("connected number");
+        }
+        if byte1 & 0b0010_0000 != 0 {
+            modifications.push("hold");
+        }
+        if byte1 & 0b0100_0000 != 0 {
+            modifications.push("call wait");
+        }
+        if byte1 & 0b1000_0000 != 0 {
+            modifications.push("explicit call transfer");
+        }
+
+        if byte2 & 0b0000_0001 != 0 {
+            modifications.push("call completion");
+        }
+        if byte2 & 0b0000_0010 != 0 {
+            modifications.push("CUG interlock code");
+        }
+        if byte2 & 0b0000_0100 != 0 {
+            modifications.push("CUG outgoing access");
+        }
+        if byte2 & 0b0000_1000 != 0 {
+            modifications.push("non CUG-call");
+        }
+        if byte2 & 0b0001_0000 != 0 {
+            modifications.push("destination routing number");
+        }
+
+        let value = modifications.join(", ");
+        Self { value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelServiceKey {
+    pub fn new(bytes: &[u8]) -> Self {
+        let key_value = HDWord::new(bytes).value;
+        let value = match key_value {
+            0x00..0x7FFFFFFF => format!("{}", key_value),
+            _ => "".to_string(),
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelSMSModification {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut modifications = vec![];
+
+        let byte0 = bytes[1];
+        // let byte1 = bytes[0]; Not used
+        if byte0 & 0b0000_0001 != 0 {
+            modifications.push("calling party number is modified");
+        }
+        if byte0 & 0b0000_0010 != 0 {
+            modifications.push("called party number is modified");
+        }
+        if byte0 & 0b0000_0100 != 0 {
+            modifications.push("SMSC address is modified");
+        }
+        let value = modifications.join(", ");
+        Self { value }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CauseForTermination {
+    pub fn new(bytes: &[u8]) -> Self {
+        CauseForTermination {
+            value: format!("{}", HDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CellBand {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Not defined",
+            0x01 => "GSM",
+            0x02 => "DCS",
+            0x03 => "WCDMA",
+            0xFF => "Does not exist",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CDBIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "call drop back not used",
+            0x01 => "call drop back used",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ChannelRateIndicator {
+    pub fn new(byte: u8) -> Self {
+        let low = byte & 0b0000_1111;
+        let high = byte >> 4 & 0b0000_1111;
+        let low_byte = match low {
+            0x00 => "half rate",
+            0x01 => "full rate",
+            0x02 => "dual rate half rate preferred",
+            0x03 => "dual rate full rate preferred",
+            0xFF => "not used",
+            _ => "",
+        };
+        let high_byte = match high {
+            0x00 => "not exist",
+            0x01 => "sdcch",
+            0x02 => "full rate",
+            0x03 => "dual rate full rate preferred",
+            0xFF => "not used",
+            _ => "",
+        };
+        let value = format!("{} {}", low_byte, high_byte);
+
+        Self { value: value }
+    }
     pub fn value(&self) -> &str {
         &self.value
     }

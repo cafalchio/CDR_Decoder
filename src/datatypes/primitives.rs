@@ -88,6 +88,7 @@ impl BCD2uword {
 
 #[allow(dead_code)]
 pub struct BcdTimestamp {
+    // 5 BCD bytes + 1 BCD word: SSMMHH DDMMYYYY
     pub value: String,
 }
 
