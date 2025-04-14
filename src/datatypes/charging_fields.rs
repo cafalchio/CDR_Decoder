@@ -76,7 +76,6 @@ pub struct CallType {
 }
 
 pub struct CallingNumber {
-    //TODO
     pub value: String,
 }
 
@@ -84,33 +83,27 @@ pub struct CallingPSTNCategory {
     pub value: String,
 }
 
-pub struct CAMEL_CALL_REFERENCE {
-    //TODO
+pub struct CamelCallReference {
     pub value: String,
 }
 
-pub struct CAMEL_EXCHANGE_ID {
-    //TODO
+pub struct CamelExchangeId {
     pub value: String,
 }
 
-pub struct CAMEL_MODIFY_PARAMETERS {
-    //TODO
+pub struct CamelModifyParameters {
     pub value: String,
 }
 
-pub struct CAMEL_MODIFICATION {
-    //TODO
+pub struct CamelModification {
     pub value: String,
 }
 
-pub struct CAMEL_SERVICE_KEY {
-    //TODO
+pub struct CamelServiceKey {
     pub value: String,
 }
 
-pub struct CAMEL_SMS_MODIFICATION {
-    //TODO
+pub struct CamelSMSModification {
     pub value: String,
 }
 pub struct CarrierSelection {
@@ -122,17 +115,14 @@ pub struct Category {
 pub struct CauseForForwarding {
     pub value: String,
 }
-pub struct CAUSE_FOR_TERMINATION {
-    //TODO
+pub struct CauseForTermination {
     pub value: String,
 }
 
-pub struct CELL_BAND {
-    //TODO
+pub struct CellBand {
     pub value: String,
 }
-pub struct CDB_INDICATOR {
-    //TODO
+pub struct CDBIndicator {
     pub value: String,
 }
 pub struct CfInformation {
@@ -146,8 +136,7 @@ pub struct ChangePercent {
     pub value: String,
 }
 
-pub struct CHANNEL_RATE_INDICATOR {
-    //TODO
+pub struct ChannelRateIndicator {
     pub value: String,
 }
 

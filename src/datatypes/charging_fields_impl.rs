@@ -14,6 +14,17 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     decoded
 }
 
+pub fn decode_hexs(hex_bytes: &[u8]) -> String {
+    let mut decoded = String::new();
+    for &byte in hex_bytes.iter() {
+        if byte == 0xFF {
+            continue; // skip 0xFF
+        }
+        decoded.push_str(&format!("{}", &byte));
+    }
+    decoded
+}
+
 impl IntermediateChargingInd {
     pub fn new(value: u8) -> Self {
         let value = match value {
@@ -1014,6 +1025,248 @@ impl DtmfIndicator {
         }
     }
 
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CallingNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        CallingNumber {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelCallReference {
+    pub fn new(bytes: &[u8]) -> Self {
+        CamelCallReference {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelExchangeId {
+    pub fn new(bytes: &[u8]) -> Self {
+        CamelExchangeId {
+            value: decode_bcds(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelModifyParameters {
+    pub fn new(bytes: &[u8]) -> Self {
+        CamelModifyParameters {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelModification {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut modifications = vec![];
+
+        let byte0 = bytes[3];
+        let byte1 = bytes[2];
+        let byte2 = bytes[1];
+        // let byte3 = bytes[0]; // unused
+
+        if byte0 & 0b0000_0001 != 0 {
+            modifications.push("calling category");
+        }
+        if byte0 & 0b0000_0010 != 0 {
+            modifications.push("original called number");
+        }
+        if byte0 & 0b0000_0100 != 0 {
+            modifications.push("additional Calling line identity");
+        }
+        if byte0 & 0b0000_1000 != 0 {
+            modifications.push("redirecting number");
+        }
+        if byte0 & 0b0001_0000 != 0 {
+            modifications.push("redirection counter");
+        }
+        if byte0 & 0b0010_0000 != 0 {
+            modifications.push("carrier information");
+        }
+        if byte0 & 0b0100_0000 != 0 {
+            modifications.push("originating line information");
+        }
+        if byte0 & 0b1000_0000 != 0 {
+            modifications.push("charge number");
+        }
+
+        if byte1 & 0b0000_0001 != 0 {
+            modifications.push("forward conference");
+        }
+        if byte1 & 0b0000_0010 != 0 {
+            modifications.push("call diversion");
+        }
+        if byte1 & 0b0000_0100 != 0 {
+            modifications.push("calling party restriction");
+        }
+        if byte1 & 0b0000_1000 != 0 {
+            modifications.push("backward conference");
+        }
+        if byte1 & 0b0001_0000 != 0 {
+            modifications.push("connected number");
+        }
+        if byte1 & 0b0010_0000 != 0 {
+            modifications.push("hold");
+        }
+        if byte1 & 0b0100_0000 != 0 {
+            modifications.push("call wait");
+        }
+        if byte1 & 0b1000_0000 != 0 {
+            modifications.push("explicit call transfer");
+        }
+
+        if byte2 & 0b0000_0001 != 0 {
+            modifications.push("call completion");
+        }
+        if byte2 & 0b0000_0010 != 0 {
+            modifications.push("CUG interlock code");
+        }
+        if byte2 & 0b0000_0100 != 0 {
+            modifications.push("CUG outgoing access");
+        }
+        if byte2 & 0b0000_1000 != 0 {
+            modifications.push("non CUG-call");
+        }
+        if byte2 & 0b0001_0000 != 0 {
+            modifications.push("destination routing number");
+        }
+
+        let value = modifications.join(", ");
+        Self { value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelServiceKey {
+    pub fn new(bytes: &[u8]) -> Self {
+        let key_value = HDWord::new(bytes).value;
+        let value = match key_value {
+            0x00..0x7FFFFFFF => format!("{}", key_value),
+            _ => "".to_string(),
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CamelSMSModification {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut modifications = vec![];
+
+        let byte0 = bytes[1];
+        // let byte1 = bytes[0]; Not used
+        if byte0 & 0b0000_0001 != 0 {
+            modifications.push("calling party number is modified");
+        }
+        if byte0 & 0b0000_0010 != 0 {
+            modifications.push("called party number is modified");
+        }
+        if byte0 & 0b0000_0100 != 0 {
+            modifications.push("SMSC address is modified");
+        }
+        let value = modifications.join(", ");
+        Self { value }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CauseForTermination {
+    pub fn new(bytes: &[u8]) -> Self {
+        CauseForTermination {
+            value: format!("{}", HDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CellBand {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Not defined",
+            0x01 => "GSM",
+            0x02 => "DCS",
+            0x03 => "WCDMA",
+            0xFF => "Does not exist",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CDBIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "call drop back not used",
+            0x01 => "call drop back used",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ChannelRateIndicator {
+    pub fn new(byte: u8) -> Self {
+        let low = byte & 0b0000_1111;
+        let high = byte >> 4 & 0b0000_1111;
+        let low_byte = match low {
+            0x00 => "half rate",
+            0x01 => "full rate",
+            0x02 => "dual rate half rate preferred",
+            0x03 => "dual rate full rate preferred",
+            0xFF => "not used",
+            _ => "",
+        };
+        let high_byte = match high {
+            0x00 => "not exist",
+            0x01 => "sdcch",
+            0x02 => "full rate",
+            0x03 => "dual rate full rate preferred",
+            0xFF => "not used",
+            _ => "",
+        };
+        let value = format!("{} {}", low_byte, high_byte);
+
+        Self { value: value }
+    }
     pub fn value(&self) -> &str {
         &self.value
     }
