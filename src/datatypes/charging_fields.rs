@@ -150,22 +150,18 @@ pub struct ChargingArea {
 pub struct ChargingBlockSize {
     pub value: String,
 }
-pub struct CHARGING_END_TIME {
-    //TODO
+pub struct ChargingEndtime {
     pub value: String,
 }
 
-pub struct CHARGING_START_TIME {
-    //TODO
+pub struct ChargingStartTime {
     pub value: String,
 }
-pub struct CHARGING_TIME {
-    //TODO
+pub struct ChargingTime {
     pub value: String,
 }
 
-pub struct CHECK_SUM {
-    //TODO
+pub struct CheckSum {
     pub value: String,
 }
 
@@ -173,35 +169,29 @@ pub struct ChargeType {
     pub value: String,
 }
 pub struct CI {
-    //TODO
     pub value: String,
 }
 
-pub struct CIP_CARRIER_CODE {
-    //TODO
+pub struct CIPCarrierCode {
     pub value: String,
 }
 
-pub struct CLIENT_EXTERNAL_ID {
-    //TODO
+pub struct ClientExternalId {
     pub value: String,
 }
 pub struct CommandType {
     pub value: String,
 }
 
-pub struct CONCATENATED_RECORD_NUMBER {
-    //TODO
+pub struct ConcatenatedRecordNumber {
     pub value: String,
 }
 
-pub struct CONCATENATED_SMS_REFERENCE {
-    //TODO
+pub struct ConcatenatedSMSReference {
     pub value: String,
 }
 
-pub struct CONTROL_PLANE_INDEX {
-    //TODO
+pub struct ControlPlaneIndex {
     pub value: String,
 }
 
@@ -212,13 +202,11 @@ pub struct CugOutgoingAccess {
     pub value: String,
 }
 
-pub struct DATA_LENGTH_IN_BLOCK {
-    //TODO
+pub struct DataLengthInBlock {
     pub value: String,
 }
 
-pub struct DATA_VOLUME {
-    //TODO
+pub struct DataVolume {
     pub value: String,
 }
 pub struct DefaultCallHandling {
@@ -228,8 +216,7 @@ pub struct DefaultSmsHandling {
     pub value: String,
 }
 
-pub struct DELIVERY_TIME {
-    //TODO
+pub struct DeliveryTime {
     pub value: String,
 }
 
@@ -237,8 +224,7 @@ pub struct DeviceIdentifier {
     pub value: String,
 }
 
-pub struct DIALLED_DIGITS {
-    //TODO
+pub struct DialledDigits {
     pub value: String,
 }
 pub struct DisconnectingParty {
@@ -249,219 +235,174 @@ pub struct DtmfIndicator {
     pub value: String,
 }
 
-pub struct DURATION {
-    //TODO
+pub struct Duration {
     pub value: String,
 }
-pub struct DURATION_BEFORE_ANSWER {
-    //TODO
+pub struct DurationBeforeAnswer {
     pub value: String,
 }
-pub struct DURATION_BEFORE_ANSWER_TEN_MS {
-    //TODO
+pub struct DurationBeforeAnswerTenMs {
     pub value: String,
 }
-pub struct DURATION_TEN_MS {
-    //TODO
+pub struct DurationTenMs {
     pub value: String,
 }
 pub struct EllBand {
     pub value: String,
 }
 
-pub struct EMERGENCY_CALL_CATEGORY {
-    //TODO
+pub struct EmergencyCallCategory {
     pub value: String,
 }
 
-pub struct END_TIME {
-    //TODO
+pub struct EndTime {
     pub value: String,
 }
-pub struct EQUIPMENT_TYPE {
-    //TODO
-    pub value: String,
-}
-
-pub struct EQUIPMENT_ID {
-    //TODO
+pub struct EquipmentType {
     pub value: String,
 }
 
-pub struct EXCHANGE_ID {
-    //TODO
+pub struct EquipmentId {
     pub value: String,
 }
 
-pub struct EXIT_MSG_TIME {
-    //TODO
+pub struct ExchangeId {
     pub value: String,
 }
 
-pub struct EXIT_MSG_TRUNK_GROUP {
-    //TODO
+pub struct ExitMSGTime {
     pub value: String,
 }
 
-pub struct FACILITY_USAGE {
-    //TODO
+pub struct ExitMSGTrunkGroup {
     pub value: String,
 }
 
-pub struct FIRST_RECORD_NUMBER {
-    //TODO
+pub struct FacilityUsage {
     pub value: String,
 }
 
-pub struct FIXED_NW_USER_RATE {
-    //TODO
+pub struct FirstRecordNumber {
     pub value: String,
 }
 
-pub struct FORMAT_VERSION {
-    //TODO
+pub struct FixedNWUserRate {
     pub value: String,
 }
 
-pub struct FORWARDED_TO_SMSC {
-    //TODO
+pub struct FormatVersion {
     pub value: String,
 }
 
-pub struct GLOBAL_CALL_REFERENCE {
-    //TODO
+pub struct ForwardedToSMSC {
     pub value: String,
 }
-pub struct GMLC_ADDRESS {
-    //TODO
+
+pub struct GlobalCallReference {
     pub value: String,
 }
-pub struct GMSC_ADDRESS {
-    //TODO
+pub struct GMLCAddress {
     pub value: String,
 }
-pub struct GPS_DATA {
-    //TODO
+pub struct GMSCAddress {
     pub value: String,
 }
-pub struct GPS_DATA_LENGTH {
-    //TODO
+pub struct GPSData {
     pub value: String,
 }
-pub struct HORIZONTAL_ACCURACY {
-    //TODO
+pub struct GPSDataLength {
     pub value: String,
 }
-pub struct HOT_BILLING_RECORD_NUMBER {
-    //TODO
+pub struct HorizontalAccuracy {
     pub value: String,
 }
-pub struct ICID_LENGTH {
-    //TODO
+pub struct HotBilingRecordNumber {
     pub value: String,
 }
-pub struct ICID_OVERFLOW {
-    //TODO
+pub struct ICID {
+    pub value: String,
+}
+pub struct ICIDLength {
+    pub value: String,
+}
+pub struct ICIDOverflow {
     pub value: String,
 }
 pub struct IMEI {
-    //TODO
     pub value: String,
 }
 pub struct IMEISV {
-    //TODO
     pub value: String,
 }
 pub struct IMSI {
-    //TODO
     pub value: String,
 }
-pub struct IN_CATEGORY_KEY {
-    //TODO
+pub struct InCategoryKey {
     pub value: String,
 }
-pub struct IN_CHANNEL_ALLOCATED_TIME {
-    //TODO
+pub struct InChannelAllocatedTime {
     pub value: String,
 }
-pub struct IN_CIRCUIT_GROUP {
-    //TODO
+pub struct InCircuitGroup {
     pub value: String,
 }
-pub struct IN_CIRCUIT_GROUP_NAME {
-    //TODO
+pub struct InCircuitGroupName {
     pub value: String,
 }
-pub struct IN_CIRCUIT {
-    //TODO
+pub struct InCircuit {
     pub value: String,
 }
-pub struct IN_DATA {
-    //TODO
+pub struct InData {
+    // This field varies in length based on In data length
     pub value: String,
 }
-pub struct IN_DATA_SPARE {
-    //TODO
+pub struct InDataSpare {
     pub value: String,
 }
-pub struct IN_DATA_LENGTH {
-    //TODO
+pub struct InDataLength {
     pub value: String,
 }
-pub struct IN_DATA_LENGTH2 {
-    //TODO
+pub struct InDataLength2 {
     pub value: String,
 }
-pub struct IN_LEG_ID {
-    //TODO
+pub struct InLegId {
     pub value: String,
 }
-pub struct IN_SERVICES {
-    //TODO
+pub struct InServices {
     pub value: String,
 }
-pub struct INCOMING_TIME {
-    //TODO
+pub struct IncomingTime {
     pub value: String,
 }
-pub struct INITIATOR {
-    //TODO
+pub struct Initiator {
     pub value: String,
 }
-pub struct IN_RECORD_NUMBER {
-    //TODO
+pub struct InRecordNumber {
     pub value: String,
 }
 pub struct IntermediateChargingInd {
     pub value: String,
 }
 
-pub struct INTERMEDIATE_CHRG_CAUSE {
-    //TODO
+pub struct IntermediateChrgCause {
     pub value: String,
 }
-pub struct INTERMEDIATE_RECORD_NUMBER {
-    //TODO
+pub struct IntermediateRecordNumber {
     pub value: String,
 }
 pub struct JIP {
-    //TODO
     pub value: String,
 }
 pub struct LAC {
-    //TODO
     pub value: String,
 }
-pub struct LAST_EX_ID {
-    //TODO
+pub struct LastExId {
     pub value: String,
 }
-pub struct LAST_RECORD_NUMBER {
-    //TODO
+pub struct LastRecordNumber {
     pub value: String,
 }
-pub struct LEG_CALL_REFERENCE {
-    //TODO
+pub struct LegCallReference {
     pub value: String,
 }
 pub struct LEVEL_OF_CAMEL_SERVICE {
