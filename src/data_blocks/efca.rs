@@ -1,7 +1,7 @@
-// FORMAT TYPE:      14
-// MESSAGE NUMBER:   dd91
-// FORMAT TYPE NAME: PBXT
-// RECORD LENGTH:    134
+// FORMAT TYPE:      23
+// MESSAGE NUMBER:   efca
+// FORMAT TYPE NAME: SMMF
+// RECORD LENGTH:    151
 
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
@@ -25,32 +25,32 @@
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
-// intermediate_record_number                    BCD(  1)        25
-// intermediate_charging_ind                       C(  1)        26
-// number_of_ss_records                          BCD(  1)        27
-// calling_number_ton                              C(  1)        28
-// calling_number                                  C( 12)        29
+// called_imsi                                     C(  8)        25
+// called_imei                                     C(  8)        33
 // called_number_ton                               C(  1)        41
 // called_number                                   C( 12)        42
-// out_circuit_group                             BCD(  2)        54
-// out_circuit                                   BCD(  2)        56
-// in_channel_allocated_time                       C(  7)        58
-// charging_start_time                             C(  7)        65
-// charging_end_time                               C(  7)        72
+// called_category                                 C(  1)        54
+// sms_centre                                      C( 10)        55
+// incoming_time                                   C(  7)        65
+// delivery_time                                   C(  7)        72
 // cause_for_termination                          DW(  1)        79
-// call_type                                       C(  1)        83
-// oaz_chrg_type                                   C(  1)        84
-// oaz_duration                                  BCD(  3)        85
-// oaz_tariff_class                              BCD(  3)        88
-// oaz_pulses                                    BCD(  2)        91
-// intermediate_chrg_cause                         C(  2)        93
-// leg_call_reference                              C(  5)        95
-// call_reference_time                             C(  7)       100
-// redirected_indicator                            C(  1)       107
-// pni                                             C(  3)       108
-// b_idle_time                                     C(  7)       111
-// number_of_in_records                          BCD(  1)       118
-// scp_connection                                  C(  1)       119
-// number_of_all_in_records                      BCD(  1)       120
-// redirecting_number                              C( 12)       121
-// collect_call_indicator                          C(  1)       133
+// basic_service_type                              C(  1)        83
+// basic_service_code                              C(  1)        84
+// msc_type                                        C(  1)        85
+// calling_number_ton                              C(  1)        86
+// calling_number                                  C( 11)        87
+// called_vmsc_number                              C( 10)        98
+// sms_type                                        C(  1)       108
+// sms_length                                      C(  1)       109
+// number_of_in_records                          BCD(  1)       110
+// forwarded_to_number_ton                         C(  1)       111
+// forwarded_to_number                             C( 12)       112
+// forwarded_to_smsc                               C( 12)       124
+// num_of_concatenated_sms                         C(  1)       136
+// concatenated_record_number                      C(  1)       137
+// concatenated_sms_reference                      W(  1)       138
+// routing_category                                C(  1)       140
+// application_info                                C(  1)       141
+// add_routing_category                            W(  1)       142
+// call_reference_time                             C(  7)       144
+                                                                                                                            

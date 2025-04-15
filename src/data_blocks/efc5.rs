@@ -1,9 +1,7 @@
-
-
-// FORMAT TYPE:      7
-// MESSAGE NUMBER:   efcc
-// FORMAT TYPE NAME: LOCA
-// RECORD LENGTH:    86
+// FORMAT TYPE:      29
+// MESSAGE NUMBER:   efc5
+// FORMAT TYPE NAME: USSD
+// RECORD LENGTH:    88
 
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
@@ -28,14 +26,17 @@
 // FIELD NAME                                   DATA TYPE  POSITION
 
 // served_imsi                                     C(  8)        25
-// subs_old_lac                                    W(  1)        33
-// subs_old_ex_id                                  C( 10)        35
-// subs_new_lac                                    W(  1)        45
-// subs_new_ex_id                                  C( 10)        47
-// charging_time                                   C(  7)        57
-// served_number_ton                               C(  1)        64
-// served_number                                   C( 12)        65
-// call_reference_time                             C(  7)        77
-// loc_up_indicator                                C(  1)        84
-// number_of_in_records                          BCD(  1)        85
-  
+// served_imei                                     C(  8)        33
+// served_number_ton                               C(  1)        41
+// served_number                                   C( 10)        42
+// initiator                                       C(  1)        52
+// action                                          C(  1)        53
+// start_time                                      C(  7)        54
+// end_time                                        C(  7)        61
+// cause_for_termination                          DW(  1)        68
+// served_subs_lac                                 W(  1)        72
+// served_subs_ci                                  W(  1)        74
+// number_of_transactions                        BCD(  1)        76
+// service_code                                    C( 10)        77
+// radio_network_type                              C(  1)        87
+    

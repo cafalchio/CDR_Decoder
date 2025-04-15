@@ -1,7 +1,7 @@
-// FORMAT TYPE:      14
-// MESSAGE NUMBER:   dd91
-// FORMAT TYPE NAME: PBXT
-// RECORD LENGTH:    134
+// FORMAT TYPE:      20
+// MESSAGE NUMBER:   dd8e
+// FORMAT TYPE NAME: DOC
+// RECORD LENGTH:    107
 
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
@@ -27,30 +27,25 @@
 
 // intermediate_record_number                    BCD(  1)        25
 // intermediate_charging_ind                       C(  1)        26
-// number_of_ss_records                          BCD(  1)        27
-// calling_number_ton                              C(  1)        28
-// calling_number                                  C( 12)        29
-// called_number_ton                               C(  1)        41
-// called_number                                   C( 12)        42
-// out_circuit_group                             BCD(  2)        54
-// out_circuit                                   BCD(  2)        56
-// in_channel_allocated_time                       C(  7)        58
-// charging_start_time                             C(  7)        65
-// charging_end_time                               C(  7)        72
-// cause_for_termination                          DW(  1)        79
-// call_type                                       C(  1)        83
-// oaz_chrg_type                                   C(  1)        84
-// oaz_duration                                  BCD(  3)        85
-// oaz_tariff_class                              BCD(  3)        88
-// oaz_pulses                                    BCD(  2)        91
-// intermediate_chrg_cause                         C(  2)        93
-// leg_call_reference                              C(  5)        95
+// intermediate_chrg_cause                         C(  2)        27
+// number_of_ss_records                          BCD(  1)        29
+// calling_number_ton                              C(  1)        30
+// calling_number                                  C( 12)        31
+// called_number_ton                               C(  1)        43
+// called_number                                   C( 12)        44
+// in_channel_allocated_time                       C(  7)        56
+// charging_start_time                             C(  7)        63
+// charging_end_time                               C(  7)        70
+// cause_for_termination                          DW(  1)        77
+// call_type                                       C(  1)        81
+// orig_mcz_chrg_type                              C(  1)        82
+// orig_mcz_duration                             BCD(  3)        83
+// orig_mcz_tariff_class                         BCD(  3)        86
+// orig_mcz_pulses                               BCD(  2)        89
+// orig_mcz_change_percent                         C(  1)        91
+// orig_mcz_change_direction                       C(  1)        92
+// leg_call_reference                              C(  5)        93
+// device_identifier                               C(  1)        98
+// service_identifier                              C(  1)        99
 // call_reference_time                             C(  7)       100
-// redirected_indicator                            C(  1)       107
-// pni                                             C(  3)       108
-// b_idle_time                                     C(  7)       111
-// number_of_in_records                          BCD(  1)       118
-// scp_connection                                  C(  1)       119
-// number_of_all_in_records                      BCD(  1)       120
-// redirecting_number                              C( 12)       121
-// collect_call_indicator                          C(  1)       133
+                                                                                                                            

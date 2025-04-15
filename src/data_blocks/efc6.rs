@@ -1,9 +1,7 @@
-
-
-// FORMAT TYPE:      7
-// MESSAGE NUMBER:   efcc
-// FORMAT TYPE NAME: LOCA
-// RECORD LENGTH:    86
+// FORMAT TYPE:      19
+// MESSAGE NUMBER:   efc6
+// FORMAT TYPE NAME: IN3
+// RECORD LENGTH:    358
 
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
@@ -27,15 +25,11 @@
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
-// served_imsi                                     C(  8)        25
-// subs_old_lac                                    W(  1)        33
-// subs_old_ex_id                                  C( 10)        35
-// subs_new_lac                                    W(  1)        45
-// subs_new_ex_id                                  C( 10)        47
-// charging_time                                   C(  7)        57
-// served_number_ton                               C(  1)        64
-// served_number                                   C( 12)        65
-// call_reference_time                             C(  7)        77
-// loc_up_indicator                                C(  1)        84
-// number_of_in_records                          BCD(  1)        85
-  
+// in_record_number                              BCD(  1)        25
+// in_data                                         C(310)        26
+// leg_call_reference                              C(  5)       336
+// in_channel_allocated_time                       C(  7)       341
+// in_data_length                                  W(  1)       348
+// call_reference_time                             C(  7)       350
+// protocol_identification                         C(  1)       357
+                                                                                                                            

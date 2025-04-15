@@ -1,9 +1,7 @@
-
-
-// FORMAT TYPE:      7
-// MESSAGE NUMBER:   efcc
-// FORMAT TYPE NAME: LOCA
-// RECORD LENGTH:    86
+// FORMAT TYPE:      24
+// MESSAGE NUMBER:   dd8c
+// FORMAT TYPE NAME: COC
+// RECORD LENGTH:    135
 
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
@@ -27,15 +25,27 @@
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
-// served_imsi                                     C(  8)        25
-// subs_old_lac                                    W(  1)        33
-// subs_old_ex_id                                  C( 10)        35
-// subs_new_lac                                    W(  1)        45
-// subs_new_ex_id                                  C( 10)        47
-// charging_time                                   C(  7)        57
-// served_number_ton                               C(  1)        64
-// served_number                                   C( 12)        65
-// call_reference_time                             C(  7)        77
-// loc_up_indicator                                C(  1)        84
-// number_of_in_records                          BCD(  1)        85
-  
+// intermediate_record_number                    BCD(  1)        25
+// intermediate_charging_ind                       C(  1)        26
+// in_channel_allocated_time                       C(  7)        27
+// leg_call_reference                              C(  5)        34
+// intermediate_chrg_cause                         C(  2)        39
+// camel_call_reference                            C(  8)        41
+// camel_exchange_id_ton                           C(  1)        49
+// camel_exchange_id                               C(  9)        50
+// charging_start_time                             C(  7)        59
+// charging_end_time                               C(  7)        66
+// duration_before_answer                        BCD(  3)        73
+// chargeable_duration                           BCD(  3)        76
+// basic_call_state_model                          C(  1)        79
+// scf_address_ton                                 C(  1)        80
+// scf_address                                     C(  9)        81
+// camel_service_key                              DW(  1)        90
+// default_call_handling                           C(  1)        94
+// destination_number_ton                          C(  1)        95
+// destination_number                              C( 12)        96
+// level_of_camel_service                          C(  1)       108
+// camel_modification                              C(  4)       109
+// camel_modify_parameters                         C( 14)       113
+// number_of_in_records                          BCD(  1)       127
+// call_reference_time                             C(  7)       128
