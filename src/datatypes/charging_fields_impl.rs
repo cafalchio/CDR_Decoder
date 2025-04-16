@@ -2167,3 +2167,464 @@ impl LastRecordNumber {
         &self.value
     }
 }
+
+impl LevelOfCamelService {
+    pub fn new(byte: u8) -> Self {
+        let mut parts = vec![];
+
+        if byte & 0b0000_0001 != 0 {
+            parts.push("Basic camel");
+        }
+        if byte & 0b0000_0010 != 0 {
+            parts.push("On line charging");
+        }
+        if byte & 0b0000_0100 != 0 {
+            parts.push("Call duration control");
+        }
+        let value = parts.join(", ");
+        Self { value }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LocUpIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Location updating",
+            0x01 => "GPRS location update",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LocationEstimate {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LocationRequestType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 =>  "Concurrent",
+            0x01 =>  "Mobile-terminated, call-unrelated",
+            0x02 =>  "Mobile-originated for location estimate",
+            0x03 =>  "Network-initiated emergency (request)",
+            0x04 =>  "Network-initiated emergency (release)",
+            0x05 =>  "Network-initiated",
+            0x06 =>  "Mobile-terminated for PLMN operator",
+            0x07 =>  "Mobile-originated for assistance data",
+            0x08 =>  "Mobile-originated for deciphering keys",
+            0x09 =>  "Mobile-terminated, call-related",
+            0x10 =>  "Deferred mobile-terminated",
+            0xFF =>  "Not known",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MCC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MessageReference {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HByte::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MessageSize {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MNC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ModifyDirection {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "The charge of call is increased",
+            0x01 => "The charge of call is decreased",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ModifyParameters {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut parts = vec![];
+        for (i, chunk) in bytes.chunks_exact(2).enumerate() {
+            let word = HWord::new(chunk).value;
+            if word != 0 {
+                // e1 corresponds to index 0
+                parts.push(format!("e{}: {}", i + 1, word));
+            }
+        }
+        let value = parts.join(", ");
+        Self { value }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ModifyPercent {
+    pub fn new(value: u16) -> Self {
+        let value = match value {
+            0x0000 => "No change".to_string(),
+            0x0001..=0xFFFE => format!("{}%", value),
+            0xFFFF => "Unused".to_string(),
+        };
+        Self { value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSCType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "interworking",
+            0x01 => "visited",
+            0x02 => "gateway",
+            0x03 => "transit",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSRN {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSClassMark3 {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "not exist",
+            0x01 => "single band",
+            0x02 => "dual band",
+            0x10 => "UMTS",
+            0x11 => "UMTS + single band",
+            0x12 => "UMTS + dual band",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSClassMark {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "class 1, vehicle and portable",
+            0x01 => "class 2, portable",
+            0x02 => "class 3, handheld",
+            0x03 => "class 4, handheld",
+            0x04 => "class 5, handheld",
+            0x05..=0x06 => "unknown values",
+            0x07 => "UMTS",
+            0x08..=0xFE => "unknown values",
+            0xFF => "",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NonTrasnparencyIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            00 => "transparent",
+            01 => "nontransparent",
+            02 => "transparent, no IWF",
+            FF => "not used",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NPDBQueryStatus {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information is not available.",
+            0x01 => "Query is not done.",
+            0x02 => "Query is done and number is not ported.",
+            0x03 => "Query is done and number is ported.",
+            0x04 => "Query is done and failed.",
+            0x05 => "Indicator is set to done, but query has not been performed.",
+            0x06 => "Query is done, not known to be ported.",
+            0x07 => "Query is done, ported out.",
+            0x08 => "Query is done, ported between foreign national network.",
+            0x09 => "Query is done, unknown.",
+            0x10 => "Query is done, subsequent query allowed.",
+            0x0B => "Query is done, subsequent query denied.",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NPI {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information not available",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Unknown network dialling plan",
+            0x05 => "ISDN telephony",
+            0x06 => "Data",
+            0x07 => "Telex",
+            0x08 => "National standard",
+            0x09 => "Private",
+            0x0A => "Network service access point (NSAP)",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumOfConcatenatedSMS {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HByte::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl Number {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfForwardings {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "The call has not been forwarded.",
+            0x01..=0x05 => "Possible values (number of forwardings)",
+            0xFF => "The information is not available.",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfAllInRecords {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&bytes[0]).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+
+impl NumberOfInRecords {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&bytes[0]).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfSSRecords {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&bytes[0]).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+    
+impl NumberOfTransactions {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HByte::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OLI {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information is not available.",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Plain Old Telephone Service (POTS)",
+            0x05 => "Multiparty line (more than 2)",
+            0x06 => "Automatic Number Identification (ANI) failure (unavailable)",
+            0x07 => "Station Level Rating (Hotel/Motel, without room identification)",
+            0x08 => "Special operator handling required",
+            0x09 => "Automatic Identified Outward Dialling (AIOD) listed DN sent",
+            0x0A => "Coin or non-coin on-calls using database access",
+            0x0B => "800 service call",
+            0x0C => "Coin",
+            0x0D => "Prison/inmate service",
+            0x0E => "Intercept (blank)",
+            0x0F => "Intercept (trouble)",
+            0x10 => "Intercept (regular)",
+            0x11 => "Telco operator handled call",
+            0x12 => "OUTward Wide Area Telecommunications Service (OUTWATS)",
+            0x13 => "TRS (unrestricted line)",
+            0x14 => "Cellular service (type 1) -Cellular Carrier identified",
+            0x15 => "Cellular service (type 2) -Mobile DN identified",
+            0x16 => "Cellular service (roaming)",
+            0x17 => "TRS (Hotel/Motel)",
+            0x18 => "TRS (restricted)",
+            0x19 => "Private paystations",
+            0x1A => "Access for private virtual network type of services",
+            0x1B => "Inter LATA restricted",
+            0x1C => "Inter LATA restricted (hotel/motel)",
+            0x1D => "Inter LATA restricted (coin)",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+
+impl OptimalRoutingIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Optimal routing has not happened.",
+            0x01 => "Optimal routing has happened.",
+            0xFF => "Not used",
+            _ => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OrigDiallingClass {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}

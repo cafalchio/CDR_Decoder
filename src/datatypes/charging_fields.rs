@@ -405,100 +405,91 @@ pub struct LastRecordNumber {
 pub struct LegCallReference {
     pub value: String,
 }
-pub struct LEVEL_OF_CAMEL_SERVICE {
+pub struct LevelOfCamelService {
+    pub value: String,
+}
+pub struct LocUpIndicator {
+    pub value: String,
+}
+pub struct LocationRequestType {
+    pub value: String,
+}
+
+pub struct LocationEstimate {
     //TODO
     pub value: String,
 }
-pub struct LOC_UP_INDICATOR {
-    //TODO
-    pub value: String,
-}
-pub struct LOCATION_REQUEST_TYPE {
-    //TODO
-    pub value: String,
-}
+
 pub struct MCC {
-    //TODO
     pub value: String,
 }
-pub struct MESSAGE_REFERENCE {
-    //TODO
+pub struct MessageReference {
     pub value: String,
 }
-pub struct MESSAGE_SIZE {
-    //TODO
+pub struct MessageSize {
     pub value: String,
 }
 pub struct MNC {
-    //TODO
     pub value: String,
 }
-pub struct MODIFY_DIRECTION {
-    //TODO
+pub struct ModifyDirection {
     pub value: String,
 }
-pub struct MODIFY_PARAMETERS {
-    //TODO
+pub struct ModifyParameters {
     pub value: String,
 }
-pub struct MODIFY_PERCENT {
-    //TODO
+pub struct ModifyPercent {
     pub value: String,
 }
-pub struct MSC_TYPE {
-    //TODO
+pub struct MSCType {
     pub value: String,
 }
 pub struct MSRN {
-    //TODO
     pub value: String,
 }
-pub struct MS_CLASSMARK3 {
-    //TODO
+pub struct MSClassMark3 {
     pub value: String,
 }
-pub struct NON_TRANSPARENCY_INDICATOR {
-    //TODO
+pub struct MSClassMark {
     pub value: String,
 }
-pub struct NPDB_QUERY_STATUS {
-    //TODO
+pub struct NonTrasnparencyIndicator {
+    pub value: String,
+}
+pub struct NPDBQueryStatus {
     pub value: String,
 }
 pub struct NPI {
-    //TODO
     pub value: String,
 }
-pub struct NUM_OF_CONCATENATED_SMS {
-    //TODO
+pub struct NumOfConcatenatedSMS {
     pub value: String,
 }
-pub struct NUMBER {
-    //TODO
+pub struct Number {
     pub value: String,
 }
-pub struct NUMBER_OF_FORWARDINGS {
-    //TODO
+pub struct NumberOfForwardings {
     pub value: String,
 }
-pub struct NUMBER_OF_ALL_IN_RECORDS {
-    //TODO
+pub struct NumberOfAllInRecords {
     pub value: String,
 }
-pub struct NUMBER_OF_SS_RECORDS {
-    //TODO
+pub struct NumberOfInRecords {
     pub value: String,
 }
-pub struct NUMBER_OF_TRANSACTIONS {
-    //TODO
+pub struct NumberOfSSRecords {
     pub value: String,
 }
-pub struct OPTIMAL_ROUTING_INDICATOR {
-    //TODO
+pub struct NumberOfTransactions {
     pub value: String,
 }
-pub struct ORIG_DIALLING_CLASS {
-    //TODO
+pub struct OLI {
+    pub value: String,
+}
+pub struct OptimalRoutingIndicator {
+    pub value: String,
+}
+pub struct OrigDiallingClass {
     pub value: String,
 }
 pub struct OTHER_MODEM_TYPE {
