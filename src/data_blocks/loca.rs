@@ -1,6 +1,4 @@
 use crate::datatypes::charging_fields::*;
-use crate::datatypes::charging_fields_impl::*;
-use crate::datatypes::primitives::*;
 
 // served_imsi                                     C(  8)        25
 // subs_old_lac                                    W(  1)        33
@@ -13,7 +11,8 @@ use crate::datatypes::primitives::*;
 // call_reference_time                             C(  7)        77
 // loc_up_indicator                                C(  1)        84
 // number_of_in_records                          BCD(  1)        85
-  
+
+// total lengh - 60
 pub struct LOCA {
     pub served_imsi: String,
     pub subs_old_lac: String,

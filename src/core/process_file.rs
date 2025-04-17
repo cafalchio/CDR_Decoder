@@ -61,7 +61,7 @@ fn read_headers(bytes: &[u8]) {
         header.exchange_id;
         header.record_status;
 
-        next_header += header.record_length as usize;
+        next_header += 25 + header.record_length as usize;
         counter += 1;
 
         if header.record_type == "Trailer" {

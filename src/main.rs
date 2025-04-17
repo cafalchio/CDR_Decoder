@@ -43,8 +43,8 @@ fn main() {
     let mut counter = 0;
     loop {
         let header = extract_header(&bytes[next_header..]);
-        // println!("rec lenght: {}", header.record_length);
         println!("record type: {} lenght: {}", header.record_type, header.record_length);
+
         // println!("checksum: {}", header.check_sum);
         // println!("call ref: {}", header.call_reference);
         // println!("exchange id: {}", header.exchange_id);
@@ -55,8 +55,10 @@ fn main() {
         next_header += header.record_length as usize;
         counter += 1;
         if header.record_type == "Trailer".to_string() {
+            println!("record type: {} lenght: {}", header.record_type, header.record_length);
             break;
         }
+
 
     }
     println!("Number of Headers: {}", counter);
