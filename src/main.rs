@@ -180,18 +180,19 @@ fn main() {
 
     let mut next_header = 0;
     let mut cnt = 0;
+    let mut last_intetelligent = 0;
+    let mut max_blocks = 0;
     loop {
         cnt += 1;
         if next_header >= bytes.len() {
             println!("Reached end of buffer at offset {}", next_header);
             break;
         }
-        let header = extract_header(&bytes[next_header..]);
-        // println!("{} - {} @ offset {}", cnt, header.record_type, next_header);
-        if header.record_type == "not found" {
-            break;
-        }
+        let header = extract_header(&bytes[next_header..]); 
+        println!("{} - {} @ offset {}", cnt, header.record_type, next_header);
+        
         if header.record_type == "Intelligent network data 1" {
+            last_intetelligent = next_header;
             let mut ff_ref = header.record_length as usize + 1;
             let mut curr_byte = &bytes[next_header+ff_ref..(next_header + ff_ref + 1)];
             
@@ -199,11 +200,30 @@ fn main() {
                 ff_ref += 1;
                 curr_byte = &bytes[next_header + ff_ref..(next_header + ff_ref + 1)];
             }
-            println!("BYTES:\n{:?}\nLength: {}", &bytes[next_header+20..(next_header + 22)], ff_ref);
-            println!("BB:\n{:?}\n", BCD::new(&bytes[next_header+20..(next_header + 21)][0]).value);
             next_header += ff_ref;
         } else {
             next_header += header.record_length as usize;
+        }
+
+        if (header.record_type == "not found") | (header.record_length == 0) {
+            // time machine
+            next_header = last_intetelligent;
+            let mut skip = 0;
+            println!("Bruteforcing offsets from 25..300..");
+            for offset in 25..300 {
+                let nblocks = read_last_blocks(&bytes, next_header, offset, max_blocks);
+                if nblocks > max_blocks {
+                    max_blocks = nblocks;
+                    skip = offset;
+                    println!("Offset {} -> found {}, at block {}", offset, max_blocks, cnt);
+                }
+            }
+            if (skip == 0) & ((bytes.len() - next_header) > 65 ){
+                next_header += 65;
+                continue;
+            } 
+            next_header += skip as usize;
+            continue;
         }
 
         if header.record_type == "Trailer" {
@@ -215,6 +235,5 @@ fn main() {
         }
     }
     println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
+    println!("Bytes left : {} bytes", bytes.len() - next_header);
 }
-
-// 22,23
