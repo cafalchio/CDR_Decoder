@@ -2,7 +2,7 @@
 // MESSAGE NUMBER:   efc9
 // FORMAT TYPE NAME: SMMO
 // RECORD LENGTH:    150
-
+// Short message service (point-to-point), mobile-originated
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
 

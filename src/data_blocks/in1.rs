@@ -2,7 +2,6 @@
 // MESSAGE NUMBER:   efc6
 // FORMAT TYPE NAME: IN1
 // RECORD LENGTH:    109
-
 // HEADER:
 // FIELD NAME                                   DATA TYPE  POSITION
 
@@ -13,18 +12,9 @@
 // check_sum                                       W(  1)         8
 // call_reference                                  C(  5)        10
 // exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
+                                                                                                                                                                                                                                           
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
-
 // in_record_number                              BCD(  1)        25
 // in_data                                         C( 61)        26
 // leg_call_reference                              C(  5)        87

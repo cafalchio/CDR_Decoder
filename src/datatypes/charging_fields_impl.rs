@@ -3,12 +3,12 @@ use crate::datatypes::primitives::*;
 
 pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     let mut decoded = String::new();
-    for &byte in bcd_bytes.iter() {
+    for &byte in bcd_bytes.iter().rev() {
         if byte == 0xFF {
             continue; // skip 0xFF
         }
-        let low = (byte >> 4) & 0b0000_1111;
-        let high = byte & 0b0000_1111;
+        let high = (byte >> 4) & 0b0000_1111;
+        let low = byte & 0b0000_1111;
         decoded.push_str(&format!("{}{}", high, low));
     }
     decoded
@@ -123,7 +123,7 @@ impl RecordType {
             32 => "SIP-originating message".to_string(),
             33 => "SIP-terminating message".to_string(),
             35 => "SIP CDR for registration".to_string(),
-            _ => format!("not found: {}", value),
+            _ => format!("not found"),
         };
         Self {
             value: value,

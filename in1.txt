@@ -1,0 +1,470 @@
+
+75, 34,
+Length: 88
+
+46, 35,
+Length: 55
+
+17, 36, 
+Length: 115
+
+85, 36, 
+Length: 115
+
+40, 37,  
+Length: 236
+
+ 1, 38,
+Length: 34
+
+55, 38,
+Length: 108
+
+15, 39,
+Length: 145
+
+72, 39,
+Length: 157
+
+36, 40, 
+Length: 98
+
+93, 40, 
+Length: 121
+
+55, 41, 
+Length: 27
+
+12, 42,
+Length: 37
+
+ 42,
+Length: 185
+
+ 21, 43, 
+Length: 135
+
+ 72, 43,
+Length: 54
+
+ 26, 44,
+Length: 52
+
+ 85, 44, 
+Length: 27
+
+ 45, 45,
+Length: 54
+
+  9, 46, 
+Length: 178
+
+ 78, 46,  
+Length: 90
+
+ 42, 47,
+Length: 61
+
+  4, 48,  
+Length: 184
+
+ 52, 48, 
+Length: 50
+
+ 21, 49, 
+Length: 103
+
+ 72, 49, 
+Length: 39
+
+ 36, 50, 
+Length: 206
+
+ 91, 50, 
+Length: 149
+
+ 50, 51,
+Length: 165
+
+ 12, 52,
+Length: 131
+
+ 71, 52,
+Length: 102
+
+ 30, 53,
+Length: 145
+
+ 94, 53, 
+Length: 39
+
+ 49, 54,
+Length: 49
+
+ 12,55,   
+Length: 87
+
+ 81,55,   
+Length: 104
+
+ 39, 56,
+Length: 311
+
+ 91, 56,
+Length: 162
+
+ 47, 57,  
+Length: 139
+
+  1, 58,
+Length: 49
+
+ 58, 58, 
+Length: 146
+
+ 11, 59,
+Length: 34
+
+ 63, 59,
+Length: 240
+
+ 27, 60, 
+Length: 30
+
+ 92, 60,  
+Length: 79
+
+ 64, 61,
+Length: 49
+
+ 30, 62,
+Length: 114
+
+ 93, 62,
+Length: 165
+
+ 58, 63, 
+Length: 101
+
+ 20, 64, 
+Length: 126
+
+ 80, 64,
+Length: 80
+
+ 35, 65,
+Length: 202
+
+ 93, 65,
+Length: 61
+
+ 52, 66,  
+Length: 144
+
+  9, 67,
+Length: 200
+
+ 65, 67, 
+Length: 33
+
+34, 69,
+Length: 
+
+95, 69,  
+Length: 104
+
+55, 70,
+Length: 180
+
+ 5, 71,
+Length: 105
+
+59, 71, 
+Length: 281
+
+12, 72, 
+Length: 201
+
+72, 72,
+Length: 74
+
+25, 73,  
+Length: 199
+
+80, 73, 
+Length: 126
+
+38, 74,  
+Length: 96
+
+99, 74,
+Length: 43
+
+71, 75,
+Length: 60
+
+35, 76, 
+Length: 143
+
+98, 76,
+Length: 148
+
+57, 77,
+Length: 35
+
+19, 78, 
+Length: 112
+
+81, 78, 
+Length: 146
+
+49, 79, 
+Length: 109
+
+ 2, 80, 
+Length: 141
+
+61, 80,
+Length: 41
+
+21, 81,
+Length: 194
+
+77, 81,  
+Length: 159
+
+36, 82,
+Length: 57
+
+95, 82,
+Length: 60
+
+57, 83,
+Length: 225
+
+15, 84,  
+Length: 139
+
+71, 84,
+Length: 25
+
+32, 85,  
+Length: 84
+
+93, 85,
+Length: 41
+
+58, 86,  
+Length: 104
+
+22, 87,
+Length: 340
+
+82, 87,
+Length: 44
+
+50, 88,
+Length: 60
+
+ 9, 89, 
+Length: 143
+
+75, 89, 
+Length: 81
+
+27, 90,
+Length: 128
+
+87, 90, 
+Length: 69
+
+46, 91, 
+Length: 155
+
+ 6, 92,
+Length: 77
+
+70, 92,
+Length: 94
+
+27, 93,
+Length: 88
+
+83, 93, 
+Length: 33
+
+43, 94, 
+Length: 72
+
+ 7, 95, 
+Length: 95
+ 61, 95,
+Length: 134
+
+27, 96, 
+Length: 92
+
+77, 96,
+Length: 222
+
+30, 97, 
+Length: 206
+
+82, 97, 
+Length: 138
+
+46, 98,
+Length: 105
+
+ 9, 99,  
+Length: 124
+
+65, 99,
+Length: 38
+
+25,  0,  
+Length: 79
+
+86,  0, 
+Length: 92
+
+52,  1,  
+Length: 150
+
+13,  2, 
+Length: 146
+
+72,  2, 
+Length: 98
+
+35,  3, 
+Length: 152
+
+97,  3,
+Length: 222
+
+58,  4,
+Length: 38
+
+20,  5, 
+Length: 115
+
+82,  5, 56,
+Length: 51
+
+46,  6,
+Length: 49
+
+ 6,  7, 
+Length: 78
+
+65,  7,  
+Length: 87
+
+31,  8, 
+Length: 39
+
+90,  8, 
+Length: 109
+
+51,  9, 
+Length: 53
+
+ 5, 10, 
+Length: 75
+
+60, 10,  
+Length: 127
+
+16, 11, 
+Length: 86
+
+76, 11,
+Length: 188
+
+33, 12, 56,
+Length: 51
+
+94, 12,
+Length: 55
+
+53, 13, 
+Length: 118
+
+10, 14,  
+Length: 79
+
+65, 14,
+Length: 38
+
+23, 15, 
+Length: 229
+
+85, 15,  
+Length: 156
+
+41, 16, 
+Length: 69
+
+96, 16, 
+Length: 163
+
+54, 17,
+Length: 128
+
+ 7, 18,  
+Length: 130
+
+69, 18,
+Length: 137
+
+26, 19,  
+Length: 150
+
+85, 19, 
+Length: 72
+
+39, 20,
+Length: 225
+
+ 4, 21,
+Length: 91
+
+62, 21,
+Length: 55
+
+18, 22,  
+Length: 76
+
+73, 22,
+Length: 234
+
+31, 23,
+Length: 88
+
+94, 23,
+Length: 108
+
+55, 24,  
+Length: 96
+
+ 9, 25,
+Length: 131
+
+24, 26, 56,
+Length: 45
+
+85, 26, 
+Length: 36
+
+43, 27,
+Length: 74
+
+10, 28,  
+Length: 76
+
+72, 28,
+Length: 128
+
+29, 29,
+Length: 32
