@@ -25,7 +25,6 @@ pub fn decode_hexs(hex_bytes: &[u8]) -> String {
     decoded
 }
 
-
 impl AgeOfEstimate {
     pub fn new(bytes: &[u8]) -> Self {
         let mut val = HDWord::new(bytes).value;
@@ -125,9 +124,7 @@ impl RecordType {
             35 => "SIP CDR for registration".to_string(),
             _ => format!("not found"),
         };
-        Self {
-            value: value,
-        }
+        Self { value: value }
     }
     pub fn value(&self) -> &str {
         &self.value
@@ -2219,18 +2216,18 @@ impl LocationEstimate {
 impl LocationRequestType {
     pub fn new(value: u8) -> Self {
         let value = match value {
-            0x00 =>  "Concurrent",
-            0x01 =>  "Mobile-terminated, call-unrelated",
-            0x02 =>  "Mobile-originated for location estimate",
-            0x03 =>  "Network-initiated emergency (request)",
-            0x04 =>  "Network-initiated emergency (release)",
-            0x05 =>  "Network-initiated",
-            0x06 =>  "Mobile-terminated for PLMN operator",
-            0x07 =>  "Mobile-originated for assistance data",
-            0x08 =>  "Mobile-originated for deciphering keys",
-            0x09 =>  "Mobile-terminated, call-related",
-            0x10 =>  "Deferred mobile-terminated",
-            0xFF =>  "Not known",
+            0x00 => "Concurrent",
+            0x01 => "Mobile-terminated, call-unrelated",
+            0x02 => "Mobile-originated for location estimate",
+            0x03 => "Network-initiated emergency (request)",
+            0x04 => "Network-initiated emergency (release)",
+            0x05 => "Network-initiated",
+            0x06 => "Mobile-terminated for PLMN operator",
+            0x07 => "Mobile-originated for assistance data",
+            0x08 => "Mobile-originated for deciphering keys",
+            0x09 => "Mobile-terminated, call-related",
+            0x10 => "Deferred mobile-terminated",
+            0xFF => "Not known",
             _ => "",
         };
         Self {
@@ -2524,7 +2521,6 @@ impl NumberOfAllInRecords {
     }
 }
 
-
 impl NumberOfInRecords {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
@@ -2546,7 +2542,7 @@ impl NumberOfSSRecords {
         &self.value
     }
 }
-    
+
 impl NumberOfTransactions {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
@@ -2599,7 +2595,6 @@ impl OLI {
         &self.value
     }
 }
-
 
 impl OptimalRoutingIndicator {
     pub fn new(value: u8) -> Self {
