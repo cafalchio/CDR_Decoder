@@ -2,6 +2,7 @@ mod datatypes;
 use cdr_decoder::{core::process_file::*, data_blocks::header, datatypes::{charging_fields_impl::decode_bcds, primitives::{BCDWord, HByte, BCD}}};
 use datatypes::primitives::HWord;
 use std::time::Instant;
+use std::cmp;
 // use strum_macros::{Display, EnumString, FromRepr};
 
 // Updated trait that directly converts u8 to string
@@ -175,65 +176,89 @@ fn read_last_blocks(bytes: &[u8], start_pointer: usize, offset: usize, max_block
 fn main() {
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
-    // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111349_22243_N_00000.BACKUP.gz");
 
+    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111349_22243_N_00000.BACKUP.gz");
+    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111432_10650_N_00000.BACKUP.gz");
     let mut next_header = 0;
     let mut cnt = 0;
-    let mut last_intetelligent = 0;
+    let mut last_intelligent = 0;
     let mut max_blocks = 0;
-    loop {
+
+    while next_header < bytes.len() {
         cnt += 1;
-        if next_header >= bytes.len() {
-            println!("Reached end of buffer at offset {}", next_header);
-            break;
-        }
-        let header = extract_header(&bytes[next_header..]); 
-        println!("{} - {} @ offset {}", cnt, header.record_type, next_header);
-        
-        if header.record_type == "Intelligent network data 1" {
-            last_intetelligent = next_header;
-            let mut ff_ref = header.record_length as usize + 1;
-            let mut curr_byte = &bytes[next_header+ff_ref..(next_header + ff_ref + 1)];
-            
-            while curr_byte == [0xFF] {
-                ff_ref += 1;
-                curr_byte = &bytes[next_header + ff_ref..(next_header + ff_ref + 1)];
+
+        // Ensure there's enough data left for header extraction
+        let header = extract_header(&bytes[next_header..]);
+        // println!(
+        //     "{} - {} @ offset {} --- {} bytes left",
+        //     cnt,
+        //     header.record_type,
+        //     next_header,
+        //     bytes.len() - next_header
+        // );
+
+        match header.record_type.as_str() {
+            "Intelligent network data 1" => {
+                last_intelligent = next_header;
+                let mut ff_ref = header.record_length as usize + 1;
+
+                while next_header + ff_ref + 1 <= bytes.len()
+                    && bytes[next_header + ff_ref] == 0xFF
+                {
+                    ff_ref += 1;
+                }
+
+                // Check for OOB
+                if next_header + ff_ref > bytes.len() {
+                    // println!("Preventing OOB at offset {}", next_header + ff_ref);
+                    break;
+                }
+
+                next_header += ff_ref;
             }
-            next_header += ff_ref;
-        } else {
-            next_header += header.record_length as usize;
+
+            "Trailer" => {
+                println!("END OF FILE at offset {}", next_header);
+                break;
+            }
+
+            _ => {
+                let advance = header.record_length as usize;
+                if next_header + advance > bytes.len() {
+                    println!(
+                        "Advance of {} from {} would overflow buffer of size {}",
+                        advance, next_header, bytes.len()
+                    );
+                    break;
+                }
+                next_header += advance;
+            }
         }
 
-        if (header.record_type == "not found") | (header.record_length == 0) {
-            // time machine
-            next_header = last_intetelligent;
+        // Handle unknown or bad headers
+        if header.record_type == "not found" || header.record_length == 0 {
+            println!("Trying to recover from corrupted or unknown block...");
+            next_header = last_intelligent;
+
             let mut skip = 0;
-            println!("Bruteforcing offsets from 25..300..");
-            for offset in 25..300 {
+            for offset in 20..cmp::min(300, bytes.len() - next_header) {
                 let nblocks = read_last_blocks(&bytes, next_header, offset, max_blocks);
                 if nblocks > max_blocks {
                     max_blocks = nblocks;
                     skip = offset;
-                    println!("Offset {} -> found {}, at block {}", offset, max_blocks, cnt);
+                    // println!("Offset {} -> new max_blocks: {} at block {}", offset, max_blocks, cnt);
                 }
             }
-            if (skip == 0) & ((bytes.len() - next_header) > 65 ){
+
+            if skip == 0 && (bytes.len() - next_header > 65) {
                 next_header += 65;
                 continue;
-            } 
-            next_header += skip as usize;
-            continue;
-        }
+            }
 
-        if header.record_type == "Trailer" {
-            println!("END OF FILE at offset {}", next_header);
-            break;
-        }
-        if header.record_length == 0 {
-            break;
+            next_header += skip;
         }
     }
+
     println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
-    println!("Bytes left : {} bytes", bytes.len() - next_header);
+    println!("Bytes left: {} bytes", bytes.len().saturating_sub(next_header));
 }
