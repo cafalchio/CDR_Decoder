@@ -1,5 +1,6 @@
 use crate::datatypes::charging_fields::*;
-
+use serde::{Deserialize, Serialize};
+// Location update CDR
 // served_imsi                                     C(  8)        25
 // subs_old_lac                                    W(  1)        33
 // subs_old_ex_id                                  C( 10)        35
@@ -13,6 +14,7 @@ use crate::datatypes::charging_fields::*;
 // number_of_in_records                          BCD(  1)        85
 
 // total lengh - 60
+#[derive(Serialize, Deserialize, Debug)]
 pub struct LOCA {
     pub served_imsi: String,
     pub subs_old_lac: String,
@@ -30,7 +32,7 @@ pub struct LOCA {
 impl LOCA {
     pub fn new(bytes: &[u8]) -> Self {
         let served_imsi = IMSI::new(&bytes[25..33]).value;
-        let subs_old_lac = LAC::new(&bytes[33..34]).value;
+        let subs_old_lac = LAC::new(&bytes[33..35]).value;
         let subs_old_ex_id = "".to_string();
         let subs_new_lac = "".to_string();
         let subs_new_ex_id = "".to_string();
@@ -55,4 +57,39 @@ impl LOCA {
             number_of_in_records,
         }
     }
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
 }
+
+// impl fmt::Display for LOCA {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         write!(
+//             f,
+//             "{{
+//             served_imsi: {},
+//             subs_old_lac: {},
+//             subs_old_ex_id: {},
+//             subs_new_lac: {},
+//             subs_new_ex_id: {},
+//             charging_time: {},
+//             served_number_ton: {},
+//             served_number: {},
+//             call_reference_time: {},
+//             loc_up_indicator: {},
+//             number_of_in_records: {}
+//         }}",
+//             self.served_imsi,
+//             self.subs_old_lac,
+//             self.subs_old_ex_id,
+//             self.subs_new_lac,
+//             self.subs_new_ex_id,
+//             self.charging_time,
+//             self.served_number_ton,
+//             self.served_number,
+//             self.call_reference_time,
+//             self.loc_up_indicator,
+//             self.number_of_in_records
+//         )
+//     }
+// }

@@ -70,3 +70,34 @@ fn read_headers(bytes: &[u8]) {
     }
     println!("Extracted {} Headers", counter);
 }
+
+pub fn read_last_blocks(bytes: &[u8], start_pointer: usize, offset: usize, max_blocks: u32) -> u32 {
+    let mut next_header = start_pointer;
+    let mut blocks_counter: u32 = 0;
+    let mut inis = 0;
+
+    while next_header < bytes.len() {
+        let header = extract_header(&bytes[next_header..]);
+
+        if header.record_type == "not found" || header.record_length == 0 {
+            return blocks_counter;
+        }
+
+        if header.record_type == "Intelligent network data 1" {
+            inis += 1;
+            if inis > 1 {
+                return blocks_counter;
+            }
+            next_header += offset;
+        } else {
+            next_header += header.record_length as usize;
+        }
+        blocks_counter += 1;
+
+        if header.record_type == "Trailer" && blocks_counter >= max_blocks {
+            return blocks_counter;
+        }
+    }
+
+    blocks_counter
+}

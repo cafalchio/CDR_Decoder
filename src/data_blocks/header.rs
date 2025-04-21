@@ -1,7 +1,9 @@
 use crate::datatypes::charging_fields::*;
-use crate::datatypes::charging_fields_impl::*;
 use crate::datatypes::primitives::*;
+use serde::{Deserialize, Serialize};
+use std::fmt;
 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Header {
     pub record_length: u32,     // W(1) at offset 0
     pub record_type: String,    // BCD(1) at offset 2
@@ -30,5 +32,31 @@ impl Header {
             call_reference,
             exchange_id,
         }
+    }
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
+}
+impl fmt::Display for Header {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(
+            f,
+            "Header {{
+    record_length: {},
+    record_type: {},
+    record_number: {},
+    record_status: {},
+    check_sum: {},
+    call_reference: {},
+    exchange_id: {}
+}}",
+            self.record_length,
+            self.record_type,
+            self.record_number,
+            self.record_status,
+            self.check_sum,
+            self.call_reference,
+            self.exchange_id
+        )
     }
 }

@@ -2410,7 +2410,7 @@ impl NonTrasnparencyIndicator {
             00 => "transparent",
             01 => "nontransparent",
             02 => "transparent, no IWF",
-            FF => "not used",
+            0xFF => "not used",
             _ => "",
         };
         Self {
