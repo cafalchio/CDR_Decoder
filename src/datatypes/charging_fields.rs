@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
+#![allow(non_camel_case_types)]
 
 pub struct AcceptableChannelCodings {
     pub value: String,

@@ -96,4 +96,18 @@ mod tests {
         let acceptable_codings = AcceptableChannelCodings::new(byte);
         assert_eq!("4,8 9,6 28,8 32,0 kbit/s", acceptable_codings.value);
     }
+
+    #[test]
+    fn test_number() {
+        let bytes: [u8; 10] = [0x94, 0x71, 0x37, 0x11, 0x60, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
+        let decoded_number = Number::new(&bytes).value;
+        assert_eq!("4917731106", decoded_number);
+    }
+
+    #[test]
+    fn test_exchange_id(){
+        let bytes = [0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
+        let exchange_id = ExchangeId::new(&bytes).value;
+        assert_eq!("49177387", exchange_id);
+    }
 }

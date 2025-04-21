@@ -28,6 +28,36 @@ pub fn decode_hexs(hex_bytes: &[u8]) -> String {
     decoded
 }
 
+fn bcd_nibble_to_char(nibble: u8) -> Option<char> {
+    match nibble {
+        0x0..=0x9 => Some((b'0' + nibble) as char),
+        0xA => Some('A'),
+        0xB => Some('*'),
+        0xC => Some('#'),
+        0xD => Some('B'),
+        0xE => Some('C'),
+        0xF => None, // filler
+        _ => None,
+    }
+}
+
+pub fn decode_number(bytes: &[u8]) -> String {
+    let mut result = String::new();
+    for &b in bytes {
+        let low = b & 0x0F;
+        let high = (b >> 4) & 0x0F;
+
+        if let Some(ch) = bcd_nibble_to_char(low) {
+            result.push(ch);
+        }
+        if let Some(ch) = bcd_nibble_to_char(high) {
+            result.push(ch);
+        }
+    }
+    result
+}
+
+
 impl AgeOfEstimate {
     pub fn new(bytes: &[u8]) -> Self {
         let mut val = HDWord::new(bytes).value;
@@ -1004,7 +1034,7 @@ impl DtmfIndicator {
 impl CallingNumber {
     pub fn new(bytes: &[u8]) -> Self {
         CallingNumber {
-            value: decode_hexs(bytes),
+            value: decode_number(bytes),
         }
     }
     pub fn value(&self) -> &str {
@@ -2487,7 +2517,7 @@ impl NumOfConcatenatedSMS {
 impl Number {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
-            value: decode_hexs(bytes),
+            value: decode_number(bytes),
         }
     }
     pub fn value(&self) -> &str {
