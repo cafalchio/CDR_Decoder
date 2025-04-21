@@ -1,4 +1,5 @@
-use crate::datatypes::primitives::*;
+#![allow(dead_code)]
+#![allow(unused_variables)]
 
 pub struct AcceptableChannelCodings {
     pub value: String,
@@ -8,7 +9,7 @@ pub struct Action {
 }
 
 pub struct AddRoutingCategory {
-    pub value: HDWord,
+    pub value: String,
 }
 
 pub struct AgeOfEstimate {
@@ -150,22 +151,18 @@ pub struct ChargingArea {
 pub struct ChargingBlockSize {
     pub value: String,
 }
-pub struct CHARGING_END_TIME {
-    //TODO
+pub struct ChargingEndtime {
     pub value: String,
 }
 
-pub struct CHARGING_START_TIME {
-    //TODO
+pub struct ChargingStartTime {
     pub value: String,
 }
-pub struct CHARGING_TIME {
-    //TODO
+pub struct ChargingTime {
     pub value: String,
 }
 
-pub struct CHECK_SUM {
-    //TODO
+pub struct CheckSum {
     pub value: String,
 }
 
@@ -173,35 +170,29 @@ pub struct ChargeType {
     pub value: String,
 }
 pub struct CI {
-    //TODO
     pub value: String,
 }
 
-pub struct CIP_CARRIER_CODE {
-    //TODO
+pub struct CIPCarrierCode {
     pub value: String,
 }
 
-pub struct CLIENT_EXTERNAL_ID {
-    //TODO
+pub struct ClientExternalId {
     pub value: String,
 }
 pub struct CommandType {
     pub value: String,
 }
 
-pub struct CONCATENATED_RECORD_NUMBER {
-    //TODO
+pub struct ConcatenatedRecordNumber {
     pub value: String,
 }
 
-pub struct CONCATENATED_SMS_REFERENCE {
-    //TODO
+pub struct ConcatenatedSMSReference {
     pub value: String,
 }
 
-pub struct CONTROL_PLANE_INDEX {
-    //TODO
+pub struct ControlPlaneIndex {
     pub value: String,
 }
 
@@ -212,13 +203,11 @@ pub struct CugOutgoingAccess {
     pub value: String,
 }
 
-pub struct DATA_LENGTH_IN_BLOCK {
-    //TODO
+pub struct DataLengthInBlock {
     pub value: String,
 }
 
-pub struct DATA_VOLUME {
-    //TODO
+pub struct DataVolume {
     pub value: String,
 }
 pub struct DefaultCallHandling {
@@ -228,8 +217,7 @@ pub struct DefaultSmsHandling {
     pub value: String,
 }
 
-pub struct DELIVERY_TIME {
-    //TODO
+pub struct DeliveryTime {
     pub value: String,
 }
 
@@ -237,8 +225,7 @@ pub struct DeviceIdentifier {
     pub value: String,
 }
 
-pub struct DIALLED_DIGITS {
-    //TODO
+pub struct DialledDigits {
     pub value: String,
 }
 pub struct DisconnectingParty {
@@ -249,315 +236,261 @@ pub struct DtmfIndicator {
     pub value: String,
 }
 
-pub struct DURATION {
-    //TODO
+pub struct Duration {
     pub value: String,
 }
-pub struct DURATION_BEFORE_ANSWER {
-    //TODO
+pub struct DurationBeforeAnswer {
     pub value: String,
 }
-pub struct DURATION_BEFORE_ANSWER_TEN_MS {
-    //TODO
+pub struct DurationBeforeAnswerTenMs {
     pub value: String,
 }
-pub struct DURATION_TEN_MS {
-    //TODO
+pub struct DurationTenMs {
     pub value: String,
 }
 pub struct EllBand {
     pub value: String,
 }
 
-pub struct EMERGENCY_CALL_CATEGORY {
-    //TODO
+pub struct EmergencyCallCategory {
     pub value: String,
 }
 
-pub struct END_TIME {
-    //TODO
+pub struct EndTime {
     pub value: String,
 }
-pub struct EQUIPMENT_TYPE {
-    //TODO
-    pub value: String,
-}
-
-pub struct EQUIPMENT_ID {
-    //TODO
+pub struct EquipmentType {
     pub value: String,
 }
 
-pub struct EXCHANGE_ID {
-    //TODO
+pub struct EquipmentId {
     pub value: String,
 }
 
-pub struct EXIT_MSG_TIME {
-    //TODO
+pub struct ExchangeId {
     pub value: String,
 }
 
-pub struct EXIT_MSG_TRUNK_GROUP {
-    //TODO
+pub struct ExitMSGTime {
     pub value: String,
 }
 
-pub struct FACILITY_USAGE {
-    //TODO
+pub struct ExitMSGTrunkGroup {
     pub value: String,
 }
 
-pub struct FIRST_RECORD_NUMBER {
-    //TODO
+pub struct FacilityUsage {
     pub value: String,
 }
 
-pub struct FIXED_NW_USER_RATE {
-    //TODO
+pub struct FirstRecordNumber {
     pub value: String,
 }
 
-pub struct FORMAT_VERSION {
-    //TODO
+pub struct FixedNWUserRate {
     pub value: String,
 }
 
-pub struct FORWARDED_TO_SMSC {
-    //TODO
+pub struct FormatVersion {
     pub value: String,
 }
 
-pub struct GLOBAL_CALL_REFERENCE {
-    //TODO
+pub struct ForwardedToSMSC {
     pub value: String,
 }
-pub struct GMLC_ADDRESS {
-    //TODO
+
+pub struct GlobalCallReference {
     pub value: String,
 }
-pub struct GMSC_ADDRESS {
-    //TODO
+pub struct GMLCAddress {
     pub value: String,
 }
-pub struct GPS_DATA {
-    //TODO
+pub struct GMSCAddress {
     pub value: String,
 }
-pub struct GPS_DATA_LENGTH {
-    //TODO
+pub struct GPSData {
     pub value: String,
 }
-pub struct HORIZONTAL_ACCURACY {
-    //TODO
+pub struct GPSDataLength {
     pub value: String,
 }
-pub struct HOT_BILLING_RECORD_NUMBER {
-    //TODO
+pub struct HorizontalAccuracy {
     pub value: String,
 }
-pub struct ICID_LENGTH {
-    //TODO
+pub struct HotBilingRecordNumber {
     pub value: String,
 }
-pub struct ICID_OVERFLOW {
-    //TODO
+pub struct ICID {
+    pub value: String,
+}
+pub struct ICIDLength {
+    pub value: String,
+}
+pub struct ICIDOverflow {
     pub value: String,
 }
 pub struct IMEI {
-    //TODO
     pub value: String,
 }
 pub struct IMEISV {
-    //TODO
     pub value: String,
 }
 pub struct IMSI {
-    //TODO
     pub value: String,
 }
-pub struct IN_CATEGORY_KEY {
-    //TODO
+pub struct InCategoryKey {
     pub value: String,
 }
-pub struct IN_CHANNEL_ALLOCATED_TIME {
-    //TODO
+pub struct InChannelAllocatedTime {
     pub value: String,
 }
-pub struct IN_CIRCUIT_GROUP {
-    //TODO
+pub struct InCircuitGroup {
     pub value: String,
 }
-pub struct IN_CIRCUIT_GROUP_NAME {
-    //TODO
+pub struct InCircuitGroupName {
     pub value: String,
 }
-pub struct IN_CIRCUIT {
-    //TODO
+pub struct InCircuit {
     pub value: String,
 }
-pub struct IN_DATA {
-    //TODO
+pub struct InData {
+    // This field varies in length based on In data length
     pub value: String,
 }
-pub struct IN_DATA_SPARE {
-    //TODO
+pub struct InDataSpare {
     pub value: String,
 }
-pub struct IN_DATA_LENGTH {
-    //TODO
+pub struct InDataLength {
     pub value: String,
 }
-pub struct IN_DATA_LENGTH2 {
-    //TODO
+pub struct InDataLength2 {
     pub value: String,
 }
-pub struct IN_LEG_ID {
-    //TODO
+pub struct InLegId {
     pub value: String,
 }
-pub struct IN_SERVICES {
-    //TODO
+pub struct InServices {
     pub value: String,
 }
-pub struct INCOMING_TIME {
-    //TODO
+pub struct IncomingTime {
     pub value: String,
 }
-pub struct INITIATOR {
-    //TODO
+pub struct Initiator {
     pub value: String,
 }
-pub struct IN_RECORD_NUMBER {
-    //TODO
+pub struct InRecordNumber {
     pub value: String,
 }
 pub struct IntermediateChargingInd {
     pub value: String,
 }
 
-pub struct INTERMEDIATE_CHRG_CAUSE {
-    //TODO
+pub struct IntermediateChrgCause {
     pub value: String,
 }
-pub struct INTERMEDIATE_RECORD_NUMBER {
-    //TODO
+pub struct IntermediateRecordNumber {
     pub value: String,
 }
 pub struct JIP {
-    //TODO
     pub value: String,
 }
 pub struct LAC {
+    pub value: String,
+}
+pub struct LastExId {
+    pub value: String,
+}
+pub struct LastRecordNumber {
+    pub value: String,
+}
+pub struct LegCallReference {
+    pub value: String,
+}
+pub struct LevelOfCamelService {
+    pub value: String,
+}
+pub struct LocUpIndicator {
+    pub value: String,
+}
+pub struct LocationRequestType {
+    pub value: String,
+}
+
+pub struct LocationEstimate {
     //TODO
     pub value: String,
 }
-pub struct LAST_EX_ID {
-    //TODO
-    pub value: String,
-}
-pub struct LAST_RECORD_NUMBER {
-    //TODO
-    pub value: String,
-}
-pub struct LEG_CALL_REFERENCE {
-    //TODO
-    pub value: String,
-}
-pub struct LEVEL_OF_CAMEL_SERVICE {
-    //TODO
-    pub value: String,
-}
-pub struct LOC_UP_INDICATOR {
-    //TODO
-    pub value: String,
-}
-pub struct LOCATION_REQUEST_TYPE {
-    //TODO
-    pub value: String,
-}
+
 pub struct MCC {
-    //TODO
     pub value: String,
 }
-pub struct MESSAGE_REFERENCE {
-    //TODO
+pub struct MessageReference {
     pub value: String,
 }
-pub struct MESSAGE_SIZE {
-    //TODO
+pub struct MessageSize {
     pub value: String,
 }
 pub struct MNC {
-    //TODO
     pub value: String,
 }
-pub struct MODIFY_DIRECTION {
-    //TODO
+pub struct ModifyDirection {
     pub value: String,
 }
-pub struct MODIFY_PARAMETERS {
-    //TODO
+pub struct ModifyParameters {
     pub value: String,
 }
-pub struct MODIFY_PERCENT {
-    //TODO
+pub struct ModifyPercent {
     pub value: String,
 }
-pub struct MSC_TYPE {
-    //TODO
+pub struct MSCType {
     pub value: String,
 }
 pub struct MSRN {
-    //TODO
     pub value: String,
 }
-pub struct MS_CLASSMARK3 {
-    //TODO
+pub struct MSClassMark3 {
     pub value: String,
 }
-pub struct NON_TRANSPARENCY_INDICATOR {
-    //TODO
+pub struct MSClassMark {
     pub value: String,
 }
-pub struct NPDB_QUERY_STATUS {
-    //TODO
+pub struct NonTrasnparencyIndicator {
+    pub value: String,
+}
+pub struct NPDBQueryStatus {
     pub value: String,
 }
 pub struct NPI {
-    //TODO
     pub value: String,
 }
-pub struct NUM_OF_CONCATENATED_SMS {
-    //TODO
+pub struct NumOfConcatenatedSMS {
     pub value: String,
 }
-pub struct NUMBER {
-    //TODO
+pub struct Number {
     pub value: String,
 }
-pub struct NUMBER_OF_FORWARDINGS {
-    //TODO
+pub struct NumberOfForwardings {
     pub value: String,
 }
-pub struct NUMBER_OF_ALL_IN_RECORDS {
-    //TODO
+pub struct NumberOfAllInRecords {
     pub value: String,
 }
-pub struct NUMBER_OF_SS_RECORDS {
-    //TODO
+pub struct NumberOfInRecords {
     pub value: String,
 }
-pub struct NUMBER_OF_TRANSACTIONS {
-    //TODO
+pub struct NumberOfSSRecords {
     pub value: String,
 }
-pub struct OPTIMAL_ROUTING_INDICATOR {
-    //TODO
+pub struct NumberOfTransactions {
     pub value: String,
 }
-pub struct ORIG_DIALLING_CLASS {
-    //TODO
+pub struct OLI {
+    pub value: String,
+}
+pub struct OptimalRoutingIndicator {
+    pub value: String,
+}
+pub struct OrigDiallingClass {
     pub value: String,
 }
 pub struct OTHER_MODEM_TYPE {
@@ -593,7 +526,6 @@ pub struct PIC {
     pub value: String,
 }
 pub struct PNI {
-    //TODO
     pub value: String,
 }
 pub struct PORTED_IN {
@@ -611,8 +543,7 @@ pub struct PULSES {
     pub value: String,
 }
 
-pub struct RADIO_NETWORK_TYPE {
-    //TODO
+pub struct RadioNetworkType {
     pub value: String,
 }
 
@@ -679,8 +610,7 @@ pub struct RESULT_INDICATOR {
     //TODO
     pub value: String,
 }
-pub struct ROUTING_CATEGORY {
-    //TODO
+pub struct RoutingCategory {
     pub value: String,
 }
 pub struct ROUTING_INFO {
@@ -724,18 +654,15 @@ pub struct SIP_SIG_MODE {
     //TODO
     pub value: String,
 }
-pub struct SMS_CENTRE {
-    //TODO
+pub struct SMSCentre {
     pub value: String,
 }
 
-pub struct SMS_LENGTH {
-    //TODO
+pub struct SMSLenght {
     pub value: String,
 }
 
-pub struct SMS_TYPE {
-    //TODO
+pub struct SMSType {
     pub value: String,
 }
 
@@ -758,8 +685,9 @@ pub struct STREAM_IDENTIFIER {
     //TODO
     pub value: String,
 }
-pub struct SUBS_OLD_EX_ID {
-    //TODO
+pub struct SubId {
+    // subs_new_ex_id
+    // subs_old_ex_id
     pub value: String,
 }
 pub struct SELECTED_CODEC {
@@ -788,8 +716,7 @@ pub struct TARIFF_CHANGE_CNT {
     pub value: String,
 }
 
-pub struct TARIFF_CLASS {
-    //TODO
+pub struct TariffClass {
     pub value: String,
 }
 
@@ -808,7 +735,34 @@ pub struct TNS_CIRCUIT_CODE {
 }
 
 pub struct TON {
-    //TODO
+    // CALLING_NUMBER_TON
+    // CALLED_NUMBER_TON
+    // DIALLED_DIGITS_TON
+    // INITIAL_ORIG_CALLED_NUMBER_TON
+    // ORIG_CALLING_NUMBER_TON
+    // FORWARDING_NUMBER_TON
+    // FORWARDING_MSRN_TON
+    // FORWARDED_TO_NUMBER_TON
+    // CONNECTED_TO_NUMBER_TON
+    // SERVED_NUMBER_TON
+    // CALLED_MSRN_TON
+    // FORWARDED_TO_MSRN_TON
+    // CALLED_MSRN_TON
+    // FORWARDED_TO_MSRN_TON
+    // CHARGE_NUMBER_TON
+    // OUTPULSED_NUMBER_TON
+    // REDIRECTING_NUMBER_TON
+    // ORIG_REDIRECTING_NUMBER_TON
+    // DESTINATION_NUMBER_TON
+    // LOC_ROUTING_NUMBER_TON
+    // SCF_ADDRESS_TON
+    // CLIENT_EXTERNAL_ID_TON
+    // CAMEL_EXCHANGE_ID_TON
+    // CALLING_SUBS_LAST_EX_ID_TON
+    // CALLED_SUBS_LAST_EX_ID_TON
+    // FORWARDING_LAST_EX_ID_TON
+    // FORWARDED_TO_LAST_EX_ID_TON
+    // VIRTUAL_MSC_ID_TON
     pub value: String,
 }
 
@@ -851,7 +805,6 @@ pub struct VIRTUAL_MSC_ID {
     //TODO
     pub value: String,
 }
-pub struct VMSC_NUMBER {
-    //TODO
+pub struct VMSCNumber {
     pub value: String,
 }

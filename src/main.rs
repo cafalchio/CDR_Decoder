@@ -1,78 +1,105 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 mod datatypes;
-use cdr_decoder::{core::process_file::*, data_blocks::header};
-use std::{str::FromStr, time::Instant};
-use strum_macros::{Display, EnumString, FromRepr};
-
-// Updated trait that directly converts u8 to string
-
-pub struct IntermediateChargingInd(&'static str);
-
-impl IntermediateChargingInd {
-    pub fn new(value: u8) -> Self {
-        Self(match value {
-            0 => "Normal",
-            1 => "Intermediate",
-            2 => "Last Partial",
-            3 => "NotUsed",
-            _ => "Unknown",
-        })
-    }
-
-    pub fn value(&self) -> &str {
-        self.0
-    }
-}
-
-fn read_headers(bytes: &[u8]) {
-    let before = Instant::now();
-    println!("Running extraction");
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
-    let mut next_header: usize = 0;
-    let mut counter = 0;
-    loop {
-        let header = extract_header(&bytes[next_header..]);
-        println!("rec lenght: {}", header.record_length);
-        println!(
-            "record type: {} lenght: {}",
-            header.record_type, header.record_length
-        );
-        println!("checksum: {}", header.check_sum);
-        println!("call ref: {}", header.call_reference);
-        println!("exchange id: {}", header.exchange_id);
-        println!("status: {}", header.record_status);
-        next_header += header.record_length as usize;
-        counter += 1;
-        if header.record_type == "Trailer".to_string() {
-            break;
-        }
-    }
-    println!("Number of Headers: {}", counter);
-    println!("Elapsed time: {:.2?}", before.elapsed());
-}
+use cdr_decoder::core::process_file::*;
+use cdr_decoder::data_blocks::blocks;
+use std::cmp;
+use std::time::Instant;
 
 fn main() {
-    println!("{}", IntermediateChargingInd::new(0x02).value());
-    // read_multiple_files("/home/cafalchio/projects/cdr_decoder/data");
-    let before = Instant::now();
-    // println!("Running extraction");
-    // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
-    // let mut next_header: usize = 0;
-    // let mut counter = 0;
-    // loop {
-    //     let header = extract_header(&bytes[next_header..]);
-    //     // println!("rec lenght: {}", header.record_length);
-    //     // println!("record type: {} lenght: {}", header.record_type, header.record_length);
-    //     // println!("checksum: {}", header.check_sum);
-    //     // println!("call ref: {}", header.call_reference);
-    //     // println!("exchange id: {}", header.exchange_id);
-    //     // println!("status: {}", header.record_status);
-    //     next_header += header.record_length as usize;
-    //     counter += 1;
-    //     if header.record_type == "Trailer".to_string() {
-    //         break;
-    //     }
+    println!("Running extraction...");
+    let start_time = Instant::now();
 
-    // }
-    // println!("Number of Headers: {}", counter);
-    println!("Elapsed time: {:.2?}", before.elapsed());
+    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111349_22243_N_00000.BACKUP.gz");
+    // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111432_10650_N_00000.BACKUP.gz");
+    let mut next_header = 0;
+    let mut cnt = 0;
+    let mut last_intelligent = 0;
+    let mut max_blocks = 0;
+
+    while next_header < bytes.len() {
+        cnt += 1;
+
+        let header = extract_header(&bytes[next_header..]);
+        if header.record_type != "Location update" {
+            // println!("{}", header.record_type);
+        }
+        match blocks::Blocks::new(
+            &header.record_type,
+            &bytes[next_header..next_header + header.record_length as usize],
+        ) {
+            Some(block) => {
+                let json = block.to_json().unwrap();
+                // println!("{}", json);
+            }
+            None => {
+                // handle unknown record type if needed
+            }
+        }
+
+        match header.record_type.as_str() {
+            "Intelligent network data 1" => {
+                last_intelligent = next_header;
+                let mut ff_ref = header.record_length as usize + 1;
+                while next_header + ff_ref + 1 <= bytes.len() && bytes[next_header + ff_ref] == 0xFF
+                {
+                    ff_ref += 1;
+                }
+                // Check for OOB
+                if next_header + ff_ref > bytes.len() {
+                    // println!("Preventing OOB at offset {}", next_header + ff_ref);
+                    break;
+                }
+                next_header += ff_ref;
+            }
+
+            "Trailer" => {
+                println!("END OF FILE at offset {}", next_header);
+                break;
+            }
+            _ => {
+                let advance = header.record_length as usize;
+                if next_header + advance > bytes.len() {
+                    println!(
+                        "Advance of {} from {} would overflow buffer of size {}",
+                        advance,
+                        next_header,
+                        bytes.len()
+                    );
+                    break;
+                }
+                next_header += advance;
+            }
+        }
+
+        // Handle unknown or bad headers
+        if header.record_type == "not found" || header.record_length == 0 {
+            // println!("Trying to recover from corrupted or unknown block...");
+            next_header = last_intelligent;
+
+            let mut skip = 0;
+            for offset in 20..cmp::min(200, bytes.len() - next_header) {
+                let nblocks = read_last_blocks(&bytes, next_header, offset, max_blocks);
+                if nblocks > max_blocks {
+                    max_blocks = nblocks;
+                    skip = offset;
+                    // println!("Offset {} -> new max_blocks: {} at block {}", offset, max_blocks, cnt);
+                }
+            }
+
+            if skip == 0 && (bytes.len() - next_header > 65) {
+                next_header += 65;
+                continue;
+            }
+
+            next_header += skip;
+        }
+    }
+
+    println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
+    println!(
+        "Bytes left: {} bytes",
+        bytes.len().saturating_sub(next_header)
+    );
 }

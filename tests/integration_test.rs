@@ -37,8 +37,8 @@ mod tests {
 
     #[test]
     fn test_hbyte() {
-        let byte: [u8; 1] = [0x12];
-        let hexbyte = HByte::new(&byte);
+        let byte: u8 = 0x12;
+        let hexbyte = HByte::new(byte);
         assert_eq!(18, hexbyte.value);
     }
 

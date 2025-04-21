@@ -1,11 +1,13 @@
-#[allow(dead_code)]
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 #[derive(Debug, Clone, Copy)]
 pub struct HByte {
     pub value: u32,
 }
 impl HByte {
-    pub fn new(value: &[u8]) -> HByte {
-        let hbyte = value[0] as u32;
+    pub fn new(value: u8) -> HByte {
+        let hbyte = value as u32;
         HByte { value: hbyte }
     }
 }

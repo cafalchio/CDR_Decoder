@@ -1,0 +1,109 @@
+// FORMAT TYPE:      2
+// MESSAGE NUMBER:   dd97
+// FORMAT TYPE NAME: MTC
+// RECORD LENGTH:    272
+
+// HEADER:
+// FIELD NAME                                   DATA TYPE  POSITION
+
+// record_length                                   W(  1)         0
+// record_type                                   BCD(  1)         2
+// record_number                                 BCD(  4)         3
+// record_status                                   C(  1)         7
+// check_sum                                       W(  1)         8
+// call_reference                                  C(  5)        10
+// exchange_id                                     C( 10)        15
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+                                                                                                                            
+// DATA:
+// FIELD NAME                                   DATA TYPE  POSITION
+
+// intermediate_record_number                    BCD(  1)        25
+// intermediate_charging_ind                       C(  1)        26
+// number_of_ss_records                          BCD(  1)        27
+// calling_number                                  C( 10)        28
+// called_imsi                                     C(  8)        38
+// called_imei                                     C(  8)        46
+// called_number                                   C( 12)        54
+// called_category                                 C(  1)        66
+// called_ms_classmark                             C(  1)        67
+// in_circuit_group                              BCD(  2)        68
+// in_circuit                                    BCD(  2)        70
+// called_subs_first_lac                           W(  1)        72
+// called_subs_first_ci                            W(  1)        74
+// called_subs_last_ex_id                          C( 10)        76
+// called_subs_last_lac                            W(  1)        86
+// called_subs_last_ci                             W(  1)        88
+// basic_service_type                              C(  1)        90
+// basic_service_code                              C(  1)        91
+// facility_usage                                  C(  4)        92
+// non_transparency_indicator                      C(  1)        96
+// channel_rate_indicator                          C(  1)        97
+// in_channel_allocated_time                       C(  7)        98
+// charging_start_time                             C(  7)       105
+// charging_end_time                               C(  7)       112
+// cause_for_termination                          DW(  1)       119
+// call_type                                       C(  1)       123
+// term_mcz_chrg_type                              C(  1)       124
+// term_mcz_duration                             BCD(  3)       125
+// term_mcz_tariff_class                         BCD(  3)       128
+// term_mcz_pulses                               BCD(  2)       131
+// calling_number_ton                              C(  1)       133
+// called_number_ton                               C(  1)       134
+// intermediate_chrg_cause                         C(  2)       135
+// called_modify_parameters                        C( 14)       137
+// term_mcz_modify_percent                         W(  1)       151
+// term_mcz_modify_direction                       C(  1)       153
+// leg_call_reference                              C(  5)       154
+// out_channel_allocated_time                      C(  7)       159
+// call_reference_time                             C(  7)       166
+// speech_version                                  C(  1)       173
+// b_idle_time                                     C(  7)       174
+// pni                                             C(  3)       181
+// term_mcz_change_percent                         C(  1)       184
+// term_mcz_change_direction                       C(  1)       185
+// req_fixed_nw_user_rate                          C(  1)       186
+// req_other_modem_type                            C(  1)       187
+// acceptable_channel_codings                      C(  1)       188
+// req_number_of_channels                          C(  1)       189
+// req_air_interface_user_rate                     C(  1)       190
+// req_user_initiated_mod_ind                      C(  1)       191
+// used_number_of_channels                         C(  1)       192
+// used_other_modem_type                           C(  1)       193
+// used_fixed_nw_user_rate                         C(  1)       194
+// used_channel_coding                             C(  1)       195
+// camel_call_reference                            C(  8)       196
+// camel_exchange_id_ton                           C(  1)       204
+// camel_exchange_id                               C(  9)       205
+// calling_charging_area                           W(  1)       214
+// called_charging_area                            W(  1)       216
+// cug_interlock                                   C(  4)       218
+// cug_outgoing_access                             C(  1)       222
+// cug_information                                 C(  1)       223
+// called_cell_band                                C(  1)       224
+// routing_category                                C(  1)       225
+// ms_classmark3                                   C(  1)       226
+// loc_routing_number                              C( 12)       227
+// ported_in                                       C(  1)       239
+// scp_connection                                  C(  1)       240
+// hot_billing_record_number                     BCD(  4)       241
+// number_of_all_in_records                      BCD(  1)       245
+// number_of_in_records                          BCD(  1)       246
+// loc_routing_number_ton                          C(  1)       247
+// add_routing_category                            W(  1)       248
+// in_bnc_connection_type                          C(  1)       250
+// inside_user_plane_index                       BCD(  2)       251
+// inside_control_plane_index                    BCD(  2)       253
+// rate_adaption                                   C(  1)       255
+// collect_call_indicator                          C(  1)       256
+// redirecting_number                              C( 12)       257
+// called_subs_last_ex_id_ton                      C(  1)       269
+// radio_network_type                              C(  1)       270
+// used_air_interface_user_rate                    C(  1)       271

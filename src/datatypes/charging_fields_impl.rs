@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 use crate::datatypes::charging_fields::*;
 use crate::datatypes::primitives::*;
 
@@ -25,28 +28,9 @@ pub fn decode_hexs(hex_bytes: &[u8]) -> String {
     decoded
 }
 
-impl IntermediateChargingInd {
-    pub fn new(value: u8) -> Self {
-        let value = match value {
-            0 => "Normal",
-            1 => "Intermediate",
-            2 => "Last Partial",
-            0xFF => "NotUsed",
-            _ => "",
-        };
-        Self {
-            value: value.to_string(),
-        }
-    }
-
-    pub fn value(&self) -> &str {
-        &self.value
-    }
-}
-
 impl AgeOfEstimate {
-    pub fn new(value: &[u8]) -> Self {
-        let mut val = HDWord::new(value).value;
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut val = HDWord::new(bytes).value;
         if val > 32767 {
             val = 32767;
         }
@@ -60,9 +44,9 @@ impl AgeOfEstimate {
 }
 
 impl AnswerTime {
-    pub fn new(value: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Self {
         Self {
-            value: BcdTimestamp::new(value).value,
+            value: BcdTimestamp::new(bytes).value,
         }
     }
     pub fn value(&self) -> &str {
@@ -75,7 +59,7 @@ impl AocIndicator {
         let value = match value {
             0 => "no AoC",
             1 => "AoC",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -92,7 +76,7 @@ impl ApplicationInfo {
             0 => "NormalShortMessage",
             1 => "PictureMessage",
             0xFF => "NotKnown",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -107,45 +91,43 @@ impl ApplicationInfo {
 impl RecordType {
     pub fn new(value: u8) -> Self {
         let value = match value {
-            0 => "Header",
-            1 => "Mobile-originated call",
-            2 => "Mobile-terminated call",
-            3 => "Forwarded call",
-            4 => "Call to a roaming subscriber",
-            5 => "Supplementary service",
-            6 => "HLR interrogation",
-            7 => "Location update",
-            8 => "Short message service (point-to-point), mobile-originated",
-            9 => "Short message service (point-to-point), mobile-terminated",
-            10 => "Trailer",
-            11 => "PSTN-originated call",
-            12 => "PSTN-terminated call",
-            13 => "PBX-originated call",
-            14 => "PBX-terminated call",
-            15 => "Use of hardware",
-            16 => "Intelligent network data 1",
-            17 => "Unsuccessful call attempt",
-            18 => "Intelligent network data 2",
-            19 => "Intelligent network data 3",
-            20 => "Device-originated call",
-            22 => "Remote charging control",
-            23 => "IN-forwarde Sms",
-            24 => "Camel-originated call",
-            25 => "Camel-terminated call",
-            26 => "Intelligent network data 4",
-            27 => "Location service",
-            28 => "Intelligent network data 5",
-            29 => "Unstructured supplementary service data",
-            30 => "SIP-originated call",
-            31 => "SIP-terminated call",
-            32 => "SIP-originating message",
-            33 => "SIP-terminating message",
-            35 => "SIP CDR for registration",
-            _ => "",
+            0 => "Header".to_string(),
+            1 => "Mobile-originated call".to_string(),
+            2 => "Mobile-terminated call".to_string(),
+            3 => "Forwarded call".to_string(),
+            4 => "Call to a roaming subscriber".to_string(),
+            5 => "Supplementary service".to_string(),
+            6 => "HLR interrogation".to_string(),
+            7 => "Location update".to_string(),
+            8 => "Short message service (point-to-point), mobile-originated".to_string(),
+            9 => "Short message service (point-to-point), mobile-terminated".to_string(),
+            10 => "Trailer".to_string(),
+            11 => "PSTN-originated call".to_string(),
+            12 => "PSTN-terminated call".to_string(),
+            13 => "PBX-originated call".to_string(),
+            14 => "PBX-terminated call".to_string(),
+            15 => "Use of hardware".to_string(),
+            16 => "Intelligent network data 1".to_string(),
+            17 => "Unsuccessful call attempt".to_string(),
+            18 => "Intelligent network data 2".to_string(),
+            19 => "Intelligent network data 3".to_string(),
+            20 => "Device-originated call".to_string(),
+            22 => "Remote charging control".to_string(),
+            23 => "IN-forwarde Sms".to_string(),
+            24 => "Camel-originated call".to_string(),
+            25 => "Camel-terminated call".to_string(),
+            26 => "Intelligent network data 4".to_string(),
+            27 => "Location service".to_string(),
+            28 => "Intelligent network data 5".to_string(),
+            29 => "Unstructured supplementary service data".to_string(),
+            30 => "SIP-originated call".to_string(),
+            31 => "SIP-terminated call".to_string(),
+            32 => "SIP-originating message".to_string(),
+            33 => "SIP-terminating message".to_string(),
+            35 => "SIP CDR for registration".to_string(),
+            _ => format!("not found"),
         };
-        Self {
-            value: value.to_string(),
-        }
+        Self { value: value }
     }
     pub fn value(&self) -> &str {
         &self.value
@@ -158,7 +140,7 @@ impl RecordStatus {
             0 => "normal ok",
             1 => "synchronising error",
             2 => "different contents",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -193,17 +175,6 @@ impl CallReferenceTime {
     }
     pub fn value(&self) -> &str {
         &self.value
-    }
-}
-pub struct ExchangeId {
-    pub value: String,
-}
-
-impl ExchangeId {
-    pub fn new(bytes: &[u8]) -> ExchangeId {
-        ExchangeId {
-            value: decode_bcds(bytes),
-        }
     }
 }
 
@@ -255,7 +226,7 @@ impl SelectedCodec {
             0x17 => "Comfort noise",
             0xF0 => "FCH Real-time Transport Protocol",
             0xFD => "FDHClearmode",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -279,7 +250,7 @@ impl Action {
             0x07 => "Phase 1 process unstructured SS data",
             0x08 => "Phase 2 process unstructured SS data request",
             0x09 => "Phase 2 process unstructured SS data notify",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -314,7 +285,7 @@ impl TeleserviceCode {
             0x61 => "Facsimile Group 3 and alter speech",
             0x62 => "Automatic facsimile Group 3",
             0xD1 => "Dual numbering (alternate line service)",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -366,7 +337,7 @@ impl BearerServiceCode {
             0x80 => "Speech followed by data c.d.a",
             0x90 => "Speech followed by data c.d.s",
             0xFF => "Service not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -385,7 +356,7 @@ impl ChargingBlockSize {
             0x02 => "16 kB",
             0x04 => "32 kB",
             0x08 => "64 kB",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -471,7 +442,7 @@ impl BasicCallStateModel {
             0x08 => "08H Basic call state model for ICA call",
             0xFF => "FFH Unknown",
             0x03 => "03H Originating SMS state model",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -488,7 +459,7 @@ impl BasicServiceType {
             0 => "Teleservice",
             1 => "Bearer service",
             0xFF => "FFH Not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -524,7 +495,7 @@ impl BasicServiceCode {
                 0x62 => "Automatic facsimile Group 3",
                 0xD1 => "Dual numbering (alternate line service)",
                 0xFF => "Not Used",
-                _ => "",
+                _ => "ERROR",
             },
             1 => match value {
                 0x00 => "All bearer services",
@@ -564,9 +535,9 @@ impl BasicServiceCode {
                 0x80 => "Speech followed by data c.d.a",
                 0x90 => "Speech followed by data c.d.s",
                 0xFF => "Not Used",
-                _ => "",
+                _ => "ERROR",
             },
-            _ => "",
+            _ => "ERROR",
         };
 
         Self {
@@ -579,8 +550,8 @@ impl BasicServiceCode {
 }
 
 impl BatchSeqNumber {
-    pub fn new(value: &[u8]) -> Self {
-        let val = BCDWord::new(value).value;
+    pub fn new(bytes: &[u8]) -> Self {
+        let val = BCDWord::new(bytes).value;
         Self {
             value: format!("{}", val),
         }
@@ -591,8 +562,8 @@ impl BatchSeqNumber {
 }
 
 impl BlockSeqNumber {
-    pub fn new(value: &[u8]) -> Self {
-        let val = BCDWord::new(value).value;
+    pub fn new(bytes: &[u8]) -> Self {
+        let val = BCDWord::new(bytes).value;
         Self {
             value: format!("{}", val),
         }
@@ -616,7 +587,7 @@ impl BncConnectionType {
             0x40 => "Not active",
             0x80 => "Not registered",
             0xFF => "Not defined",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -628,8 +599,8 @@ impl BncConnectionType {
 }
 
 impl BIdleTime {
-    pub fn new(value: &[u8]) -> Self {
-        let val = BcdTimestamp::new(value).value;
+    pub fn new(bytes: &[u8]) -> Self {
+        let val = BcdTimestamp::new(bytes).value;
         Self { value: val }
     }
     pub fn value(&self) -> &str {
@@ -661,7 +632,7 @@ impl CallState {
             0x01 => "A seized",
             0x02 => "B seized",
             0x03 => "Signalling phase completed",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -686,7 +657,7 @@ impl CallType {
             0x10 => "terminated to the announcement machine",
             0x11 => "ISUP tunneling or SIP tunneling",
             0x20 => "international A-subscriber",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -706,7 +677,7 @@ impl CallingPSTNCategory {
             0x00 => "TUP 14 00H",
             0x18 => "TUP 18 18H",
             0x04 => "TUP 19 04H",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -730,7 +701,7 @@ impl CarrierSelection {
                 "Selected carrier identification presubscribed, input by calling party undetermined"
             }
             0x08 => "Selected carrier identification not presubscribed and input by calling party",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -754,7 +725,7 @@ impl Category {
             0x45 => "Private number service (option)",
             0xF0 => "Not exist",
             0xFF => "Unknown",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -781,7 +752,7 @@ impl CauseForForwarding {
             0x3A => "Call deflection, alerting",
             0x3B => "Call deflection, immediate",
             0xF5 => "SCP initiated",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -817,7 +788,7 @@ impl CfInformation {
         let value = match value {
             0 => "Call has not been forwarded",
             1 => "Call has been forwarded",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -834,7 +805,7 @@ impl ChangeDirection {
         let value = match value {
             0 => "The charge of the call is increased",
             1 => "The charge of the call is decreased",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -873,7 +844,7 @@ impl ChargeNature {
             0x05 => "ANI of the calling party",
             0x06 => "ANI of the called party",
             0x07 => "Originating Line Information (OLI) and CPN received, CN not received",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -893,7 +864,7 @@ impl ChargingArea {
             0x0001..=0x2710 => "Valid",
             0x2711..=0xFFFE => "Spare",
             0xFFFF => "Unused",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -923,7 +894,7 @@ impl ChargeType {
             0xA8 => "Free of charge from analysis and answer message and CDB",
             0xC0 => "Free of charge from call progress message and CDB",
             0xC8 => "Free of charge from analysis and call progress message and CDB",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -941,7 +912,7 @@ impl DefaultCallHandling {
             0 => "Default call handling is not used",
             1 => "Default call handling is used",
             0xFF => "Not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -958,7 +929,7 @@ impl DefaultSmsHandling {
             0 => "Default SMS handling is not used",
             1 => "Default SMS handling is used",
             0xFF => "Not available",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -980,7 +951,7 @@ impl DeviceIdentifier {
             0x06 => "Parallel Ringing group",
             0x07 => "External ringtone server",
             0xFF => "Device identifier not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1001,7 +972,7 @@ impl DisconnectingParty {
             0x03 => "Released inside of own system",
             0x04 => "Release initiated from MAP",
             0x05 => "Release initiated from SCP",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1018,7 +989,7 @@ impl DtmfIndicator {
         let value = match value {
             0 => "DTMF is off",
             1 => "DTMF is on",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1216,7 +1187,7 @@ impl CellBand {
             0x02 => "DCS",
             0x03 => "WCDMA",
             0xFF => "Does not exist",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1232,7 +1203,7 @@ impl CDBIndicator {
         let value = match value {
             0x00 => "call drop back not used",
             0x01 => "call drop back used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1245,27 +1216,1579 @@ impl CDBIndicator {
 
 impl ChannelRateIndicator {
     pub fn new(byte: u8) -> Self {
-        let low = byte & 0b0000_1111;
-        let high = byte >> 4 & 0b0000_1111;
-        let low_byte = match low {
-            0x00 => "half rate",
-            0x01 => "full rate",
-            0x02 => "dual rate half rate preferred",
-            0x03 => "dual rate full rate preferred",
-            0xFF => "not used",
-            _ => "",
-        };
-        let high_byte = match high {
-            0x00 => "not exist",
-            0x01 => "sdcch",
-            0x02 => "full rate",
-            0x03 => "dual rate full rate preferred",
-            0xFF => "not used",
-            _ => "",
-        };
-        let value = format!("{} {}", low_byte, high_byte);
+        let low = byte & 0x0F;
+        let high = (byte >> 4) & 0x0F;
 
-        Self { value: value }
+        let requested = match high {
+            0x0 => "half rate",
+            0x1 => "full rate",
+            0x2 => "dual rate half rate preferred",
+            0x3 => "dual rate full rate preferred",
+            0xF => "not used",
+            _ => "unknown",
+        };
+
+        let used = match low {
+            0x0 => "not exist",
+            0x1 => "sdcch",
+            0x8 => "full rate",
+            0x9 => "half rate",
+            0xF => "not used",
+            _ => "unknown",
+        };
+
+        let value = format!("requested: {}, used: {}", requested, used);
+
+        Self { value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ChargingEndtime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(bytes).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ChargingStartTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(bytes).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ChargingTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(bytes).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CheckSum {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CI {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl CIPCarrierCode {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ClientExternalId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ConcatenatedRecordNumber {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ConcatenatedSMSReference {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ControlPlaneIndex {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(&bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DataLengthInBlock {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(&bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DataVolume {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(&bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DeliveryTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(bytes).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DialledDigits {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl Duration {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{} seconds", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DurationBeforeAnswer {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{} seconds", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DurationBeforeAnswerTenMs {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{} seconds", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl DurationTenMs {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{} seconds", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl EmergencyCallCategory {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0b0000_0001 => "Police",
+            0b0000_0010 => "Ambulance",
+            0b0000_0100 => "Fire Brigade",
+            0b0000_1000 => "Marine Guard",
+            0b0001_0000 => "Mountain Rescue",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl EndTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: BcdTimestamp::new(bytes).value,
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl EquipmentType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x01 => "Conference equipment",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl EquipmentId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ExchangeId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ExitMSGTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ExitMSGTrunkGroup {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl FacilityUsage {
+    pub fn new(value: u32) -> Self {
+        let mapping = [
+            (1, "aoc - charging"),
+            (2, "aoc - charging info at end of call"),
+            (3, "aoc - information"),
+            (4, "calling line ID presentation"),
+            (5, "calling line ID restriction"),
+            (6, "call hold"),
+            (7, "call wait"),
+            (8, "multiparty"),
+            (9, "intelligent network"),
+            (10, "call transfer"),
+            (11, "call transfer recall"),
+            (12, "call drop back"),
+            (13, "forwarding"),
+            (14, "call-forwarding overdrive"),
+            // 15 and 16 = spare
+            (17, "completion of calls to busy subscribers"),
+            (18, "CAMEL"),
+            (19, "ported in"),
+            (20, "connected line ID presentation"),
+            (21, "connected line ID restriction"),
+            (22, "UUS1 - origination/release of call"),
+            (23, "UUS2 - ringing phase"),
+            (24, "UUS3 - during connection"),
+            (25, "aoc - during the call"),
+            (26, "multicall"),
+            (27, "eMLPP"),
+            (28, "TTY"),
+            // 29 to 32 = spare
+        ];
+
+        let value = mapping
+            .iter()
+            .filter_map(|(bit, desc)| {
+                if (value >> (bit - 1)) & 1 == 1 {
+                    Some(*desc)
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<_>>()
+            .join(", ");
+
+        Self { value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+
+    pub fn is_used(&self) -> bool {
+        !self.value.is_empty()
+    }
+}
+
+impl FirstRecordNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl FixedNWUserRate {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x01 => "User rate 9,6 kbit/s",
+            0x02 => "User rate 14,4 kbit/s",
+            0x03 => "User rate 19,2 kbit/s",
+            0x04 => "User rate 28,8 kbit/s",
+            0x05 => "User rate 38,4 kbit/s",
+            0x06 => "User rate 48,0 kbit/s",
+            0x07 => "User rate 56,0 kbit/s",
+            0x08 => "User rate 64,0 kbit/s",
+            0x09 => "User rate 33,6 kbit/s",
+            0x0A => "User rate 32,0 kbit/s",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl FormatVersion {
+    /// Creates a new `FormatVersion` from a slice of 6 bytes.
+    ///
+    /// The expected layout is:
+    /// - Bytes 0-1: Customer code in ASCII (HEX word).
+    /// - Bytes 2-4: Version info in BCD format (version, edition, repair).
+    /// - Byte 5: Must be 0xFF.
+    pub fn new(bytes: &[u8]) -> Self {
+        // Check for proper length.
+
+        // First 2 bytes: customer code in ASCII.
+        let customer = std::str::from_utf8(&bytes[0..2]).unwrap_or("??");
+
+        // Next 3 bytes: version info.
+        // Here we assume each byte is a BCD value.
+        // The sample uses 03, 01, 00 → interpreted as version=3, edition=1, repair=0.
+        let version = bytes[2];
+        let edition = bytes[3];
+        let repair = bytes[4];
+
+        // The final byte should be 0xFF.
+        if bytes[5] != 0xFF {
+            panic!("Final byte is not 0xFF");
+        }
+
+        // Format the version string. Depending on your requirements you could trim any leading zeros.
+        let value = format!("{} {}.{}-{}", customer, version, edition, repair);
+
+        Self { value }
+    }
+
+    /// Returns the parsed format version as a string.
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ForwardedToSMSC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl IntermediateChrgCause {
+    pub fn new(value: u32) -> Self {
+        // Define mapping: (bit position, corresponding description)
+        // Note: Only bits 1 through 21 have defined meanings.
+        let mapping = [
+            (1, "Value at the end of the call"),
+            (
+                2,
+                "Intermediate charging because time limit has been reached",
+            ),
+            (
+                3,
+                "Intermediate charging because pulse limit has been reached",
+            ),
+            (4, "The change of the used data rate in user plane"),
+            (5, "Call re-establishment"),
+            (
+                6,
+                "Chargeable IN user interaction ended and charging has ended",
+            ),
+            (7, "Handover has changed the channel-related parameters"),
+            (
+                8,
+                "Handover has changed the band of air interface (Not used)",
+            ),
+            (9, "Tariff change"),
+            (
+                10,
+                "SCP originating the charging change by means of the SCI information",
+            ),
+            (11, "Inter-MSC handover"),
+            (12, "Follow on call"),
+            (13, "Changing of localised service identity"),
+            (14, "Call drop back"),
+            (15, "Inter-PLMN handover"),
+            (16, "Inter-system handover"),
+            (17, "Disconnect leg A"),
+            (18, "Disconnect leg B"),
+            (19, "End of Camel user interaction"),
+            (20, "Call type of SIP (speech/multimedia)"),
+            (21, "codec change"),
+        ];
+
+        // Iterate through the mapping,
+        // if a bit is set (starting with LSB as bit 1) then include its description.
+        let causes = mapping
+            .iter()
+            .filter_map(|(bit, desc)| {
+                if (value >> (bit - 1)) & 1 == 1 {
+                    Some(*desc)
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<_>>()
+            .join(", ");
+
+        Self { value: causes }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl GlobalCallReference {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!(
+                "{}{}",
+                decode_bcds(&bytes[0..16]),
+                decode_hexs(&bytes[15..21])
+            ),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl GMLCAddress {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl GMSCAddress {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl GPSData {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl GPSDataLength {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl HorizontalAccuracy {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl HotBilingRecordNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(&bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ICID {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ICIDLength {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ICIDOverflow {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "No ICID overflow",
+            0x01 => "ICID overflow",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl IMEI {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl IMEISV {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl IMSI {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InCategoryKey {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InChannelAllocatedTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BcdTimestamp::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InCircuitGroup {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InCircuitGroupName {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InCircuit {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InData {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InDataSpare {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InDataLength {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InDataLength2 {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InLegId {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Does not exist",
+            0x01 => "Incoming",
+            0x02 => "First outgoing",
+            0xEF => "Collect call",
+            0xF0 => "Both (incoming and outgoing)",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InServices {
+    /// Creates a new `InServices` from a slice of 50 bytes.
+    /// Each 5-byte record is interpreted as:
+    /// - The first 4 bytes are the service key.
+    /// - The 5th byte is the status.
+    ///
+    /// The final string will be in the format:
+    /// "KEY: status, KEY: status, ..."
+    pub fn new(bytes: &[u8]) -> Self {
+        if bytes.len() != 50 {
+            panic!("Expected 50 bytes for IN_SERVICES, got {}", bytes.len());
+        }
+
+        let mut pairs = Vec::new();
+
+        for chunk in bytes.chunks_exact(5) {
+            // Format the service key: print each byte in uppercase hexadecimal.
+            let key = format!(
+                "{:02X}{:02X}{:02X}{:02X}",
+                chunk[0], chunk[1], chunk[2], chunk[3]
+            );
+            let status = Self::get_status(chunk[4]);
+            let pair = format!("{}: {}", key, status);
+            pairs.push(pair);
+        }
+
+        // Join all key: status pairs with a comma and space.
+        let value = pairs.join(", ");
+        Self { value }
+    }
+
+    /// Returns the final string value.
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+
+    /// Converts a status byte into a status string.
+    fn get_status(status_byte: u8) -> String {
+        match status_byte {
+            0x00 => "Service was failed".to_string(),
+            0x01 => "Service was successful".to_string(),
+            0xFF => "Not available".to_string(),
+            _ => "Unknown".to_string(),
+        }
+    }
+}
+
+impl IncomingTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BcdTimestamp::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl Initiator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Action by network (SCP)",
+            0x01 => "Action by user (mobile station)",
+            0xFF => "Not available",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl InRecordNumber {
+    pub fn new(bytes: &u8) -> Self {
+        Self {
+            value: format!("{}", BCD::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl IntermediateChargingInd {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "normal",
+            0x01 => "intermediate (partial)",
+            0x02 => "last partial",
+            0xFF => "Not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl IntermediateRecordNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl JIP {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LAC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LastExId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LastRecordNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LevelOfCamelService {
+    pub fn new(byte: u8) -> Self {
+        let mut parts = vec![];
+
+        if byte & 0b0000_0001 != 0 {
+            parts.push("Basic camel");
+        }
+        if byte & 0b0000_0010 != 0 {
+            parts.push("On line charging");
+        }
+        if byte & 0b0000_0100 != 0 {
+            parts.push("Call duration control");
+        }
+        let value = parts.join(", ");
+        Self { value }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LocUpIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Location updating",
+            0x01 => "GPRS location update",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LocationEstimate {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl LocationRequestType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Concurrent",
+            0x01 => "Mobile-terminated, call-unrelated",
+            0x02 => "Mobile-originated for location estimate",
+            0x03 => "Network-initiated emergency (request)",
+            0x04 => "Network-initiated emergency (release)",
+            0x05 => "Network-initiated",
+            0x06 => "Mobile-terminated for PLMN operator",
+            0x07 => "Mobile-originated for assistance data",
+            0x08 => "Mobile-originated for deciphering keys",
+            0x09 => "Mobile-terminated, call-related",
+            0x10 => "Deferred mobile-terminated",
+            0xFF => "Not known",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MCC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MessageReference {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MessageSize {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MNC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_hexs(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ModifyDirection {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "The charge of call is increased",
+            0x01 => "The charge of call is decreased",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ModifyParameters {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut parts = vec![];
+        for (i, chunk) in bytes.chunks_exact(2).enumerate() {
+            let word = HWord::new(chunk).value;
+            if word != 0 {
+                // e1 corresponds to index 0
+                parts.push(format!("e{}: {}", i + 1, word));
+            }
+        }
+        let value = parts.join(", ");
+        Self { value }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ModifyPercent {
+    pub fn new(value: u16) -> Self {
+        let value = match value {
+            0x0000 => "No change".to_string(),
+            0x0001..=0xFFFE => format!("{}%", value),
+            0xFFFF => "Unused".to_string(),
+        };
+        Self { value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSCType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "interworking",
+            0x01 => "visited",
+            0x02 => "gateway",
+            0x03 => "transit",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSRN {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSClassMark3 {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "not exist",
+            0x01 => "single band",
+            0x02 => "dual band",
+            0x10 => "UMTS",
+            0x11 => "UMTS + single band",
+            0x12 => "UMTS + dual band",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl MSClassMark {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "class 1, vehicle and portable",
+            0x01 => "class 2, portable",
+            0x02 => "class 3, handheld",
+            0x03 => "class 4, handheld",
+            0x04 => "class 5, handheld",
+            0x05..=0x06 => "unknown values",
+            0x07 => "UMTS",
+            0x08..=0xFE => "unknown values",
+            0xFF => "",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NonTrasnparencyIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            00 => "transparent",
+            01 => "nontransparent",
+            02 => "transparent, no IWF",
+            0xFF => "not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NPDBQueryStatus {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information is not available.",
+            0x01 => "Query is not done.",
+            0x02 => "Query is done and number is not ported.",
+            0x03 => "Query is done and number is ported.",
+            0x04 => "Query is done and failed.",
+            0x05 => "Indicator is set to done, but query has not been performed.",
+            0x06 => "Query is done, not known to be ported.",
+            0x07 => "Query is done, ported out.",
+            0x08 => "Query is done, ported between foreign national network.",
+            0x09 => "Query is done, unknown.",
+            0x10 => "Query is done, subsequent query allowed.",
+            0x0B => "Query is done, subsequent query denied.",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NPI {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information not available",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Unknown network dialling plan",
+            0x05 => "ISDN telephony",
+            0x06 => "Data",
+            0x07 => "Telex",
+            0x08 => "National standard",
+            0x09 => "Private",
+            0x0A => "Network service access point (NSAP)",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumOfConcatenatedSMS {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl Number {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfForwardings {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "The call has not been forwarded.",
+            0x01..=0x05 => "Possible values (number of forwardings)",
+            0xFF => "The information is not available.",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfAllInRecords {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&bytes[0]).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfInRecords {
+    pub fn new(byte: &u8) -> Self {
+        Self {
+            value: format!("{}", BCD::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfSSRecords {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&bytes[0]).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl NumberOfTransactions {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OLI {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information is not available.",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Plain Old Telephone Service (POTS)",
+            0x05 => "Multiparty line (more than 2)",
+            0x06 => "Automatic Number Identification (ANI) failure (unavailable)",
+            0x07 => "Station Level Rating (Hotel/Motel, without room identification)",
+            0x08 => "Special operator handling required",
+            0x09 => "Automatic Identified Outward Dialling (AIOD) listed DN sent",
+            0x0A => "Coin or non-coin on-calls using database access",
+            0x0B => "800 service call",
+            0x0C => "Coin",
+            0x0D => "Prison/inmate service",
+            0x0E => "Intercept (blank)",
+            0x0F => "Intercept (trouble)",
+            0x10 => "Intercept (regular)",
+            0x11 => "Telco operator handled call",
+            0x12 => "OUTward Wide Area Telecommunications Service (OUTWATS)",
+            0x13 => "TRS (unrestricted line)",
+            0x14 => "Cellular service (type 1) -Cellular Carrier identified",
+            0x15 => "Cellular service (type 2) -Mobile DN identified",
+            0x16 => "Cellular service (roaming)",
+            0x17 => "TRS (Hotel/Motel)",
+            0x18 => "TRS (restricted)",
+            0x19 => "Private paystations",
+            0x1A => "Access for private virtual network type of services",
+            0x1B => "Inter LATA restricted",
+            0x1C => "Inter LATA restricted (hotel/motel)",
+            0x1D => "Inter LATA restricted (coin)",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OptimalRoutingIndicator {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Optimal routing has not happened.",
+            0x01 => "Optimal routing has happened.",
+            0xFF => "Not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OrigDiallingClass {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SubId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TON {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information is not available.",
+            0x01 => "Value is not allowed to use.",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Unknown number from destination exchange to user",
+            0x05 => "International",
+            0x06 => "National",
+            0x07 => "Network specified",
+            0x08 => "Subscriber",
+            0x09 => "Abbreviated",
+            0x0A => "Dedicated PAD Access",
+            0x0B => "Undefined Carrier Access Code",
+            0x0C => "Carrier Access Code of national operator",
+            0x0D => "Carrier Access Code of operator",
+            0x0E => "International number, operator requested",
+            0x0F => "National number, operator requested",
+            0x10 => "Level 2 regional number",
+            0x11 => "Level 1 regional number",
+            0x12 => "Level 0 regional number",
+            0x13 => "PISN-specific number",
+            0x14 => "National network routing number",
+            0x15 => "Network-specific network routing number",
+            0x16 => "Concatenated network routing number",
+            0x17 => "Ported number",
+            0x18 => "Ascii",
+            0xFE => "Dialled with Escape code (option, only dialled_digits_ton- field)",
+            0xFF => "Does not exist",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl SMSCentre {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl VMSCNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SMSType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Mobile originated short message",
+            0x01 => "Mobile originated command short message",
+            0x02 => "Mobile terminated short message",
+            0x03 => "Mobile terminated status report",
+            0x05 => "Forwarded short message",
+            0x0C => "SIP originated message",
+            0x0D => "SIP terminated message",
+            0x0E => "SIP forwarded message",
+            0x0F => "SIP direct delivery",
+            0x47 => "Mobile-originated short message with status report request",
+            _ => "not found",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TariffClass {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl PNI {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SMSLenght {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RoutingCategory {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AddRoutingCategory {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RadioNetworkType {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x01 => "HGSM",
+            0x02 => "HUMTS",
+            0x03 => "HSIP",
+            0x04 => "HUMA",
+            0xFF => "Hnot used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
     }
     pub fn value(&self) -> &str {
         &self.value
