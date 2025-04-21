@@ -37,26 +37,3 @@ impl Header {
         serde_json::to_string_pretty(self)
     }
 }
-impl fmt::Display for Header {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
-            "Header {{
-    record_length: {},
-    record_type: {},
-    record_number: {},
-    record_status: {},
-    check_sum: {},
-    call_reference: {},
-    exchange_id: {}
-}}",
-            self.record_length,
-            self.record_type,
-            self.record_number,
-            self.record_status,
-            self.check_sum,
-            self.call_reference,
-            self.exchange_id
-        )
-    }
-}
