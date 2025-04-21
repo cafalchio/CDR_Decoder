@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 use crate::datatypes::charging_fields::*;
 use crate::datatypes::primitives::*;
 
@@ -56,7 +59,7 @@ impl AocIndicator {
         let value = match value {
             0 => "no AoC",
             1 => "AoC",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -73,7 +76,7 @@ impl ApplicationInfo {
             0 => "NormalShortMessage",
             1 => "PictureMessage",
             0xFF => "NotKnown",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -137,7 +140,7 @@ impl RecordStatus {
             0 => "normal ok",
             1 => "synchronising error",
             2 => "different contents",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -223,7 +226,7 @@ impl SelectedCodec {
             0x17 => "Comfort noise",
             0xF0 => "FCH Real-time Transport Protocol",
             0xFD => "FDHClearmode",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -247,7 +250,7 @@ impl Action {
             0x07 => "Phase 1 process unstructured SS data",
             0x08 => "Phase 2 process unstructured SS data request",
             0x09 => "Phase 2 process unstructured SS data notify",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -282,7 +285,7 @@ impl TeleserviceCode {
             0x61 => "Facsimile Group 3 and alter speech",
             0x62 => "Automatic facsimile Group 3",
             0xD1 => "Dual numbering (alternate line service)",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -334,7 +337,7 @@ impl BearerServiceCode {
             0x80 => "Speech followed by data c.d.a",
             0x90 => "Speech followed by data c.d.s",
             0xFF => "Service not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -353,7 +356,7 @@ impl ChargingBlockSize {
             0x02 => "16 kB",
             0x04 => "32 kB",
             0x08 => "64 kB",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -439,7 +442,7 @@ impl BasicCallStateModel {
             0x08 => "08H Basic call state model for ICA call",
             0xFF => "FFH Unknown",
             0x03 => "03H Originating SMS state model",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -456,7 +459,7 @@ impl BasicServiceType {
             0 => "Teleservice",
             1 => "Bearer service",
             0xFF => "FFH Not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -492,7 +495,7 @@ impl BasicServiceCode {
                 0x62 => "Automatic facsimile Group 3",
                 0xD1 => "Dual numbering (alternate line service)",
                 0xFF => "Not Used",
-                _ => "",
+                _ => "ERROR",
             },
             1 => match value {
                 0x00 => "All bearer services",
@@ -532,9 +535,9 @@ impl BasicServiceCode {
                 0x80 => "Speech followed by data c.d.a",
                 0x90 => "Speech followed by data c.d.s",
                 0xFF => "Not Used",
-                _ => "",
+                _ => "ERROR",
             },
-            _ => "",
+            _ => "ERROR",
         };
 
         Self {
@@ -584,7 +587,7 @@ impl BncConnectionType {
             0x40 => "Not active",
             0x80 => "Not registered",
             0xFF => "Not defined",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -629,7 +632,7 @@ impl CallState {
             0x01 => "A seized",
             0x02 => "B seized",
             0x03 => "Signalling phase completed",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -654,7 +657,7 @@ impl CallType {
             0x10 => "terminated to the announcement machine",
             0x11 => "ISUP tunneling or SIP tunneling",
             0x20 => "international A-subscriber",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -674,7 +677,7 @@ impl CallingPSTNCategory {
             0x00 => "TUP 14 00H",
             0x18 => "TUP 18 18H",
             0x04 => "TUP 19 04H",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -698,7 +701,7 @@ impl CarrierSelection {
                 "Selected carrier identification presubscribed, input by calling party undetermined"
             }
             0x08 => "Selected carrier identification not presubscribed and input by calling party",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -722,7 +725,7 @@ impl Category {
             0x45 => "Private number service (option)",
             0xF0 => "Not exist",
             0xFF => "Unknown",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -749,7 +752,7 @@ impl CauseForForwarding {
             0x3A => "Call deflection, alerting",
             0x3B => "Call deflection, immediate",
             0xF5 => "SCP initiated",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -785,7 +788,7 @@ impl CfInformation {
         let value = match value {
             0 => "Call has not been forwarded",
             1 => "Call has been forwarded",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -802,7 +805,7 @@ impl ChangeDirection {
         let value = match value {
             0 => "The charge of the call is increased",
             1 => "The charge of the call is decreased",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -841,7 +844,7 @@ impl ChargeNature {
             0x05 => "ANI of the calling party",
             0x06 => "ANI of the called party",
             0x07 => "Originating Line Information (OLI) and CPN received, CN not received",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -861,7 +864,7 @@ impl ChargingArea {
             0x0001..=0x2710 => "Valid",
             0x2711..=0xFFFE => "Spare",
             0xFFFF => "Unused",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -891,7 +894,7 @@ impl ChargeType {
             0xA8 => "Free of charge from analysis and answer message and CDB",
             0xC0 => "Free of charge from call progress message and CDB",
             0xC8 => "Free of charge from analysis and call progress message and CDB",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -909,7 +912,7 @@ impl DefaultCallHandling {
             0 => "Default call handling is not used",
             1 => "Default call handling is used",
             0xFF => "Not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -926,7 +929,7 @@ impl DefaultSmsHandling {
             0 => "Default SMS handling is not used",
             1 => "Default SMS handling is used",
             0xFF => "Not available",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -948,7 +951,7 @@ impl DeviceIdentifier {
             0x06 => "Parallel Ringing group",
             0x07 => "External ringtone server",
             0xFF => "Device identifier not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -969,7 +972,7 @@ impl DisconnectingParty {
             0x03 => "Released inside of own system",
             0x04 => "Release initiated from MAP",
             0x05 => "Release initiated from SCP",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -986,7 +989,7 @@ impl DtmfIndicator {
         let value = match value {
             0 => "DTMF is off",
             1 => "DTMF is on",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1184,7 +1187,7 @@ impl CellBand {
             0x02 => "DCS",
             0x03 => "WCDMA",
             0xFF => "Does not exist",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1200,7 +1203,7 @@ impl CDBIndicator {
         let value = match value {
             0x00 => "call drop back not used",
             0x01 => "call drop back used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1322,9 +1325,9 @@ impl ClientExternalId {
 }
 
 impl ConcatenatedRecordNumber {
-    pub fn new(byte: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(&byte).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -1333,9 +1336,9 @@ impl ConcatenatedRecordNumber {
 }
 
 impl ConcatenatedSMSReference {
-    pub fn new(byte: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Self {
         Self {
-            value: format!("{}", HByte::new(&byte).value),
+            value: format!("{}", HWord::new(bytes).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -1450,7 +1453,7 @@ impl EmergencyCallCategory {
             0b0000_0100 => "Fire Brigade",
             0b0000_1000 => "Marine Guard",
             0b0001_0000 => "Mountain Rescue",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1476,7 +1479,7 @@ impl EquipmentType {
     pub fn new(value: u8) -> Self {
         let value = match value {
             0x01 => "Conference equipment",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1612,7 +1615,7 @@ impl FixedNWUserRate {
             0x08 => "User rate 64,0 kbit/s",
             0x09 => "User rate 33,6 kbit/s",
             0x0A => "User rate 32,0 kbit/s",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1785,9 +1788,9 @@ impl GPSData {
 }
 
 impl GPSDataLength {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(&bytes).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -1796,9 +1799,9 @@ impl GPSDataLength {
 }
 
 impl HorizontalAccuracy {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(&bytes).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -1829,9 +1832,9 @@ impl ICID {
 }
 
 impl ICIDLength {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(bytes).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -1844,7 +1847,7 @@ impl ICIDOverflow {
         let value = match value {
             0x00 => "No ICID overflow",
             0x01 => "ICID overflow",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -1995,7 +1998,7 @@ impl InLegId {
             0x02 => "First outgoing",
             0xEF => "Collect call",
             0xF0 => "Both (incoming and outgoing)",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2070,7 +2073,7 @@ impl Initiator {
             0x00 => "Action by network (SCP)",
             0x01 => "Action by user (mobile station)",
             0xFF => "Not available",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2099,7 +2102,7 @@ impl IntermediateChargingInd {
             0x01 => "intermediate (partial)",
             0x02 => "last partial",
             0xFF => "Not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2191,7 +2194,7 @@ impl LocUpIndicator {
         let value = match value {
             0x00 => "Location updating",
             0x01 => "GPRS location update",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2228,7 +2231,7 @@ impl LocationRequestType {
             0x09 => "Mobile-terminated, call-related",
             0x10 => "Deferred mobile-terminated",
             0xFF => "Not known",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2251,9 +2254,9 @@ impl MCC {
 }
 
 impl MessageReference {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(bytes).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -2288,7 +2291,7 @@ impl ModifyDirection {
         let value = match value {
             0x00 => "The charge of call is increased",
             0x01 => "The charge of call is decreased",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2339,7 +2342,7 @@ impl MSCType {
             0x01 => "visited",
             0x02 => "gateway",
             0x03 => "transit",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2370,7 +2373,7 @@ impl MSClassMark3 {
             0x10 => "UMTS",
             0x11 => "UMTS + single band",
             0x12 => "UMTS + dual band",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2393,7 +2396,6 @@ impl MSClassMark {
             0x07 => "UMTS",
             0x08..=0xFE => "unknown values",
             0xFF => "",
-            _ => "",
         };
         Self {
             value: value.to_string(),
@@ -2411,7 +2413,7 @@ impl NonTrasnparencyIndicator {
             01 => "nontransparent",
             02 => "transparent, no IWF",
             0xFF => "not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2437,7 +2439,7 @@ impl NPDBQueryStatus {
             0x09 => "Query is done, unknown.",
             0x10 => "Query is done, subsequent query allowed.",
             0x0B => "Query is done, subsequent query denied.",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2460,7 +2462,7 @@ impl NPI {
             0x08 => "National standard",
             0x09 => "Private",
             0x0A => "Network service access point (NSAP)",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2472,9 +2474,9 @@ impl NPI {
 }
 
 impl NumOfConcatenatedSMS {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(bytes).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -2499,7 +2501,7 @@ impl NumberOfForwardings {
             0x00 => "The call has not been forwarded.",
             0x01..=0x05 => "Possible values (number of forwardings)",
             0xFF => "The information is not available.",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2522,9 +2524,9 @@ impl NumberOfAllInRecords {
 }
 
 impl NumberOfInRecords {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: &u8) -> Self {
         Self {
-            value: format!("{}", BCD::new(&bytes[0]).value),
+            value: format!("{}", BCD::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -2544,9 +2546,9 @@ impl NumberOfSSRecords {
 }
 
 impl NumberOfTransactions {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", HByte::new(bytes).value),
+            value: format!("{}", HByte::new(byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -2585,7 +2587,7 @@ impl OLI {
             0x1B => "Inter LATA restricted",
             0x1C => "Inter LATA restricted (hotel/motel)",
             0x1D => "Inter LATA restricted (coin)",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2602,7 +2604,7 @@ impl OptimalRoutingIndicator {
             0x00 => "Optimal routing has not happened.",
             0x01 => "Optimal routing has happened.",
             0xFF => "Not used",
-            _ => "",
+            _ => "ERROR",
         };
         Self {
             value: value.to_string(),
@@ -2617,6 +2619,175 @@ impl OrigDiallingClass {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
             value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SubId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TON {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Information is not available.",
+            0x01 => "Value is not allowed to use.",
+            0x02 => "Field value unknown to SS (and to DX)",
+            0x04 => "Unknown number from destination exchange to user",
+            0x05 => "International",
+            0x06 => "National",
+            0x07 => "Network specified",
+            0x08 => "Subscriber",
+            0x09 => "Abbreviated",
+            0x0A => "Dedicated PAD Access",
+            0x0B => "Undefined Carrier Access Code",
+            0x0C => "Carrier Access Code of national operator",
+            0x0D => "Carrier Access Code of operator",
+            0x0E => "International number, operator requested",
+            0x0F => "National number, operator requested",
+            0x10 => "Level 2 regional number",
+            0x11 => "Level 1 regional number",
+            0x12 => "Level 0 regional number",
+            0x13 => "PISN-specific number",
+            0x14 => "National network routing number",
+            0x15 => "Network-specific network routing number",
+            0x16 => "Concatenated network routing number",
+            0x17 => "Ported number",
+            0x18 => "Ascii",
+            0xFE => "Dialled with Escape code (option, only dialled_digits_ton- field)",
+            0xFF => "Does not exist",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl SMSCentre {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl VMSCNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SMSType {
+    pub fn new(value: u8) -> Self {
+        let value = match value {
+            0x00 => "Mobile originated short message",
+            0x01 => "Mobile originated command short message",
+            0x02 => "Mobile terminated short message",
+            0x03 => "Mobile terminated status report",
+            0x05 => "Forwarded short message",
+            0x0C => "SIP originated message",
+            0x0D => "SIP terminated message",
+            0x0E => "SIP forwarded message",
+            0x0F => "SIP direct delivery",
+            0x47 => "Mobile-originated short message with status report request",
+            _ => "not found",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TariffClass {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl PNI {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", decode_bcds(&bytes)),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SMSLenght {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RoutingCategory {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl AddRoutingCategory {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", HWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RadioNetworkType {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x01 => "HGSM",
+            0x02 => "HUMTS",
+            0x03 => "HSIP",
+            0x04 => "HUMA",
+            0xFF => "Hnot used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
         }
     }
     pub fn value(&self) -> &str {

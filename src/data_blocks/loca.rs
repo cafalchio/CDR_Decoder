@@ -33,15 +33,15 @@ impl LOCA {
     pub fn new(bytes: &[u8]) -> Self {
         let served_imsi = IMSI::new(&bytes[25..33]).value;
         let subs_old_lac = LAC::new(&bytes[33..35]).value;
-        let subs_old_ex_id = "".to_string();
-        let subs_new_lac = "".to_string();
-        let subs_new_ex_id = "".to_string();
+        let subs_old_ex_id = SubId::new(&bytes[35..45]).value;
+        let subs_new_lac = LAC::new(&bytes[45..47]).value;
+        let subs_new_ex_id = SubId::new(&bytes[47..57]).value;
         let charging_time = ChargingTime::new(&bytes[57..64]).value;
-        let served_number_ton = "".to_string();
-        let served_number = "".to_string();
+        let served_number_ton = TON::new(bytes[64]).value;
+        let served_number = Number::new(&bytes[65..77]).value;
         let call_reference_time = CallReferenceTime::new(&bytes[77..84]).value;
-        let loc_up_indicator = "".to_string();
-        let number_of_in_records = "".to_string();
+        let loc_up_indicator = LocUpIndicator::new(bytes[77]).value;
+        let number_of_in_records = NumberOfInRecords::new(&bytes[78]).value;
 
         Self {
             served_imsi,

@@ -1,4 +1,6 @@
-use crate::datatypes::primitives::*;
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 
 pub struct AcceptableChannelCodings {
     pub value: String,
@@ -8,7 +10,7 @@ pub struct Action {
 }
 
 pub struct AddRoutingCategory {
-    pub value: HDWord,
+    pub value: String,
 }
 
 pub struct AgeOfEstimate {
@@ -525,7 +527,6 @@ pub struct PIC {
     pub value: String,
 }
 pub struct PNI {
-    //TODO
     pub value: String,
 }
 pub struct PORTED_IN {
@@ -543,8 +544,7 @@ pub struct PULSES {
     pub value: String,
 }
 
-pub struct RADIO_NETWORK_TYPE {
-    //TODO
+pub struct RadioNetworkType {
     pub value: String,
 }
 
@@ -611,8 +611,7 @@ pub struct RESULT_INDICATOR {
     //TODO
     pub value: String,
 }
-pub struct ROUTING_CATEGORY {
-    //TODO
+pub struct RoutingCategory {
     pub value: String,
 }
 pub struct ROUTING_INFO {
@@ -656,18 +655,15 @@ pub struct SIP_SIG_MODE {
     //TODO
     pub value: String,
 }
-pub struct SMS_CENTRE {
-    //TODO
+pub struct SMSCentre {
     pub value: String,
 }
 
-pub struct SMS_LENGTH {
-    //TODO
+pub struct SMSLenght {
     pub value: String,
 }
 
-pub struct SMS_TYPE {
-    //TODO
+pub struct SMSType {
     pub value: String,
 }
 
@@ -690,8 +686,9 @@ pub struct STREAM_IDENTIFIER {
     //TODO
     pub value: String,
 }
-pub struct SUBS_OLD_EX_ID {
-    //TODO
+pub struct SubId {
+    // subs_new_ex_id
+    // subs_old_ex_id
     pub value: String,
 }
 pub struct SELECTED_CODEC {
@@ -720,8 +717,7 @@ pub struct TARIFF_CHANGE_CNT {
     pub value: String,
 }
 
-pub struct TARIFF_CLASS {
-    //TODO
+pub struct TariffClass {
     pub value: String,
 }
 
@@ -740,7 +736,34 @@ pub struct TNS_CIRCUIT_CODE {
 }
 
 pub struct TON {
-    //TODO
+    // CALLING_NUMBER_TON
+    // CALLED_NUMBER_TON
+    // DIALLED_DIGITS_TON
+    // INITIAL_ORIG_CALLED_NUMBER_TON
+    // ORIG_CALLING_NUMBER_TON
+    // FORWARDING_NUMBER_TON
+    // FORWARDING_MSRN_TON
+    // FORWARDED_TO_NUMBER_TON
+    // CONNECTED_TO_NUMBER_TON
+    // SERVED_NUMBER_TON
+    // CALLED_MSRN_TON
+    // FORWARDED_TO_MSRN_TON
+    // CALLED_MSRN_TON
+    // FORWARDED_TO_MSRN_TON
+    // CHARGE_NUMBER_TON
+    // OUTPULSED_NUMBER_TON
+    // REDIRECTING_NUMBER_TON
+    // ORIG_REDIRECTING_NUMBER_TON
+    // DESTINATION_NUMBER_TON
+    // LOC_ROUTING_NUMBER_TON
+    // SCF_ADDRESS_TON
+    // CLIENT_EXTERNAL_ID_TON
+    // CAMEL_EXCHANGE_ID_TON
+    // CALLING_SUBS_LAST_EX_ID_TON
+    // CALLED_SUBS_LAST_EX_ID_TON
+    // FORWARDING_LAST_EX_ID_TON
+    // FORWARDED_TO_LAST_EX_ID_TON
+    // VIRTUAL_MSC_ID_TON
     pub value: String,
 }
 
@@ -783,7 +806,6 @@ pub struct VIRTUAL_MSC_ID {
     //TODO
     pub value: String,
 }
-pub struct VMSC_NUMBER {
-    //TODO
+pub struct VMSCNumber {
     pub value: String,
 }

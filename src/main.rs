@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_variables)]
+
 mod datatypes;
 use cdr_decoder::core::process_file::*;
 use cdr_decoder::data_blocks::blocks;
@@ -18,17 +21,17 @@ fn main() {
     while next_header < bytes.len() {
         cnt += 1;
 
-        // Ensure there's enough data left for header extraction
         let header = extract_header(&bytes[next_header..]);
-        let header_json = header.to_json().unwrap();
-
+        if header.record_type != "Location update" {
+            // println!("{}", header.record_type);
+        }
         match blocks::Blocks::new(
             &header.record_type,
             &bytes[next_header..next_header + header.record_length as usize],
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                println!("{}", json);
+                // println!("{}", json);
             }
             None => {
                 // handle unknown record type if needed
@@ -72,7 +75,7 @@ fn main() {
 
         // Handle unknown or bad headers
         if header.record_type == "not found" || header.record_length == 0 {
-            println!("Trying to recover from corrupted or unknown block...");
+            // println!("Trying to recover from corrupted or unknown block...");
             next_header = last_intelligent;
 
             let mut skip = 0;
