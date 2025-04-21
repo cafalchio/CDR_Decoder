@@ -26,3 +26,36 @@
 // number_of_forwardings                           C(  1)        62
 // cause_for_termination                          DW(  1)        63
                                                                                                                             
+#[derive(Serialize, Deserialize, Debug)]
+pub struct HLRI {
+    pub called_imsi: String,
+    pub called_number: String,
+    pub routing_number: String,
+    pub charging_time: String,
+    pub number_of_forwardings: String,
+    pub cause_for_termination: String,
+}
+
+impl HLRI {
+    pub fn new(bytes: &[u8]) -> Self {
+        let called_imsi = IMSI::new(&bytes[25..33]);
+        let called_number = Number::new(&bytes[33..43]);
+        let routing_number = Number::new(&bytes[43..55]);;
+        let charging_time = ChargingTime::new(&bytes[55..62]);
+        let number_of_forwardings = NumberOfForwardings::new(&bytes[62..63]);
+        let cause_for_termination = CauseForTermination::new(&bytes[63..66]);
+       
+
+        Self {
+            called_imsi,
+            called_number,
+            routing_number,
+            charging_time,
+            number_of_forwardings,
+            cause_for_termination,
+        }
+    }
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
+}

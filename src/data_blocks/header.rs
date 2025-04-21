@@ -1,7 +1,6 @@
 use crate::datatypes::charging_fields::*;
 use crate::datatypes::primitives::*;
 use serde::{Deserialize, Serialize};
-use std::fmt;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Header {

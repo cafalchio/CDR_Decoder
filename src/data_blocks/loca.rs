@@ -61,35 +61,3 @@ impl LOCA {
         serde_json::to_string_pretty(self)
     }
 }
-
-// impl fmt::Display for LOCA {
-//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-//         write!(
-//             f,
-//             "{{
-//             served_imsi: {},
-//             subs_old_lac: {},
-//             subs_old_ex_id: {},
-//             subs_new_lac: {},
-//             subs_new_ex_id: {},
-//             charging_time: {},
-//             served_number_ton: {},
-//             served_number: {},
-//             call_reference_time: {},
-//             loc_up_indicator: {},
-//             number_of_in_records: {}
-//         }}",
-//             self.served_imsi,
-//             self.subs_old_lac,
-//             self.subs_old_ex_id,
-//             self.subs_new_lac,
-//             self.subs_new_ex_id,
-//             self.charging_time,
-//             self.served_number_ton,
-//             self.served_number,
-//             self.call_reference_time,
-//             self.loc_up_indicator,
-//             self.number_of_in_records
-//         )
-//     }
-// }
