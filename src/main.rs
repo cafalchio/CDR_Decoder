@@ -21,7 +21,6 @@ fn main() {
         // Ensure there's enough data left for header extraction
         let header = extract_header(&bytes[next_header..]);
         let header_json = header.to_json().unwrap();
-        println!("{}", header_json);
 
         match blocks::Blocks::new(
             &header.record_type,

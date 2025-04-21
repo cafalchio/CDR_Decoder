@@ -1,3 +1,5 @@
+use crate::datatypes::charging_fields::*;
+use serde::{Deserialize, Serialize};
 // FORMAT TYPE:      6
 // MESSAGE NUMBER:   efcb
 // FORMAT TYPE NAME: HLRI
@@ -13,9 +15,7 @@
 // check_sum                                       W(  1)         8
 // call_reference                                  C(  5)        10
 // exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                         
-                                                                                                                            
+
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
@@ -25,7 +25,7 @@
 // charging_time                                   C(  7)        55
 // number_of_forwardings                           C(  1)        62
 // cause_for_termination                          DW(  1)        63
-                                                                                                                            
+
 #[derive(Serialize, Deserialize, Debug)]
 pub struct HLRI {
     pub called_imsi: String,
@@ -38,13 +38,12 @@ pub struct HLRI {
 
 impl HLRI {
     pub fn new(bytes: &[u8]) -> Self {
-        let called_imsi = IMSI::new(&bytes[25..33]);
-        let called_number = Number::new(&bytes[33..43]);
-        let routing_number = Number::new(&bytes[43..55]);;
-        let charging_time = ChargingTime::new(&bytes[55..62]);
-        let number_of_forwardings = NumberOfForwardings::new(&bytes[62..63]);
-        let cause_for_termination = CauseForTermination::new(&bytes[63..66]);
-       
+        let called_imsi = IMSI::new(&bytes[25..33]).value;
+        let called_number = Number::new(&bytes[33..43]).value;
+        let routing_number = Number::new(&bytes[43..55]).value;
+        let charging_time = ChargingTime::new(&bytes[55..62]).value;
+        let number_of_forwardings = NumberOfForwardings::new(bytes[62..63][0]).value;
+        let cause_for_termination = CauseForTermination::new(&bytes[63..66]).value;
 
         Self {
             called_imsi,
