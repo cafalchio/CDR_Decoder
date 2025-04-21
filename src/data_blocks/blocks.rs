@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use serde::{Deserialize, Serialize};
 use crate::data_blocks::{header::Header, hlri::HLRI, loca::LOCA, smmo::SMMO};
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub enum Blocks {
