@@ -893,7 +893,6 @@ impl ChargingArea {
             0x0001..=0x2710 => "Valid",
             0x2711..=0xFFFE => "Spare",
             0xFFFF => "Unused",
-            _ => "ERROR",
         };
         Self {
             value: value.to_string(),

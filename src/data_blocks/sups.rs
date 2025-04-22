@@ -1,4 +1,6 @@
-use crate::datatypes::charging_fields::*;
+#![allow(dead_code)]
+#![allow(unused_variables)]
+// use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
 
 // FORMAT TYPE:      5

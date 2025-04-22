@@ -1,6 +1,5 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
-use std::str;
 
 #[derive(Debug, Clone, Copy)]
 pub struct HByte {
