@@ -1,7 +1,7 @@
 use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]                                                                                                                 
+#[derive(Serialize, Deserialize, Debug)]
 pub struct IN2 {
     pub in_record_number: String,
     pub in_data: String,
@@ -12,7 +12,7 @@ pub struct IN2 {
     pub protocol_identification: String,
 }
 impl IN2 {
-    pub fn new(&self, bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Self {
         let in_record_number = InRecordNumber::new(&bytes[25]).value;
         let in_data = InData::new(&bytes[26..43]).value;
         let leg_call_reference = CallReference::new(&bytes[43..48]).value;
@@ -20,15 +20,15 @@ impl IN2 {
         let in_data_length = InDataLength::new(&bytes[55..57]).value;
         let call_reference_time = CallReferenceTime::new(&bytes[57..64]).value;
         let protocol_identification = ProtocolIdentification::new(bytes[64]).value;
-    Self {
-        in_record_number,
-        in_data,
-        leg_call_reference,
-        in_channel_allocated_time,
-        in_data_length,
-        call_reference_time,
-        protocol_identification,
-    }
+        Self {
+            in_record_number,
+            in_data,
+            leg_call_reference,
+            in_channel_allocated_time,
+            in_data_length,
+            call_reference_time,
+            protocol_identification,
+        }
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

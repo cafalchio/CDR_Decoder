@@ -16,7 +16,6 @@ fn main() {
     let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
     // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
 
-
     let mut next_header = 0;
     let mut cnt = 0;
     let mut last_intelligent = 0;

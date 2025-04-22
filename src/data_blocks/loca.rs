@@ -41,7 +41,7 @@ impl LOCA {
         let served_number = Number::new(&bytes[65..77]).value;
         let call_reference_time = CallReferenceTime::new(&bytes[77..84]).value;
         let loc_up_indicator = LocUpIndicator::new(bytes[77]).value;
-        let number_of_in_records = NumberOfInRecords::new(&bytes[78]).value;
+        let number_of_in_records = NumberOfInRecords::new(bytes[78]).value;
 
         Self {
             served_imsi,

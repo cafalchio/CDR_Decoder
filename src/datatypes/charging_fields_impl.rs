@@ -1564,7 +1564,7 @@ impl ExitMSGTrunkGroup {
 
 impl FacilityUsage {
     pub fn new(bytes: &[u8]) -> Self {
-        let value:u32 = HDWord::new(&bytes).value;
+        let value: u32 = HDWord::new(&bytes).value;
 
         let mapping = [
             (1, "aoc - charging"),
@@ -1600,7 +1600,7 @@ impl FacilityUsage {
         let value = mapping
             .iter()
             .filter_map(|(bit, desc)| {
-                if (value  >> (bit - 1)) & 1 == 1 {
+                if (value >> (bit - 1)) & 1 == 1 {
                     Some(*desc)
                 } else {
                     None
@@ -1705,9 +1705,10 @@ impl ForwardedToSMSC {
 }
 
 impl IntermediateChrgCause {
-    pub fn new(value: u32) -> Self {
+    pub fn new(bytes: &[u8]) -> Self {
         // Define mapping: (bit position, corresponding description)
         // Note: Only bits 1 through 21 have defined meanings.
+        let value = HDWord::new(&bytes).value;
         let mapping = [
             (1, "Value at the end of the call"),
             (
@@ -2565,9 +2566,9 @@ impl NumberOfAllInRecords {
 }
 
 impl NumberOfInRecords {
-    pub fn new(byte: &u8) -> Self {
+    pub fn new(byte: u8) -> Self {
         Self {
-            value: format!("{}", BCD::new(byte).value),
+            value: format!("{}", BCD::new(&byte).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -2865,4 +2866,13 @@ impl ProtocolIdentification {
     }
 }
 
-
+impl Pulses {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(&bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}

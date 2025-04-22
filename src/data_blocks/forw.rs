@@ -1,7 +1,7 @@
 use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]        
+#[derive(Serialize, Deserialize, Debug)]
 pub struct FORW {
     pub intermediate_record_number: String,
     pub intermediate_charging_ind: String,
@@ -92,90 +92,90 @@ pub struct FORW {
 impl FORW {
     pub fn new(bytes: &[u8]) -> Self {
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value;
-        let intermediate_charging_ind = IntermediateChargingInd::new(bytes[27]).value; 
+        let intermediate_charging_ind = IntermediateChargingInd::new(bytes[27]).value;
         let number_of_ss_records = NumberOfSSRecords::new(&bytes[27..28]).value;
-        let cause_for_forwarding = CauseForForwarding::new(bytes[28]).value; 
-        let forwarding_imsi = IMSI::new(&bytes[29..37]).value;    
-        let forwarding_number = Number::new(&bytes[37..49]).value; 
-        let forwarded_to_imsi = IMSI::new(&bytes[49..57]).value;      
-        let forwarded_to_imei = IMEI::new(&bytes[57..65]).value;      
-        let forwarded_to_number = Number::new(&bytes[65..77]).value;  
-        let forwarded_to_ms_classmark = MSClassMark::new(bytes[77]).value;         //    C(  1)        77
-        let orig_calling_number = "".to_string();                          //    C( 10)        78
-        let in_circuit_group = InCircuitGroup::new(&bytes[88..90]).value; 
-        let in_circuit = InCircuit::new(&bytes[90..92]).value;        
-        let out_circuit_group = "".to_string();                 //  BCD(  2)        92
-        let out_circuit = "".to_string();                   //  BCD(  2)        94
-        let basic_service_type = BasicServiceType::new(bytes[96]).value; 
-        let basic_service_code = BasicServiceCode::new(bytes[97], bytes[96]).value;  
-        let facility_usage = FacilityUsage::new(&bytes[98..102]).value;                    //    C(  4)        98
-        let non_transparency_indicator = NonTrasnparencyIndicator::new(bytes[102]).value; 
-        let channel_rate_indicator = ChannelRateIndicator::new(bytes[103]).value; 
-        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[104..111]).value; 
-        let charging_start_time =  ChargingStartTime::new(&bytes[111..118]).value;
-        let charging_end_time = ChargingEndtime::new(&bytes[118..125]).value;     
-        let cause_for_termination = CauseForTermination::new(&bytes[125..129]).value;             
-        let call_type = CallType::new(bytes[129]).value;             
-        let forwarded_to_number_ton = "".to_string();                   //    C(  1)       130
-        let forw_mcz_chrg_type = "".to_string();                    //    C(  1)       131
-        let forw_mcz_duration = "".to_string();                 //  BCD(  3)       132
-        let forw_mcz_tariff_class = "".to_string();                 //  BCD(  3)       135
-        let forw_mcz_pulses = "".to_string();                   //  BCD(  2)       138
-        let forwarded_to_msrn_ton = "".to_string();                 //    C(  1)       140
-        let forwarded_to_msrn = "".to_string();                 //    C( 12)       141
-        let forwarding_number_ton = "".to_string();                 //    C(  1)       153
-        let orig_calling_number_ton = "".to_string();                   //    C(  1)       154
-        let intermediate_chrg_cause = "".to_string();                   //    C(  2)       155
-        let orig_dialling_class = "".to_string();                   //    W(  1)       157
-        let leg_call_reference = "".to_string();                    //    C(  5)       159
-        let call_reference_time = "".to_string();                   //    C(  7)       164
-        let speech_version = "".to_string();                    //    C(  1)       171
-        let b_idle_time = "".to_string();                   //    C(  7)       172
-        let pni = "".to_string();                   //    C(  3)       179
-        let forw_mcz_change_percent = "".to_string();                   //    C(  1)       182
-        let forw_mcz_change_direction = "".to_string();                 //    C(  1)       183
-        let forwarding_charging_area = "".to_string();                  //    W(  1)       184
-        let forwarded_to_charging_area = "".to_string();                    //    W(  1)       186
-        let connected_to_number_ton = "".to_string();                   //    C(  1)       188
-        let connected_to_number = "".to_string();                   //    C( 12)       189
-        let cug_interlock = "".to_string();                 //    C(  4)       201
-        let cug_outgoing_access = "".to_string();                   //    C(  1)       205
-        let cug_information = "".to_string();                   //    C(  1)       206
-        let hot_billing_record_number = "".to_string();                 //  BCD(  4)       207
-        let spare2 = "".to_string();                    //    C(  1)       211
-        let number_of_all_in_records = "".to_string();                  //  BCD(  1)       212
-        let number_of_in_records = "".to_string();                  //  BCD(  1)       213
-        let orig_called_number_ton = "".to_string();                    //    C(  1)       214
-        let orig_called_number = "".to_string();                    //    C( 12)       215
-        let tns_carrier_code = "".to_string();                  //    W(  1)       227
-        let carrier_selection = "".to_string();                 //    C(  1)       229
-        let pic = "".to_string();                   //    W(  1)       230
-        let routing_category = "".to_string();                  //    C(  1)       232
-        let ms_classmark3 = "".to_string();                 //    C(  1)       233
-        let forwarding_cell_band = "".to_string();                  //    C(  1)       234
-        let camel_call_reference = "".to_string();                  //    C(  8)       235
-        let camel_exchange_id_ton = "".to_string();                 //    C(  1)       243
-        let camel_exchange_id = "".to_string();                 //    C(  9)       244
-        let npdb_query_status = "".to_string();                 //    C(  1)       253
-        let scp_connection = "".to_string();                    //    C(  1)       254
-        let loc_routing_number_ton = "".to_string();                    //    C(  1)       255
-        let loc_routing_number = "".to_string();                    //    C( 12)       256
-        let forwarding_msrn_ton = "".to_string();                   //    C(  1)       268
-        let forwarding_msrn = "".to_string();                   //    C( 12)       269
-        let optimal_routing_indicator = "".to_string();                 //    C(  1)       281
-        let add_routing_category = "".to_string();                  //    W(  1)       282
-        let in_bnc_connection_type = "".to_string();                    //    C(  1)       284
-        let inside_user_plane_index = "".to_string();                   //  BCD(  2)       285
-        let inside_control_plane_index = "".to_string();                    //  BCD(  2)       287
-        let out_bnc_connection_type = "".to_string();                   //    C(  1)       289
-        let outside_user_plane_index = "".to_string();                  //  BCD(  2)       290
-        let outside_control_plane_index = "".to_string();                   //  BCD(  2)       292
-        let collect_call_indicator = "".to_string();                    //    C(  1)       294
-        let forwarding_first_ci = "".to_string();                   //    W(  1)       295
-        let forwarding_last_ex_id_ton = "".to_string();                 //    C(  1)       297
-        let forwarded_to_last_ex_id_ton = "".to_string();                   //    C(  1)       298
-        let radio_network_type = "".to_string();                    //    C(  1)       299
-        let rate_adaption = "".to_string();                 //    C(  1)       300
+        let cause_for_forwarding = CauseForForwarding::new(bytes[28]).value;
+        let forwarding_imsi = IMSI::new(&bytes[29..37]).value;
+        let forwarding_number = Number::new(&bytes[37..49]).value;
+        let forwarded_to_imsi = IMSI::new(&bytes[49..57]).value;
+        let forwarded_to_imei = IMEI::new(&bytes[57..65]).value;
+        let forwarded_to_number = Number::new(&bytes[65..77]).value;
+        let forwarded_to_ms_classmark = MSClassMark::new(bytes[77]).value; //    C(  1)        77
+        let orig_calling_number = "".to_string(); //    C( 10)        78
+        let in_circuit_group = InCircuitGroup::new(&bytes[88..90]).value;
+        let in_circuit = InCircuit::new(&bytes[90..92]).value;
+        let out_circuit_group = "".to_string(); //  BCD(  2)        92
+        let out_circuit = "".to_string(); //  BCD(  2)        94
+        let basic_service_type = BasicServiceType::new(bytes[96]).value;
+        let basic_service_code = BasicServiceCode::new(bytes[97], bytes[96]).value;
+        let facility_usage = FacilityUsage::new(&bytes[98..102]).value; //    C(  4)        98
+        let non_transparency_indicator = NonTrasnparencyIndicator::new(bytes[102]).value;
+        let channel_rate_indicator = ChannelRateIndicator::new(bytes[103]).value;
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[104..111]).value;
+        let charging_start_time = ChargingStartTime::new(&bytes[111..118]).value;
+        let charging_end_time = ChargingEndtime::new(&bytes[118..125]).value;
+        let cause_for_termination = CauseForTermination::new(&bytes[125..129]).value;
+        let call_type = CallType::new(bytes[129]).value;
+        let forwarded_to_number_ton = TON::new(bytes[130]).value;
+        let forw_mcz_chrg_type = ChargeType::new(bytes[131]).value;
+        let forw_mcz_duration = Duration::new(&bytes[132..135]).value;
+        let forw_mcz_tariff_class = TariffClass::new(&bytes[135..138]).value;
+        let forw_mcz_pulses = Pulses::new(&bytes[138..140]).value;
+        let forwarded_to_msrn_ton = TON::new(bytes[140]).value;
+        let forwarded_to_msrn = MSRN::new(&bytes[141..153]).value;
+        let forwarding_number_ton = TON::new(bytes[153]).value;
+        let orig_calling_number_ton = TON::new(bytes[154]).value;
+        let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes[155..157]).value;
+        let orig_dialling_class = "".to_string(); //    W(  1)       157
+        let leg_call_reference = "".to_string(); // TODO                  //    C(  5)       159
+        let call_reference_time = CallReferenceTime::new(&bytes[164..171]).value;
+        let speech_version = "".to_string(); //    C(  1)       171
+        let b_idle_time = BIdleTime::new(&bytes[172..179]).value;
+        let pni = PNI::new(&bytes[179..182]).value;
+        let forw_mcz_change_percent = ChangePercent::new(bytes[182]).value;
+        let forw_mcz_change_direction = ChangeDirection::new(bytes[183]).value;
+        let forwarding_charging_area = ChargingArea::new(&bytes[184..186]).value;
+        let forwarded_to_charging_area = ChargingArea::new(&bytes[186..188]).value;
+        let connected_to_number_ton = TON::new(bytes[188]).value;
+        let connected_to_number = Number::new(&bytes[189..201]).value;
+        let cug_interlock = "".to_string(); //TODO           //    C(  4)       201
+        let cug_outgoing_access = CugOutgoingAccess::new(bytes[205]).value;
+        let cug_information = CugInformation::new(bytes[206]).value;
+        let hot_billing_record_number = HotBilingRecordNumber::new(&bytes[207..211]).value;
+        let spare2 = "".to_string(); //    C(  1)       211
+        let number_of_all_in_records = NumberOfAllInRecords::new(&bytes[212..213]).value;
+        let number_of_in_records = NumberOfInRecords::new(bytes[213]).value; 
+        let orig_called_number_ton = "".to_string(); //    C(  1)       214
+        let orig_called_number = "".to_string(); //    C( 12)       215
+        let tns_carrier_code = "".to_string(); //    W(  1)       227
+        let carrier_selection = "".to_string(); //    C(  1)       229
+        let pic = "".to_string(); //    W(  1)       230
+        let routing_category = "".to_string(); //    C(  1)       232
+        let ms_classmark3 = "".to_string(); //    C(  1)       233
+        let forwarding_cell_band = "".to_string(); //    C(  1)       234
+        let camel_call_reference = "".to_string(); //    C(  8)       235
+        let camel_exchange_id_ton = "".to_string(); //    C(  1)       243
+        let camel_exchange_id = "".to_string(); //    C(  9)       244
+        let npdb_query_status = "".to_string(); //    C(  1)       253
+        let scp_connection = "".to_string(); //    C(  1)       254
+        let loc_routing_number_ton = "".to_string(); //    C(  1)       255
+        let loc_routing_number = "".to_string(); //    C( 12)       256
+        let forwarding_msrn_ton = "".to_string(); //    C(  1)       268
+        let forwarding_msrn = "".to_string(); //    C( 12)       269
+        let optimal_routing_indicator = "".to_string(); //    C(  1)       281
+        let add_routing_category = "".to_string(); //    W(  1)       282
+        let in_bnc_connection_type = "".to_string(); //    C(  1)       284
+        let inside_user_plane_index = "".to_string(); //  BCD(  2)       285
+        let inside_control_plane_index = "".to_string(); //  BCD(  2)       287
+        let out_bnc_connection_type = "".to_string(); //    C(  1)       289
+        let outside_user_plane_index = "".to_string(); //  BCD(  2)       290
+        let outside_control_plane_index = "".to_string(); //  BCD(  2)       292
+        let collect_call_indicator = "".to_string(); //    C(  1)       294
+        let forwarding_first_ci = "".to_string(); //    W(  1)       295
+        let forwarding_last_ex_id_ton = "".to_string(); //    C(  1)       297
+        let forwarded_to_last_ex_id_ton = "".to_string(); //    C(  1)       298
+        let radio_network_type = "".to_string(); //    C(  1)       299
+        let rate_adaption = "".to_string(); //    C(  1)       300
 
         Self {
             intermediate_record_number,
@@ -270,12 +270,11 @@ impl FORW {
     }
 }
 
-
 // FORMAT TYPE:      3
 // MESSAGE NUMBER:   dd96
 // FORMAT TYPE NAME: FORW Forwarded Call
 // RECORD LENGTH:    301
-                                                                                                                            
+
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
@@ -364,4 +363,3 @@ impl FORW {
 // forwarded_to_last_ex_id_ton                     C(  1)       298
 // radio_network_type                              C(  1)       299
 // rate_adaption                                   C(  1)       300
-               

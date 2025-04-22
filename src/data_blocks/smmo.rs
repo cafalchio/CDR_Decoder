@@ -65,7 +65,7 @@ impl SMMO {
         let sms_length = SMSLenght::new(bytes[133]).value;
         let command_type = CommandType::new(bytes[134]).value;
         let message_reference = MessageReference::new(bytes[135]).value;
-        let number_of_in_records = NumberOfInRecords::new(&bytes[136]).value;
+        let number_of_in_records = NumberOfInRecords::new(bytes[136]).value;
         let num_of_concatenated_sms = NumOfConcatenatedSMS::new(bytes[137]).value;
         let concatenated_record_number = ConcatenatedRecordNumber::new(bytes[138]).value;
         let concatenated_sms_reference = ConcatenatedSMSReference::new(&bytes[139..141]).value;

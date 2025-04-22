@@ -544,8 +544,7 @@ pub struct ProtocolIdentification {
     pub value: String,
 }
 
-pub struct PULSES {
-    //TODO
+pub struct Pulses {
     pub value: String,
 }
 
