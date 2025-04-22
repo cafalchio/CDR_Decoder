@@ -2334,17 +2334,28 @@ impl ModifyDirection {
 
 impl ModifyParameters {
     pub fn new(bytes: &[u8]) -> Self {
-        let mut parts = vec![];
-        for (i, chunk) in bytes.chunks_exact(2).enumerate() {
-            let word = HWord::new(chunk).value;
-            if word != 0 {
-                // e1 corresponds to index 0
-                parts.push(format!("e{}: {}", i + 1, word));
-            }
-        }
-        let value = parts.join(", ");
-        Self { value }
+        assert_eq!(bytes.len(), 14, "Expected 14 bytes for ModifyParameters");
+
+        let fields = [
+            ("e1", HWord::new(&bytes[0..2]).value),
+            ("e2", HWord::new(&bytes[2..4]).value),
+            ("e3", HWord::new(&bytes[4..6]).value),
+            ("e4", HWord::new(&bytes[6..8]).value),
+            ("e5", HWord::new(&bytes[8..10]).value),
+            ("e6", HWord::new(&bytes[10..12]).value),
+            ("e7", HWord::new(&bytes[12..14]).value),
+        ];
+
+        let value = fields
+            .iter()
+            .filter(|(_, val)| *val != 0)
+            .map(|(label, val)| format!("{}={:X}", label, val)) // format as uppercase hex
+            .collect::<Vec<_>>()
+            .join(", ");
+
+        ModifyParameters { value }
     }
+
     pub fn value(&self) -> &str {
         &self.value
     }

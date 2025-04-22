@@ -399,6 +399,12 @@ pub struct LAC {
     pub value: String,
 }
 pub struct LastExId {
+    // CAMEL_EXCHANGE_ID_TON
+    // CALLING_SUBS_LAST_EX_ID_TON
+    // CALLED_SUBS_LAST_EX_ID_TON
+    // FORWARDING_LAST_EX_ID_TON
+    // FORWARDED_TO_LAST_EX_ID_TON
+    // VIRTUAL_MSC_ID_TON
     pub value: String,
 }
 pub struct LastRecordNumber {
@@ -758,12 +764,7 @@ pub struct TON {
     // LOC_ROUTING_NUMBER_TON
     // SCF_ADDRESS_TON
     // CLIENT_EXTERNAL_ID_TON
-    // CAMEL_EXCHANGE_ID_TON
-    // CALLING_SUBS_LAST_EX_ID_TON
-    // CALLED_SUBS_LAST_EX_ID_TON
-    // FORWARDING_LAST_EX_ID_TON
-    // FORWARDED_TO_LAST_EX_ID_TON
-    // VIRTUAL_MSC_ID_TON
+ 
     pub value: String,
 }
 
