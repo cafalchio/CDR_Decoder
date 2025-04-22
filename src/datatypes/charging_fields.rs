@@ -764,7 +764,6 @@ pub struct TON {
     // LOC_ROUTING_NUMBER_TON
     // SCF_ADDRESS_TON
     // CLIENT_EXTERNAL_ID_TON
- 
     pub value: String,
 }
 
