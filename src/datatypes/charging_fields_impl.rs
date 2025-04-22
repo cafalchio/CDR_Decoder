@@ -28,6 +28,36 @@ pub fn decode_hexs(hex_bytes: &[u8]) -> String {
     decoded
 }
 
+fn bcd_nibble_to_char(nibble: u8) -> Option<char> {
+    match nibble {
+        0x0..=0x9 => Some((b'0' + nibble) as char),
+        0xA => Some('A'),
+        0xB => Some('*'),
+        0xC => Some('#'),
+        0xD => Some('B'),
+        0xE => Some('C'),
+        0xF => None, // filler
+        _ => None,
+    }
+}
+
+pub fn decode_number(bytes: &[u8]) -> String {
+    let mut result = String::new();
+    for &b in bytes {
+        let low = b & 0x0F;
+        let high = (b >> 4) & 0x0F;
+
+        if let Some(ch) = bcd_nibble_to_char(low) {
+            result.push(ch);
+        }
+        if let Some(ch) = bcd_nibble_to_char(high) {
+            result.push(ch);
+        }
+    }
+    result
+}
+
+
 impl AgeOfEstimate {
     pub fn new(bytes: &[u8]) -> Self {
         let mut val = HDWord::new(bytes).value;
@@ -1004,7 +1034,7 @@ impl DtmfIndicator {
 impl CallingNumber {
     pub fn new(bytes: &[u8]) -> Self {
         CallingNumber {
-            value: decode_hexs(bytes),
+            value: decode_number(bytes),
         }
     }
     pub fn value(&self) -> &str {
@@ -2304,17 +2334,28 @@ impl ModifyDirection {
 
 impl ModifyParameters {
     pub fn new(bytes: &[u8]) -> Self {
-        let mut parts = vec![];
-        for (i, chunk) in bytes.chunks_exact(2).enumerate() {
-            let word = HWord::new(chunk).value;
-            if word != 0 {
-                // e1 corresponds to index 0
-                parts.push(format!("e{}: {}", i + 1, word));
-            }
-        }
-        let value = parts.join(", ");
-        Self { value }
+        assert_eq!(bytes.len(), 14, "Expected 14 bytes for ModifyParameters");
+
+        let fields = [
+            ("e1", HWord::new(&bytes[0..2]).value),
+            ("e2", HWord::new(&bytes[2..4]).value),
+            ("e3", HWord::new(&bytes[4..6]).value),
+            ("e4", HWord::new(&bytes[6..8]).value),
+            ("e5", HWord::new(&bytes[8..10]).value),
+            ("e6", HWord::new(&bytes[10..12]).value),
+            ("e7", HWord::new(&bytes[12..14]).value),
+        ];
+
+        let value = fields
+            .iter()
+            .filter(|(_, val)| *val != 0)
+            .map(|(label, val)| format!("{}={:X}", label, val)) // format as uppercase hex
+            .collect::<Vec<_>>()
+            .join(", ");
+
+        ModifyParameters { value }
     }
+
     pub fn value(&self) -> &str {
         &self.value
     }
@@ -2487,7 +2528,7 @@ impl NumOfConcatenatedSMS {
 impl Number {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
-            value: decode_hexs(bytes),
+            value: decode_number(bytes),
         }
     }
     pub fn value(&self) -> &str {

@@ -31,7 +31,7 @@ fn main() {
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                // println!("{}", json);
+                println!("{}", json);
             }
             None => {
                 // handle unknown record type if needed

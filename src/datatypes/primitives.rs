@@ -1,5 +1,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
+use std::str;
 
 #[derive(Debug, Clone, Copy)]
 pub struct HByte {
@@ -14,7 +15,7 @@ impl HByte {
 
 #[derive(Debug, Clone, Copy)]
 pub struct HWord {
-    pub value: u32,
+    pub value: u16,
 }
 impl HWord {
     pub fn new(bytes: &[u8]) -> HWord {
