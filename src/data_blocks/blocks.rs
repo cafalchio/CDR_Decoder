@@ -1,7 +1,9 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use crate::data_blocks::{header::Header, hlri::HLRI, loca::LOCA, smmo::SMMO, in2::IN2, forw::FORW};
+use crate::data_blocks::{
+    forw::FORW, header::Header, hlri::HLRI, in2::IN2, loca::LOCA, smmo::SMMO,
+};
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -10,9 +12,8 @@ pub enum Blocks {
     Loca(LOCA), // Location update
     Hlri(HLRI), //HLR interrogation
     Smmo(SMMO), //"Short Message service (point-to-point), Mobile-originated"
-    // in2(IN2),
-    // forw(FORW),
-
+    In2(IN2),
+    Forw(FORW),
 }
 
 impl Blocks {
@@ -23,8 +24,8 @@ impl Blocks {
             "Short message service (point-to-point), mobile-originated" => {
                 Some(Blocks::Smmo(SMMO::new(data)))
             }
-            // "Intelligent data 2" => Some(Blocks::in2(IN2::new(data))),
-
+            "Intelligent network data 2" => Some(Blocks::In2(IN2::new(data))),
+            "Forwarded call" => Some(Blocks::Forw(FORW::new(data))),
             _ => None,
         }
     }

@@ -125,7 +125,7 @@ impl FORW {
         let forwarded_to_msrn = MSRN::new(&bytes[141..153]).value;
         let forwarding_number_ton = TON::new(bytes[153]).value;
         let orig_calling_number_ton = TON::new(bytes[154]).value;
-        let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes[155..157]).value;
+        let intermediate_chrg_cause = "".to_string(); // IntermediateChrgCause::new(&bytes[155..157]).value;
         let orig_dialling_class = "".to_string(); //    W(  1)       157
         let leg_call_reference = "".to_string(); // TODO                  //    C(  5)       159
         let call_reference_time = CallReferenceTime::new(&bytes[164..171]).value;
@@ -144,7 +144,7 @@ impl FORW {
         let hot_billing_record_number = HotBilingRecordNumber::new(&bytes[207..211]).value;
         let spare2 = "".to_string(); //    C(  1)       211
         let number_of_all_in_records = NumberOfAllInRecords::new(&bytes[212..213]).value;
-        let number_of_in_records = NumberOfInRecords::new(bytes[213]).value; 
+        let number_of_in_records = NumberOfInRecords::new(bytes[213]).value;
         let orig_called_number_ton = "".to_string(); //    C(  1)       214
         let orig_called_number = "".to_string(); //    C( 12)       215
         let tns_carrier_code = "".to_string(); //    W(  1)       227
