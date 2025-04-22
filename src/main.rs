@@ -11,7 +11,7 @@ fn main() {
     println!("Running extraction...");
     let start_time = Instant::now();
 
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111349_22243_N_00000.BACKUP.gz");
+    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
     // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111432_10650_N_00000.BACKUP.gz");
     let mut next_header = 0;
     let mut cnt = 0;
@@ -23,7 +23,7 @@ fn main() {
 
         let header = extract_header(&bytes[next_header..]);
         if header.record_type != "Location update" {
-            // println!("{}", header.record_type);
+            println!("{}", header.record_type);
         }
         match blocks::Blocks::new(
             &header.record_type,
@@ -31,7 +31,7 @@ fn main() {
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                println!("{}", json);
+                // println!("{}", json);
             }
             None => {
                 // handle unknown record type if needed

@@ -57,7 +57,6 @@ pub fn decode_number(bytes: &[u8]) -> String {
     result
 }
 
-
 impl AgeOfEstimate {
     pub fn new(bytes: &[u8]) -> Self {
         let mut val = HDWord::new(bytes).value;
@@ -2224,7 +2223,7 @@ impl LocUpIndicator {
         let value = match value {
             0x00 => "Location updating",
             0x01 => "GPRS location update",
-            _ => "ERROR",
+            _ => "",
         };
         Self {
             value: value.to_string(),
@@ -2820,11 +2819,12 @@ impl AddRoutingCategory {
 impl RadioNetworkType {
     pub fn new(byte: u8) -> Self {
         let value = match byte {
-            0x01 => "HGSM",
-            0x02 => "HUMTS",
-            0x03 => "HSIP",
-            0x04 => "HUMA",
-            0xFF => "Hnot used",
+            0x01 => "GSM",  //2g
+            0x02 => "UMTS", // 3G
+            0x03 => "SIP",  // voip
+            0x04 => "UMA",  //  (Unlicensed Mobile Access, used for Wi-Fi/GSM handover)
+            0x05 => "NR", // I suppose this is New radio 5g, but it needs to be confirmed , it could be 4G
+            0xFF => "not used",
             _ => "ERROR",
         };
         Self {

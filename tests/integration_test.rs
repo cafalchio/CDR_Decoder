@@ -105,21 +105,23 @@ mod tests {
     }
 
     #[test]
-    fn test_exchange_id(){
+    fn test_exchange_id() {
         let bytes = [0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
         let exchange_id = ExchangeId::new(&bytes).value;
         assert_eq!("49177387", exchange_id);
     }
 
     #[test]
-    fn test_called_subs_last_ex_id(){
+    fn test_called_subs_last_ex_id() {
         let bytes = [0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
         let called_subs_last_ex_id = LastExId::new(&bytes).value;
         assert_eq!("49177387", called_subs_last_ex_id);
     }
     #[test]
-    fn test_calling_modify_parameters(){
-        let bytes = [0x14, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00];
+    fn test_calling_modify_parameters() {
+        let bytes = [
+            0x14, 0x00, 0x0A, 0x00, 0x00, 0x00, 0x64, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        ];
         let calling_modify_parameters = ModifyParameters::new(&bytes).value;
         assert_eq!("e1=14, e2=A, e4=64", calling_modify_parameters);
     }
