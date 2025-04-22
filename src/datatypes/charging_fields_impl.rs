@@ -1563,7 +1563,9 @@ impl ExitMSGTrunkGroup {
 }
 
 impl FacilityUsage {
-    pub fn new(value: u32) -> Self {
+    pub fn new(bytes: &[u8]) -> Self {
+        let value:u32 = HDWord::new(&bytes).value;
+
         let mapping = [
             (1, "aoc - charging"),
             (2, "aoc - charging info at end of call"),
@@ -1598,7 +1600,7 @@ impl FacilityUsage {
         let value = mapping
             .iter()
             .filter_map(|(bit, desc)| {
-                if (value >> (bit - 1)) & 1 == 1 {
+                if (value  >> (bit - 1)) & 1 == 1 {
                     Some(*desc)
                 } else {
                     None
@@ -2834,3 +2836,33 @@ impl RadioNetworkType {
         &self.value
     }
 }
+
+impl ProtocolIdentification {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Not used",
+            0x01 => "Mobile application part",
+            0x02 => "CORE INAP - CS1",
+            0x03 => "CAMEL application part",
+            0x04 => "Completion of calls to the busy subscriber",
+            0x05 => "Calling name presentation - TCAP query",
+            0x06 => "Number portability - TCAP query",
+            0x07 => "The follow on call process",
+            0x08 => "Cx application part",
+            0x09 => "Direct collect call dialling",
+            0x10 => "SSP routing based on IN categories",
+            0x11 => "Sequential hunting",
+            0x12 => "Selective ring back tone",
+            0x13 => "Parallel hunting",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+

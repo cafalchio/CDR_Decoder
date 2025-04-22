@@ -14,14 +14,6 @@
 // call_reference                                  C(  5)        10
 // exchange_id                                     C( 10)        15
                                                                                                                             
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 

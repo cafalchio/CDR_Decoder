@@ -1,6 +1,6 @@
 // FORMAT TYPE:      25
 // MESSAGE NUMBER:   dd8b
-// FORMAT TYPE NAME: CTC
+// FORMAT TYPE NAME: CTC Camel-terminated Call
 // RECORD LENGTH:    135
 
 // HEADER:

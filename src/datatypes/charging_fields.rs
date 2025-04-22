@@ -540,8 +540,7 @@ pub struct PORTED_IN {
     pub value: String,
 }
 
-pub struct PROTOCOL_IDENTIFICATION {
-    //TODO
+pub struct ProtocolIdentification {
     pub value: String,
 }
 
