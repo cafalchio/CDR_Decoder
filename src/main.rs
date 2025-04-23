@@ -27,13 +27,18 @@ fn main() {
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
 
+        if header.record_type == "Unsuccessful call attempt" {
+            println!("UCA -> {}", header.record_length);
+            continue;
+        }
+
         match blocks::Blocks::new(
             &header.record_type,
             &bytes[next_header..next_header + header.record_length as usize],
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                println!("{}", json);
+                // println!("{}", json);
             }
             None => {
                 // handle unknown record type if needed
