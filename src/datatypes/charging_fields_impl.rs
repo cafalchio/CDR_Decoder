@@ -3700,7 +3700,7 @@ impl UsedPositionMethod {
                 0x04 => "undetermined",
                 _ => "Error",
             };
-            results.push(format!("{} - {}", positioning_value, pos_method_value ));
+            results.push(format!("{} - {}", positioning_value, pos_method_value));
         }
         Self {
             value: results.join(" | "),
@@ -3740,7 +3740,7 @@ impl UsedUtranPosMethod {
                 0x04 => "undetermined",
                 _ => "Error",
             };
-            results.push(format!("{} - {}", pos_method_value, use_pos_method ));
+            results.push(format!("{} - {}", pos_method_value, use_pos_method));
         }
         Self {
             value: results.join(" | "),
