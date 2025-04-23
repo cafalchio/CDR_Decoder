@@ -3205,3 +3205,391 @@ impl SCFAddress {
         &self.value
     }
 }
+
+impl VirtualMSCId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl VerticalAccuracy {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl UserPlaneIndex {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl UsedNumberOfChannels {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "None",
+            0x01 => "Stand Alone Dedicated Control Channel (SDCCH)",
+            0x04 => "Eight full rate traffic channels",
+            0x08 => "One full rate traffic channel",
+            0x09 => "One half rate traffic channel",
+            0x0A => "Two full rate traffic channels",
+            0x0B => "Three full rate traffic channels",
+            0x0C => "Four full rate traffic channels",
+            0x0D => "Five full rate traffic channels",
+            0x0E => "Six full rate traffic channels",
+            0x0F => "Seven full rate traffic channels",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl UsedChannelCoding {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x01 => "28,8 kbit/s (The radio interface rate is 29,0 kbit/s)",
+            0x02 => "32,0 kbit/s (The radio interface rate is 32,0 kbit/s)",
+            0x03 => "43,2 kbit/s (The radio interface rate is 43,5 kbit/s)",
+            0x0B => "9,6 kbit/s (The radio interface rate is 12,0 kbit/s)",
+            0x0C => "4,8 kbit/s (The radio interface rate is 6,0 kbit/s)",
+            0x0E => "14,4 kbit/s (The radio interface rate is 14,5 kbit/s)",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl UsedAirInterfaceUserRate {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Not used",
+            0x01 => "14,4 kbit/s",
+            0x02 => "28,8 kbit/s",
+            0x03 => "32,0 kbit/s",
+            0x04 => "57,6 kbit/s",
+            0x05 => "64,0 kbit/s",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SIPSigMode {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Unknown",
+            0x01 => "SIP ISUP tunnelling: SIP-I, SIP-T",
+            0x02 => "Media gateway control function (MGCF)",
+            0x03 => "SIP Access interface of MSS",
+            0x04 => "SIP Trunk interface of MSS",
+            0x05 => "ISC Interface of NVS for originating services",
+            0x06 => "ISC Interface of NVS for terminating services",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ServiceTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BcdTimestamp::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ShortenedInServices {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ServiceIdentifier {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Unknown service identifier",
+            0x01 => "Service identifier not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ServiceCode {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SCPConnection {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "IN service connection failed",
+            0x01 => "IN service connection successful",
+            0xFF => "Not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SpeechVersion {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl StartTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BcdTimestamp::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl StreamIdentifier {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "No bearer",
+            0x01 => "Only one ongoing call",
+            _ => "Multicall",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SSRecordNumber {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TariffChangeCNT {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", BCD::new(&byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TapeBlockType {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SupplementaryServicecode {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "all supplementary services",
+            0x10 => "all number identification services",
+            0x11 => "calling number identification presentation",
+            0x12 => "calling number identification restriction",
+            0x13 => "called number identification presentation",
+            0x14 => "called number identification restriction",
+            0x15 => "malicious call identification",
+            0x20 => "call forwarding services",
+            0x21 => "call forwarding unconditional",
+            0x28 => "all conditional forwarding services",
+            0x29 => "call forwarding on mobile subscriber busy",
+            0x2A => "call forwarding on no reply",
+            0x2B => "call forwarding on mobile subscriber not reachable",
+            0x2C => "operator controlled call forwarding (not defined in GSM 09.02)",
+            0x2D => "night_service (not defined in GSM 09.02)",
+            0x30 => "all call offering services",
+            0x31 => "call transfer",
+            0x32 => "mobile access hunting",
+            0x3A => "Call deflection, alerting",
+            0x3B => "Call deflection, immediate",
+            0x40 => "all call completion services",
+            0x41 => "call waiting",
+            0x42 => "call hold",
+            0x43 => "completion of calls to busy subscribers",
+            0x45 => "multicall",
+            0x4A => "completion of calls to not reachable subscribers",
+            0x50 => "all multiparty service",
+            0x51 => "multiparty service",
+            0x60 => "all community of interest services",
+            0x61 => "closed user group",
+            0x70 => "all charging services",
+            0x71 => "AoC-I",
+            0x72 => "AoC-C",
+            0x73 => "reverse charging",
+            0x80 => "all additional information transfer services",
+            0x81 => "user to user signalling 1 (origination/release)",
+            0x82 => "user to user signalling 2 (ringing)",
+            0x83 => "user to user signalling 3 (connection)",
+            0x90 => "all call restriction services",
+            0x91 => "barring of outgoing calls",
+            0x92 => "barring of all outgoing calls",
+            0x93 => "barring of all outgoing international calls",
+            0x94 => "barring of all outgoing international non-HPLMN directed calls",
+            0x95 => "barring of all outgoing calls when outside HPLMN (not defined in 09.02)",
+            0x99 => "barring of incoming calls",
+            0x9A => "barring of all incoming calls",
+            0x9B => "barring of all incoming calls when outside HPLMN",
+            0xEE => "AoC-D",
+            0xEF => "AoC-E",
+            0xF1 => "call transfer recall (not defined in GSM 09.02)",
+            0xF2 => "USSD (not defined in GSM 09.02)",
+            0xF5 => "IN service (not defined in GSM 09.02)",
+            0xFF => "not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SubsRoamingStatus {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x31 => "Home country and network",
+            0x32 => "Home country and other network",
+            0x42 => "Other country and network",
+            0xFF => "Not known",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SubsNewExId {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_bcds(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TNSCarrierCode {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl TNSCircuitCode {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Unspecified",
+            0x01 => "International call, no operator requested",
+            0x02 => "International call, operator requested",
+            0x03 => "Network-specific value",
+            0x04 => "Network-specific value",
+            0x05 => "Network-specific value",
+            0x06 => "Network-specific value",
+            0x07 => "Network-specific value",
+            0x08 => "Network-specific value",
+            0x09 => "Network-specific value",
+            0x0A => "Network-specific value",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}

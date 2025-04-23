@@ -603,32 +603,26 @@ pub struct ROUTING_INFO {
 pub struct SCFAddress {
     pub value: String,
 }
-pub struct SCP_CONNECTION {
-    //TODO
+pub struct SCPConnection {
     pub value: String,
 }
 pub struct SelectedCodec {
     pub value: String,
 }
-pub struct SERVICE_CODE {
-    //TODO
+pub struct ServiceCode {
     pub value: String,
 }
 
-pub struct SERVICE_IDENTIFIER {
-    //TODO
+pub struct ServiceIdentifier {
     pub value: String,
 }
-pub struct SERVICE_TIME {
-    //TODO
+pub struct ServiceTime {
     pub value: String,
 }
-pub struct SHORTENED_IN_SERVICES {
-    //TODO
+pub struct ShortenedInServices {
     pub value: String,
 }
-pub struct SIP_SIG_MODE {
-    //TODO
+pub struct SIPSigMode {
     pub value: String,
 }
 pub struct SMSCentre {
@@ -643,23 +637,19 @@ pub struct SMSType {
     pub value: String,
 }
 
-pub struct SPEECH_VERSION {
-    //TODO
+pub struct SpeechVersion {
     pub value: String,
 }
 
-pub struct START_TIME {
-    //TODO
+pub struct StartTime {
     pub value: String,
 }
 
-pub struct SS_RECORD_NUMBER {
-    //TODO
+pub struct SSRecordNumber {
     pub value: String,
 }
 
-pub struct STREAM_IDENTIFIER {
-    //TODO
+pub struct StreamIdentifier {
     pub value: String,
 }
 pub struct SubId {
@@ -667,29 +657,20 @@ pub struct SubId {
     // subs_old_ex_id
     pub value: String,
 }
-pub struct SELECTED_CODEC {
-    //TODO
+pub struct SubsNewExId {
     pub value: String,
 }
-pub struct SUBS_NEW_EX_ID {
-    //TODO
+pub struct SubsRoamingStatus {
     pub value: String,
 }
-pub struct SUBS_ROAMING_STATUS {
-    //TODO
+pub struct SupplementaryServicecode {
     pub value: String,
 }
-pub struct SUPPLEMENTARY_SERVICE_CODE {
-    //TODO
-    pub value: String,
-}
-pub struct TAPE_BLOCK_TYPE {
-    //TODO
+pub struct TapeBlockType {
     pub value: String,
 }
 
-pub struct TARIFF_CHANGE_CNT {
-    //TODO
+pub struct TariffChangeCNT {
     pub value: String,
 }
 
@@ -701,13 +682,11 @@ pub struct TeleserviceCode {
     pub value: String,
 }
 
-pub struct TNS_CARRIER_CODE {
-    //TODO
+pub struct TNSCarrierCode {
     pub value: String,
 }
 
-pub struct TNS_CIRCUIT_CODE {
-    //TODO
+pub struct TNSCircuitCode {
     pub value: String,
 }
 
@@ -737,18 +716,15 @@ pub struct TON {
     pub value: String,
 }
 
-pub struct USED_AIR_INTERFACE_USER_RATE {
-    //TODO
+pub struct UsedAirInterfaceUserRate {
     pub value: String,
 }
 
-pub struct USED_CHANNEL_CODING {
-    //TODO
+pub struct UsedChannelCoding {
     pub value: String,
 }
 
-pub struct USED_NUMBER_OF_CHANNELS {
-    //TODO
+pub struct UsedNumberOfChannels {
     pub value: String,
 }
 
@@ -762,18 +738,15 @@ pub struct USED_UTRAN_POS_METHOD {
     pub value: String,
 }
 
-pub struct USER_PLANE_INDEX {
-    //TODO
+pub struct UserPlaneIndex {
     pub value: String,
 }
 
-pub struct VERTICAL_ACCURACY {
-    //TODO
+pub struct VerticalAccuracy {
     pub value: String,
 }
 
-pub struct VIRTUAL_MSC_ID {
-    //TODO
+pub struct VirtualMSCId {
     pub value: String,
 }
 pub struct VMSCNumber {
