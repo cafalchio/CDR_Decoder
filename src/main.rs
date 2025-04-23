@@ -13,8 +13,7 @@ fn main() {
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111415_10648_N_00000.BACKUP.gz");
+    let bytes = read_file("data/test_file1.gz");
 
     let mut next_header = 0;
     let mut cnt = 0;
@@ -27,10 +26,10 @@ fn main() {
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
 
-        if header.record_type == "Unsuccessful call attempt" {
-            println!("UCA -> {}", header.record_length);
-            continue;
-        }
+        // if header.record_type == "Unsuccessful call attempt" {
+        //     println!("UCA -> {}", header.record_length);
+        //     continue;
+        // }
 
         match blocks::Blocks::new(
             &header.record_type,
@@ -38,7 +37,7 @@ fn main() {
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                // println!("{}", json);
+                println!("{}", json);
             }
             None => {
                 // handle unknown record type if needed

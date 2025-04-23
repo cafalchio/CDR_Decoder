@@ -2801,11 +2801,11 @@ impl AddRoutingCategory {
 impl RadioNetworkType {
     pub fn new(byte: u8) -> Self {
         let value = match byte {
-            0x01 => "GSM",  //2g
-            0x02 => "UMTS", // 3G
-            0x03 => "SIP",  // voip
-            0x04 => "UMA",  //  (Unlicensed Mobile Access, used for Wi-Fi/GSM handover)
-            0x05 => "NR", // I suppose this is New radio 5g, but it needs to be confirmed , it could be 4G
+            0x01 => "GSM",     //2g
+            0x02 => "UMTS",    // 3G
+            0x03 => "SIP",     // voip
+            0x04 => "UMA",     //  (Unlicensed Mobile Access, used for Wi-Fi/GSM handover)
+            0x05 => "VTE 4g?", // I suppose this is New radio 5g, but it needs to be confirmed , it could be 4G
             0xFF => "not used",
             _ => "ERROR",
         };

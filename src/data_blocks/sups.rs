@@ -3,6 +3,8 @@
 // use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
 
+use crate::datatypes::charging_fields::*;
+
 // FORMAT TYPE:      5
 // MESSAGE NUMBER:   efcd
 // FORMAT TYPE NAME: SUPS Supplementary Service
@@ -57,37 +59,37 @@ pub struct SUPS {
 }
 impl SUPS {
     pub fn new(bytes: &[u8]) -> Self {
-        let ss_record_number = "".to_string();
-        let served_imsi = "".to_string();
-        let served_imei = "".to_string();
-        let served_number = "".to_string();
-        let served_subs_lac = "".to_string();
-        let served_subs_ci = "".to_string();
-        let supplementary_service_code = "".to_string();
-        let action = "".to_string();
-        let in_channel_allocated_time = "".to_string();
-        let charging_time = "".to_string();
-        let cause_for_termination = "".to_string();
-        let result_indicator = "".to_string();
-        let parameters_length = "".to_string();
+        let ss_record_number = SSRecordNumber::new(bytes[25]).value;
+        let served_imsi = IMSI::new(&bytes[26..34]).value;
+        let served_imei = IMEI::new(&bytes[34..42]).value;
+        let served_number = NUMBER::new(&bytes[42..52]).value;
+        let served_subs_lac = LAC::new(&bytes[52..54]).value;
+        let served_subs_ci = CI::new(&bytes[54..56]).value;
+        let supplementary_service_code = SupplementaryServicecode::new(bytes[56]).value;
+        let action = Action::new(bytes[57]).value;
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[58..65]).value;
+        let charging_time = ChargingTime::new(&bytes[65..72]).value;
+        let cause_for_termination = CauseForTermination::new(&bytes[72..76]).value;
+        let result_indicator = ResultIndicator::new(&bytes[76..78]).value;
+        let parameters_length = ParametersLength::new(bytes[78]).value;
         let parameters = "".to_string();
-        let served_number_ton = "".to_string();
-        let served_ms_classmark = "".to_string();
-        let basic_service_type = "".to_string();
-        let basic_service_code = "".to_string();
-        let leg_call_reference = "".to_string();
-        let call_reference_time = "".to_string();
-        let pni = "".to_string();
-        let hot_billing_record_number = "".to_string();
-        let routing_category = "".to_string();
-        let ms_classmark3 = "".to_string();
-        let served_cell_band = "".to_string();
-        let basic_call_state_model = "".to_string();
-        let camel_call_reference = "".to_string();
-        let camel_exchange_id_ton = "".to_string();
-        let camel_exchange_id = "".to_string();
-        let add_routing_category = "".to_string();
-        let radio_network_type = "".to_string();
+        let served_number_ton = TON::new(bytes[109]).value;
+        let served_ms_classmark = MSClassMark::new(bytes[110]).value;
+        let basic_service_type = BasicServiceType::new(bytes[111]).value;
+        let basic_service_code = BasicServiceCode::new(bytes[112], &basic_service_type).value;
+        let leg_call_reference = CallReference::new(&bytes[113..118]).value;
+        let call_reference_time = CallReferenceTime::new(&bytes[118..125]).value;
+        let pni = PNI::new(&bytes[125..128]).value;
+        let hot_billing_record_number = HotBilingRecordNumber::new(&bytes[128..132]).value;
+        let routing_category = RoutingCategory::new(bytes[132]).value;
+        let ms_classmark3 = MSClassMark3::new(bytes[133]).value;
+        let served_cell_band = CellBand::new(bytes[134]).value;
+        let basic_call_state_model = BasicCallStateModel::new(bytes[135]).value;
+        let camel_call_reference = CamelCallReference::new(&bytes[136..144]).value;
+        let camel_exchange_id_ton = TON::new(bytes[144]).value;
+        let camel_exchange_id = CamelExchangeId::new(&bytes[145..154]).value;
+        let add_routing_category = AddRoutingCategory::new(&bytes[154..156]).value;
+        let radio_network_type = RadioNetworkType::new(bytes[156]).value;
 
         Self {
             ss_record_number,
