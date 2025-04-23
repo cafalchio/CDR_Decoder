@@ -64,7 +64,7 @@ pub struct UCA {
     pub tns_carrier_code: String,
     pub pic: String,
     pub carrier_selection: String,
-    pub collect_call_indicator: String,
+    pub collect_call_indicator: String, // Not found in the documentation
     pub in_bnc_connection_type: String,
     pub inside_user_plane_index: String,
     pub inside_control_plane_index: String,
@@ -74,69 +74,68 @@ pub struct UCA {
 impl UCA {
     pub fn new(bytes: &[u8]) -> Self {
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..36]).value;
-        let intermediate_charging_ind = IntermediateRecordNumber::new(&bytes[26..27]).value; //  C(  1)        26
-        let number_of_ss_records = NumberOfInRecords::new(bytes[27]).value; //BCD(  1)        27
-        let calling_imsi = IMSI::new(&bytes[28..36]).value; //  C(  8)        28
-        let calling_imei = IMEI::new(&bytes[36..44]).value; //  C(  8)        36
-        let calling_number_ton = TON::new(bytes[44]).value; //  C(  1)        44
-        let calling_number = NUMBER::new(&bytes[45..55]).value; //  C( 10)        45
-        let called_number_ton = TON::new(bytes[55]).value; //  C(  1)        55
-        let called_number = NUMBER::new(&bytes[56..68]).value; //  C( 12)        56
-        let in_circuit_group = InCircuitGroup::new(&bytes[68..70]).value; //BCD(  2)        68
-        let in_circuit = InCircuit::new(&bytes[70..72]).value; //BCD(  2)        70
-        let calling_subs_lac = LAC::new(&bytes[72..74]).value; //  W(  1)        72
-        let calling_subs_ci = CI::new(&bytes[74..76]).value; //  W(  1)        74
-
-        let basic_service_type = "".to_string(); //  C(  1)        76
-        let basic_service_code = "".to_string(); //  C(  1)        77
-        let start_time = "".to_string(); //  C(  7)        78
-        let release_time = "".to_string(); //  C(  7)        85
-        let cause_for_termination = "".to_string(); // DW(  1)        92
-        let routing_info = "".to_string(); //  C(  2)        96
-        let call_state = "".to_string(); //  C(  1)        98
-        let dialled_digits = "".to_string(); //  C( 12)        99
-        let calling_ms_classmark = "".to_string(); //  C(  1)       111
-        let dialled_digits_ton = "".to_string(); //  C(  1)       112
-        let facility_usage = "".to_string(); //  C(  4)       113
-        let call_reference_time = "".to_string(); //  C(  7)       117
-        let out_channel_allocated_time = "".to_string(); //  C(  7)       124
-        let out_circuit_group = "".to_string(); //BCD(  2)       131
-        let out_circuit = "".to_string(); //BCD(  2)       133
-        let forwarded_to_number_ton = "".to_string(); //  C(  1)       135
-        let forwarded_to_number = "".to_string(); //  C( 12)       136
-        let called_imsi = "".to_string(); //  C(  8)       148
-        let hot_billing_record_number = "".to_string(); //BCD(  4)       156
-        let in_channel_allocated_time = "".to_string(); //  C(  7)       160
-        let routing_category = "".to_string(); //  C(  1)       167
-        let camel_call_reference = "".to_string(); //  C(  8)       168
-        let camel_exchange_id_ton = "".to_string(); //  C(  1)       176
-        let camel_exchange_id = "".to_string(); //  C(  9)       177
-        let req_fixed_nw_user_rate = "".to_string(); //  C(  1)       186
-        let req_other_modem_type = "".to_string(); //  C(  1)       187
-        let acceptable_channel_codings = "".to_string(); //  C(  1)       188
-        let req_number_of_channels = "".to_string(); //  C(  1)       189
-        let req_air_interface_user_rate = "".to_string(); //  C(  1)       190
-        let req_user_initiated_mod_ind = "".to_string(); //  C(  1)       191
-        let used_number_of_channels = "".to_string(); //  C(  1)       192
-        let used_other_modem_type = "".to_string(); //  C(  1)       193
-        let used_fixed_nw_user_rate = "".to_string(); //  C(  1)       194
-        let used_channel_coding = "".to_string(); //  C(  1)       195
-        let number_of_in_records = "".to_string(); //BCD(  1)       196
-        let ms_classmark3 = "".to_string(); //  C(  1)       197
-        let calling_cell_band = "".to_string(); //  C(  1)       198
-        let number_of_all_in_records = "".to_string(); //BCD(  1)       199
-        let loc_routing_number_ton = "".to_string(); //  C(  1)       200
-        let loc_routing_number = "".to_string(); //  C( 12)       201
-        let npdb_query_status = "".to_string(); //  C(  1)       213
-        let tns_carrier_code = "".to_string(); //  W(  1)       214
-        let pic = "".to_string(); //  W(  1)       216
-        let carrier_selection = "".to_string(); //  C(  1)       218
-        let collect_call_indicator = "".to_string(); //  C(  1)       219
-        let in_bnc_connection_type = "".to_string(); //  C(  1)       220
-        let inside_user_plane_index = "".to_string(); //BCD(  2)       221
-        let inside_control_plane_index = "".to_string(); //BCD(  2)       223
-        let radio_network_type = "".to_string(); //  C(  1)       225
-        let used_air_interface_user_rate = "".to_string(); //  C(  1)       226
+        let intermediate_charging_ind = IntermediateRecordNumber::new(&bytes[26..27]).value;
+        let number_of_ss_records = NumberOfInRecords::new(bytes[27]).value;
+        let calling_imsi = IMSI::new(&bytes[28..36]).value;
+        let calling_imei = IMEI::new(&bytes[36..44]).value;
+        let calling_number_ton = TON::new(bytes[44]).value;
+        let calling_number = NUMBER::new(&bytes[45..55]).value;
+        let called_number_ton = TON::new(bytes[55]).value;
+        let called_number = NUMBER::new(&bytes[56..68]).value;
+        let in_circuit_group = InCircuitGroup::new(&bytes[68..70]).value;
+        let in_circuit = InCircuit::new(&bytes[70..72]).value;
+        let calling_subs_lac = LAC::new(&bytes[72..74]).value;
+        let calling_subs_ci = CI::new(&bytes[74..76]).value;
+        let basic_service_type = BasicServiceType::new(bytes[76]).value;
+        let basic_service_code = BasicServiceCode::new(bytes[77], &basic_service_type).value;
+        let start_time = StartTime::new(&bytes[78..85]).value;
+        let release_time = StartTime::new(&bytes[85..92]).value;
+        let cause_for_termination = CauseForTermination::new(&bytes[92..96]).value;
+        let routing_info = RountingInfo::new(&bytes[96..98]).value;
+        let call_state = CallState::new(bytes[98]).value;
+        let dialled_digits = DialledDigits::new(&bytes[99..111]).value;
+        let calling_ms_classmark = MSClassMark::new(bytes[111]).value;
+        let dialled_digits_ton = TON::new(bytes[112]).value;
+        let facility_usage = FacilityUsage::new(&bytes[113..117]).value;
+        let call_reference_time = CallReferenceTime::new(&bytes[117..124]).value;
+        let out_channel_allocated_time = OutChannelAllocatedTime::new(&bytes[124..131]).value;
+        let out_circuit_group = InCircuitGroup::new(&bytes[131..133]).value;
+        let out_circuit = InCircuit::new(&bytes[133..135]).value;
+        let forwarded_to_number_ton = TON::new(bytes[135]).value;
+        let forwarded_to_number = NUMBER::new(&bytes[136..148]).value;
+        let called_imsi = IMSI::new(&bytes[148..156]).value;
+        let hot_billing_record_number = HotBilingRecordNumber::new(&bytes[156..160]).value;
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[160..167]).value;
+        let routing_category = RoutingCategory::new(bytes[167]).value;
+        let camel_call_reference = CamelCallReference::new(&bytes[168..176]).value;
+        let camel_exchange_id_ton = TON::new(bytes[176]).value;
+        let camel_exchange_id = CamelExchangeId::new(&bytes[177..186]).value;
+        let req_fixed_nw_user_rate = FixedNWUserRate::new(bytes[186]).value;
+        let req_other_modem_type = OtherModemType::new(bytes[187]).value;
+        let acceptable_channel_codings = AcceptableChannelCodings::new(bytes[188]).value;
+        let req_number_of_channels = ReqNumberOfChannels::new(bytes[189]).value;
+        let req_air_interface_user_rate = ReqAirInterfaceUserRate::new(bytes[190]).value;
+        let req_user_initiated_mod_ind = ReqUserInitiatedModInd::new(bytes[191]).value;
+        let used_number_of_channels = UsedNumberOfChannels::new(bytes[192]).value;
+        let used_other_modem_type = OtherModemType::new(bytes[193]).value;
+        let used_fixed_nw_user_rate = FixedNWUserRate::new(bytes[194]).value;
+        let used_channel_coding = UsedChannelCoding::new(bytes[195]).value;
+        let number_of_in_records = NumberOfInRecords::new(bytes[196]).value;
+        let ms_classmark3 = MSClassMark3::new(bytes[197]).value;
+        let calling_cell_band = CellBand::new(bytes[198]).value;
+        let number_of_all_in_records = NumberOfInRecords::new(bytes[199]).value;
+        let loc_routing_number_ton = TON::new(bytes[200]).value;
+        let loc_routing_number = NUMBER::new(&bytes[201..213]).value;
+        let npdb_query_status = NPDBQueryStatus::new(bytes[213]).value;
+        let tns_carrier_code = TNSCarrierCode::new(&bytes[214..216]).value;
+        let pic = PIC::new(&bytes[216..218]).value;
+        let carrier_selection = CarrierSelection::new(bytes[218]).value;
+        let collect_call_indicator = "".to_string();
+        let in_bnc_connection_type = BncConnectionType::new(bytes[220]).value;
+        let inside_user_plane_index = UserPlaneIndex::new(&bytes[221..223]).value;
+        let inside_control_plane_index = ControlPlaneIndex::new(&bytes[223..225]).value;
+        let radio_network_type = RadioNetworkType::new(bytes[225]).value;
+        let used_air_interface_user_rate = UsedAirInterfaceUserRate::new(bytes[226]).value;
 
         Self {
             intermediate_record_number,

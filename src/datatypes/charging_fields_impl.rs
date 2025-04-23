@@ -500,9 +500,10 @@ impl BasicServiceType {
 }
 
 impl BasicServiceCode {
-    pub fn new(value: u8, basic_service_type: u8) -> Self {
+    pub fn new(byte: u8, basic_service_type: &str) -> Self {
+        let bearer_code = byte & 0b1111_0000; // bits 7...4
         let description = match basic_service_type {
-            0 => match value {
+            "Teleservice" => match byte {
                 0x00 => "All teleservices",
                 0x10 => "Speech transmission",
                 0x11 => "Telephony",
@@ -525,54 +526,33 @@ impl BasicServiceCode {
                 0xD1 => "Dual numbering (alternate line service)",
                 0xFF => "Not Used",
                 _ => "ERROR",
+            }
+            .to_string(),
+
+            "Bearer service" => match bearer_code {
+                0x00 => format!("Rate: {}", byte & 0b0000_0111),
+                0x10 => "3.1 kHz group".to_string(),
+                0x11 => "3.1 kHz ex PLMN".to_string(),
+                0x12 => "alternate/speech".to_string(),
+                0x13 => "speech followed by 3.1 kHz".to_string(),
+                0x20 => "Data c.d.a".to_string(),
+                0x30 => "Data c.d.s".to_string(),
+                0x40 => "PAD access c.d.a".to_string(),
+                0x50 => "Data p.d.s".to_string(),
+                0x60 => "Alternate speech/data c.d.a".to_string(),
+                0x70 => "Alternate speech/ data c.d.s".to_string(),
+                0x80 => "Speech followed by data c.d.a".to_string(),
+                0x90 => "Speech followed by data c.d.s".to_string(),
+                0xF0 => "Service not used".to_string(),
+                _ => "ERROR".to_string(),
             },
-            1 => match value {
-                0x00 => "All bearer services",
-                0x10 => "3.1 kHz group",
-                0x11 => "3.1 kHz ex PLMN",
-                0x12 => "alternate/speech",
-                0x13 => "speech followed by 3.1 kHz",
-                0x20 => "Data c.d.a",
-                0x21 => "Data c.d.a 300 b/s",
-                0x22 => "Data c.d.a 1200 b/s",
-                0x23 => "Data c.d.a 1200-75 b/s",
-                0x24 => "Data c.d.a 2400 b/s",
-                0x25 => "Data c.d.a 4800 b/s",
-                0x26 => "Data c.d.a 9600 b/s",
-                0x27 => "Data c.d.a general",
-                0x30 => "Data c.d.s",
-                0x32 => "Data c.d.s 1200 b/s",
-                0x34 => "Data c.d.s 2400 b/s",
-                0x35 => "Data c.d.s 4800 b/s",
-                0x36 => "Data c.d.s 9600 b/s",
-                0x37 => "Data c.d.s general",
-                0x40 => "PAD access c.d.a",
-                0x41 => "PAD access c.d.a 300 b/s",
-                0x42 => "PAD access c.d.a 1200 b/s",
-                0x43 => "PAD access c.d.a 1200-75 b/s",
-                0x44 => "PAD access c.d.a 2400 b/s",
-                0x45 => "PAD access c.d.a 4800 b/s",
-                0x46 => "PAD access c.d.a 9600 b/s",
-                0x47 => "PAD access c.d.a general",
-                0x50 => "Data p.d.s",
-                0x54 => "Data p.d.s 2400 b/s",
-                0x55 => "Data p.d.s 4800 b/s",
-                0x56 => "Data p.d.s 9600 b/s",
-                0x57 => "Data p.d.s general",
-                0x60 => "Alternate speech/data c.d.a",
-                0x70 => "Alternate speech/ data c.d.s",
-                0x80 => "Speech followed by data c.d.a",
-                0x90 => "Speech followed by data c.d.s",
-                0xFF => "Not Used",
-                _ => "ERROR",
-            },
-            _ => "ERROR",
+
+            _ => "".to_string(),
         };
 
-        Self {
-            value: description.to_string(),
-        }
+        Self { value: description }
     }
+
     pub fn value(&self) -> &str {
         &self.value
     }
@@ -2821,11 +2801,11 @@ impl AddRoutingCategory {
 impl RadioNetworkType {
     pub fn new(byte: u8) -> Self {
         let value = match byte {
-            0x01 => "GSM",  //2g
-            0x02 => "UMTS", // 3G
-            0x03 => "SIP",  // voip
-            0x04 => "UMA",  //  (Unlicensed Mobile Access, used for Wi-Fi/GSM handover)
-            0x05 => "NR", // I suppose this is New radio 5g, but it needs to be confirmed , it could be 4G
+            0x01 => "GSM",     //2g
+            0x02 => "UMTS",    // 3G
+            0x03 => "SIP",     // voip
+            0x04 => "UMA",     //  (Unlicensed Mobile Access, used for Wi-Fi/GSM handover)
+            0x05 => "VTE 4g?", // I suppose this is New radio 5g, but it needs to be confirmed , it could be 4G
             0xFF => "not used",
             _ => "ERROR",
         };

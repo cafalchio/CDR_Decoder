@@ -107,7 +107,7 @@ impl FORW {
         let out_circuit_group = "".to_string(); //  BCD(  2)        92
         let out_circuit = "".to_string(); //  BCD(  2)        94
         let basic_service_type = BasicServiceType::new(bytes[96]).value;
-        let basic_service_code = BasicServiceCode::new(bytes[97], bytes[96]).value;
+        let basic_service_code = BasicServiceCode::new(bytes[97], &basic_service_type).value;
         let facility_usage = FacilityUsage::new(&bytes[98..102]).value; //    C(  4)        98
         let non_transparency_indicator = NonTrasnparencyIndicator::new(bytes[102]).value;
         let channel_rate_indicator = ChannelRateIndicator::new(bytes[103]).value;

@@ -32,6 +32,8 @@ pub struct BasicCallStateModel {
 }
 
 pub struct BasicServiceCode {
+    // The primary service for which the subscriber is to be charged. This could
+    // be either a teleservice or a bearer service code
     pub value: String,
 }
 
