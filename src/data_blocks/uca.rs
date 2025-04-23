@@ -4,6 +4,7 @@
 // use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
 
+use crate::datatypes::charging_fields::*;
 #[derive(Serialize, Deserialize, Debug)]
 pub struct UCA {
     pub intermediate_record_number: String,
@@ -72,69 +73,69 @@ pub struct UCA {
 }
 impl UCA {
     pub fn new(bytes: &[u8]) -> Self {
-        let intermediate_record_number = "".to_string();
-        let intermediate_charging_ind = "".to_string();
-        let number_of_ss_records = "".to_string();
-        let calling_imsi = "".to_string();
-        let calling_imei = "".to_string();
-        let calling_number_ton = "".to_string();
-        let calling_number = "".to_string();
-        let called_number_ton = "".to_string();
-        let called_number = "".to_string();
-        let in_circuit_group = "".to_string();
-        let in_circuit = "".to_string();
-        let calling_subs_lac = "".to_string();
-        let calling_subs_ci = "".to_string();
-        let basic_service_type = "".to_string();
-        let basic_service_code = "".to_string();
-        let start_time = "".to_string();
-        let release_time = "".to_string();
-        let cause_for_termination = "".to_string();
-        let routing_info = "".to_string();
-        let call_state = "".to_string();
-        let dialled_digits = "".to_string();
-        let calling_ms_classmark = "".to_string();
-        let dialled_digits_ton = "".to_string();
-        let facility_usage = "".to_string();
-        let call_reference_time = "".to_string();
-        let out_channel_allocated_time = "".to_string();
-        let out_circuit_group = "".to_string();
-        let out_circuit = "".to_string();
-        let forwarded_to_number_ton = "".to_string();
-        let forwarded_to_number = "".to_string();
-        let called_imsi = "".to_string();
-        let hot_billing_record_number = "".to_string();
-        let in_channel_allocated_time = "".to_string();
-        let routing_category = "".to_string();
-        let camel_call_reference = "".to_string();
-        let camel_exchange_id_ton = "".to_string();
-        let camel_exchange_id = "".to_string();
-        let req_fixed_nw_user_rate = "".to_string();
-        let req_other_modem_type = "".to_string();
-        let acceptable_channel_codings = "".to_string();
-        let req_number_of_channels = "".to_string();
-        let req_air_interface_user_rate = "".to_string();
-        let req_user_initiated_mod_ind = "".to_string();
-        let used_number_of_channels = "".to_string();
-        let used_other_modem_type = "".to_string();
-        let used_fixed_nw_user_rate = "".to_string();
-        let used_channel_coding = "".to_string();
-        let number_of_in_records = "".to_string();
-        let ms_classmark3 = "".to_string();
-        let calling_cell_band = "".to_string();
-        let number_of_all_in_records = "".to_string();
-        let loc_routing_number_ton = "".to_string();
-        let loc_routing_number = "".to_string();
-        let npdb_query_status = "".to_string();
-        let tns_carrier_code = "".to_string();
-        let pic = "".to_string();
-        let carrier_selection = "".to_string();
-        let collect_call_indicator = "".to_string();
-        let in_bnc_connection_type = "".to_string();
-        let inside_user_plane_index = "".to_string();
-        let inside_control_plane_index = "".to_string();
-        let radio_network_type = "".to_string();
-        let used_air_interface_user_rate = "".to_string();
+        let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..36]).value;
+        let intermediate_charging_ind = IntermediateRecordNumber::new(&bytes[26..27]).value; //  C(  1)        26
+        let number_of_ss_records = NumberOfInRecords::new(bytes[27]).value; //BCD(  1)        27
+        let calling_imsi = IMSI::new(&bytes[28..36]).value; //  C(  8)        28
+        let calling_imei = IMEI::new(&bytes[36..44]).value; //  C(  8)        36
+        let calling_number_ton = TON::new(bytes[44]).value; //  C(  1)        44
+        let calling_number = NUMBER::new(&bytes[45..55]).value; //  C( 10)        45
+        let called_number_ton = TON::new(bytes[55]).value; //  C(  1)        55
+        let called_number = NUMBER::new(&bytes[56..68]).value; //  C( 12)        56
+        let in_circuit_group = InCircuitGroup::new(&bytes[68..70]).value; //BCD(  2)        68
+        let in_circuit = InCircuit::new(&bytes[70..72]).value; //BCD(  2)        70
+        let calling_subs_lac = LAC::new(&bytes[72..74]).value; //  W(  1)        72
+        let calling_subs_ci = CI::new(&bytes[74..76]).value; //  W(  1)        74
+        let basic_service_type = "".to_string(); //  C(  1)        76
+        let basic_service_code = "".to_string(); //  C(  1)        77
+        let start_time = "".to_string(); //  C(  7)        78
+        let release_time = "".to_string(); //  C(  7)        85
+        let cause_for_termination = "".to_string(); // DW(  1)        92
+        let routing_info = "".to_string(); //  C(  2)        96
+        let call_state = "".to_string(); //  C(  1)        98
+        let dialled_digits = "".to_string(); //  C( 12)        99
+        let calling_ms_classmark = "".to_string(); //  C(  1)       111
+        let dialled_digits_ton = "".to_string(); //  C(  1)       112
+        let facility_usage = "".to_string(); //  C(  4)       113
+        let call_reference_time = "".to_string(); //  C(  7)       117
+        let out_channel_allocated_time = "".to_string(); //  C(  7)       124
+        let out_circuit_group = "".to_string(); //BCD(  2)       131
+        let out_circuit = "".to_string(); //BCD(  2)       133
+        let forwarded_to_number_ton = "".to_string(); //  C(  1)       135
+        let forwarded_to_number = "".to_string(); //  C( 12)       136
+        let called_imsi = "".to_string(); //  C(  8)       148
+        let hot_billing_record_number = "".to_string(); //BCD(  4)       156
+        let in_channel_allocated_time = "".to_string(); //  C(  7)       160
+        let routing_category = "".to_string(); //  C(  1)       167
+        let camel_call_reference = "".to_string(); //  C(  8)       168
+        let camel_exchange_id_ton = "".to_string(); //  C(  1)       176
+        let camel_exchange_id = "".to_string(); //  C(  9)       177
+        let req_fixed_nw_user_rate = "".to_string(); //  C(  1)       186
+        let req_other_modem_type = "".to_string(); //  C(  1)       187
+        let acceptable_channel_codings = "".to_string(); //  C(  1)       188
+        let req_number_of_channels = "".to_string(); //  C(  1)       189
+        let req_air_interface_user_rate = "".to_string(); //  C(  1)       190
+        let req_user_initiated_mod_ind = "".to_string(); //  C(  1)       191
+        let used_number_of_channels = "".to_string(); //  C(  1)       192
+        let used_other_modem_type = "".to_string(); //  C(  1)       193
+        let used_fixed_nw_user_rate = "".to_string(); //  C(  1)       194
+        let used_channel_coding = "".to_string(); //  C(  1)       195
+        let number_of_in_records = "".to_string(); //BCD(  1)       196
+        let ms_classmark3 = "".to_string(); //  C(  1)       197
+        let calling_cell_band = "".to_string(); //  C(  1)       198
+        let number_of_all_in_records = "".to_string(); //BCD(  1)       199
+        let loc_routing_number_ton = "".to_string(); //  C(  1)       200
+        let loc_routing_number = "".to_string(); //  C( 12)       201
+        let npdb_query_status = "".to_string(); //  C(  1)       213
+        let tns_carrier_code = "".to_string(); //  W(  1)       214
+        let pic = "".to_string(); //  W(  1)       216
+        let carrier_selection = "".to_string(); //  C(  1)       218
+        let collect_call_indicator = "".to_string(); //  C(  1)       219
+        let in_bnc_connection_type = "".to_string(); //  C(  1)       220
+        let inside_user_plane_index = "".to_string(); //BCD(  2)       221
+        let inside_control_plane_index = "".to_string(); //BCD(  2)       223
+        let radio_network_type = "".to_string(); //  C(  1)       225
+        let used_air_interface_user_rate = "".to_string(); //  C(  1)       226
 
         Self {
             intermediate_record_number,

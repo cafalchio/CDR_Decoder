@@ -43,7 +43,7 @@ impl SMMO {
     pub fn new(bytes: &[u8]) -> Self {
         let calling_imsi = IMSI::new(&bytes[25..33]).value;
         let calling_imei = IMEI::new(&bytes[33..41]).value;
-        let calling_number = Number::new(&bytes[41..51]).value;
+        let calling_number = NUMBER::new(&bytes[41..51]).value;
         let calling_category = Category::new(bytes[51]).value;
         let calling_ms_classmark = MSClassMark::new(bytes[52]).value;
         let sms_centre = SMSCentre::new(&bytes[53..63]).value;
@@ -52,7 +52,7 @@ impl SMMO {
         let incoming_time = IncomingTime::new(&bytes[67..74]).value;
         let cause_for_termination = CauseForTermination::new(&bytes[74..78]).value;
         let msc_type = MSCType::new(bytes[78]).value;
-        let called_number = Number::new(&bytes[79..91]).value;
+        let called_number = NUMBER::new(&bytes[79..91]).value;
         let calling_number_ton = TON::new(bytes[91]).value;
         let called_number_ton = TON::new(bytes[92]).value;
         let calling_vmsc_number = VMSCNumber::new(&bytes[93..103]).value;

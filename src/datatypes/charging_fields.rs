@@ -473,7 +473,7 @@ pub struct NPI {
 pub struct NumOfConcatenatedSMS {
     pub value: String,
 }
-pub struct Number {
+pub struct NUMBER {
     pub value: String,
 }
 pub struct NumberOfForwardings {

@@ -2526,7 +2526,7 @@ impl NumOfConcatenatedSMS {
     }
 }
 
-impl Number {
+impl NUMBER {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
             value: decode_number(bytes),

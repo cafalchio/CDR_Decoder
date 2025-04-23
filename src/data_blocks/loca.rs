@@ -38,7 +38,7 @@ impl LOCA {
         let subs_new_ex_id = SubId::new(&bytes[47..57]).value;
         let charging_time = ChargingTime::new(&bytes[57..64]).value;
         let served_number_ton = TON::new(bytes[64]).value;
-        let served_number = Number::new(&bytes[65..77]).value;
+        let served_number = NUMBER::new(&bytes[65..77]).value;
         let call_reference_time = CallReferenceTime::new(&bytes[77..84]).value;
         let loc_up_indicator = LocUpIndicator::new(bytes[77]).value;
         let number_of_in_records = NumberOfInRecords::new(bytes[78]).value;

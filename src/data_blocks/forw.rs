@@ -96,10 +96,10 @@ impl FORW {
         let number_of_ss_records = NumberOfSSRecords::new(&bytes[27..28]).value;
         let cause_for_forwarding = CauseForForwarding::new(bytes[28]).value;
         let forwarding_imsi = IMSI::new(&bytes[29..37]).value;
-        let forwarding_number = Number::new(&bytes[37..49]).value;
+        let forwarding_number = NUMBER::new(&bytes[37..49]).value;
         let forwarded_to_imsi = IMSI::new(&bytes[49..57]).value;
         let forwarded_to_imei = IMEI::new(&bytes[57..65]).value;
-        let forwarded_to_number = Number::new(&bytes[65..77]).value;
+        let forwarded_to_number = NUMBER::new(&bytes[65..77]).value;
         let forwarded_to_ms_classmark = MSClassMark::new(bytes[77]).value; //    C(  1)        77
         let orig_calling_number = "".to_string(); //    C( 10)        78
         let in_circuit_group = InCircuitGroup::new(&bytes[88..90]).value;
@@ -137,7 +137,7 @@ impl FORW {
         let forwarding_charging_area = ChargingArea::new(&bytes[184..186]).value;
         let forwarded_to_charging_area = ChargingArea::new(&bytes[186..188]).value;
         let connected_to_number_ton = TON::new(bytes[188]).value;
-        let connected_to_number = Number::new(&bytes[189..201]).value;
+        let connected_to_number = NUMBER::new(&bytes[189..201]).value;
         let cug_interlock = "".to_string(); //TODO           //    C(  4)       201
         let cug_outgoing_access = CugOutgoingAccess::new(bytes[205]).value;
         let cug_information = CugInformation::new(bytes[206]).value;
