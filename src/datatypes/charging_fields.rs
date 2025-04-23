@@ -596,8 +596,7 @@ pub struct ResultIndicator {
 pub struct RoutingCategory {
     pub value: String,
 }
-pub struct ROUTING_INFO {
-    //TODO
+pub struct RountingInfo {
     pub value: String,
 }
 pub struct SCFAddress {

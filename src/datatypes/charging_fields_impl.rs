@@ -3593,3 +3593,76 @@ impl TNSCircuitCode {
         &self.value
     }
 }
+
+impl RountingInfo {
+    pub fn new(bytes: &[u8]) -> Self {
+        // 2 Hex bytes
+        // get most and least significant
+        let least: u8 = bytes[0];
+        let most: u8 = bytes[1];
+        let incoming = most & 0b0000_1111;
+        let outgoing = most >> 4 & 0b0000_1111;
+        let outgoing_value = match outgoing {
+            0x01 => "Own mobile station",
+            0x02 => "Visitor mobile station",
+            0x03 => "Network (trunk signalling)",
+            0x04 => "PBX",
+            0x05 => "Voice processing system",
+            0x06 => "PDN (PAD network)",
+            0x07 => "DOC (Device-originated Call)",
+            0x08 => "Announcement",
+            0x09 => "IP (Internet Protocol)",
+            _ => "ERROR",
+        };
+        let incoming_value = match incoming {
+            0x01 => "Own mobile station",
+            0x02 => "Visitor mobile station",
+            0x03 => "Network (trunk signalling)",
+            0x04 => "PBX",
+            0x05 => "Voice processing system",
+            0x06 => "PDN (PAD network)",
+            0x07 => "DOC (Device-originated Call)",
+            0x08 => "Announcement",
+            0x09 => "IP (Internet Protocol)",
+            _ => "ERROR",
+        };
+
+        let roaming = least & 0b0000_0011;
+        let roaming_value = match roaming {
+            0x01 => "MS (called party) is roaming in own PLMN.",
+            0x02 => "MS (called party) is roaming in visitor PLMN.",
+            0x03 => "Information from IN charging operation in the GMSC call model",
+            _ => "ERROR",
+        };
+        let charging = (least & 0b0110_0000) >> 5;
+        let charging_value = match charging {
+            0x01 => "Disabled",
+            0x02 => "Additional charging",
+            0x03 => "Replace charging",
+            _ => "ERROR",
+        };
+        let mut other_values: Vec<&str> = vec![];
+
+        if least & 0b0001_0000 == 0b0001_0000 {
+            other_values.push("Announcement for called ('B') subscriber");
+        }
+        if least & 0b0000_1000 == 0b0000_1000 {
+            other_values.push("Announcement for calling ('A') subscriber");
+        }
+        if least & 0b0000_0100 == 0b0000_0100 {
+            other_values.push("Roaming info (see the values below)");
+        }
+
+        let other_bits = other_values.join(", ");
+
+        let value = format!(
+            "Incoming: {}, Outgoing: {}, roaming: {}, charging: {}, {}",
+            incoming, outgoing, roaming, charging, other_bits
+        );
+        Self { value: value }
+    }
+
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
