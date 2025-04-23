@@ -5,14 +5,17 @@ mod datatypes;
 use cdr_decoder::core::process_file::*;
 use cdr_decoder::data_blocks::blocks;
 use std::cmp;
+use std::collections::HashMap;
 use std::time::Instant;
 
 fn main() {
+    let mut all_types: Vec<String> = Vec::new();
+
     println!("Running extraction...");
     let start_time = Instant::now();
-
     let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP.gz");
-    // let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111432_10650_N_00000.BACKUP.gz");
+    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111415_10648_N_00000.BACKUP.gz");
+
     let mut next_header = 0;
     let mut cnt = 0;
     let mut last_intelligent = 0;
@@ -22,16 +25,15 @@ fn main() {
         cnt += 1;
 
         let header = extract_header(&bytes[next_header..]);
-        if header.record_type != "Location update" {
-            println!("{}", header.record_type);
-        }
+        all_types.push(header.record_type.clone());
+
         match blocks::Blocks::new(
             &header.record_type,
             &bytes[next_header..next_header + header.record_length as usize],
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                // println!("{}", json);
+                println!("{}", json);
             }
             None => {
                 // handle unknown record type if needed
@@ -84,7 +86,6 @@ fn main() {
                 if nblocks > max_blocks {
                     max_blocks = nblocks;
                     skip = offset;
-                    // println!("Offset {} -> new max_blocks: {} at block {}", offset, max_blocks, cnt);
                 }
             }
 
@@ -96,10 +97,17 @@ fn main() {
             next_header += skip;
         }
     }
-
+    let mut m: HashMap<String, usize> = HashMap::new();
+    for x in all_types {
+        *m.entry(x).or_default() += 1;
+    }
     println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
     println!(
         "Bytes left: {} bytes",
         bytes.len().saturating_sub(next_header)
     );
+    println!("---------What to implement first----------");
+    for (key, value) in m.into_iter() {
+        println!("{} -> {}", key, value);
+    }
 }

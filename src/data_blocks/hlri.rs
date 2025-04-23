@@ -14,8 +14,8 @@ pub struct HLRI {
 impl HLRI {
     pub fn new(bytes: &[u8]) -> Self {
         let called_imsi = IMSI::new(&bytes[25..33]).value;
-        let called_number = Number::new(&bytes[33..43]).value;
-        let routing_number = Number::new(&bytes[43..55]).value;
+        let called_number = NUMBER::new(&bytes[33..43]).value;
+        let routing_number = NUMBER::new(&bytes[43..55]).value;
         let charging_time = ChargingTime::new(&bytes[55..62]).value;
         let number_of_forwardings = NumberOfForwardings::new(bytes[62..63][0]).value;
         let cause_for_termination = CauseForTermination::new(&bytes[63..66]).value;

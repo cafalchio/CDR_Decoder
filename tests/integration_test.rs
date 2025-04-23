@@ -100,7 +100,7 @@ mod tests {
     #[test]
     fn test_number() {
         let bytes: [u8; 10] = [0x94, 0x71, 0x37, 0x11, 0x60, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
-        let decoded_number = Number::new(&bytes).value;
+        let decoded_number = NUMBER::new(&bytes).value;
         assert_eq!("4917731106", decoded_number);
     }
 

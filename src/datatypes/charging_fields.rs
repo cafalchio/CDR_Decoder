@@ -424,7 +424,6 @@ pub struct LocationRequestType {
 }
 
 pub struct LocationEstimate {
-    //TODO
     pub value: String,
 }
 
@@ -473,7 +472,7 @@ pub struct NPI {
 pub struct NumOfConcatenatedSMS {
     pub value: String,
 }
-pub struct Number {
+pub struct NUMBER {
     pub value: String,
 }
 pub struct NumberOfForwardings {
@@ -500,53 +499,42 @@ pub struct OptimalRoutingIndicator {
 pub struct OrigDiallingClass {
     pub value: String,
 }
-pub struct OTHER_MODEM_TYPE {
-    //TODO
+pub struct OtherModemType {
     pub value: String,
 }
-pub struct OUT_CHANNEL_ALLOCATED_TIME {
-    //TODO
+pub struct OutChannelAllocatedTime {
     pub value: String,
 }
-pub struct OUT_CIRCUIT_GROUP {
-    //TODO
+pub struct OutCircuitGroup {
     pub value: String,
 }
-pub struct OUT_CIRCUIT_GROUP_NAME {
-    //TODO
+pub struct OutCircuitGroupName {
     pub value: String,
 }
-pub struct OUT_CIRCUIT {
-    //TODO
+pub struct OutCircuit {
     pub value: String,
 }
-pub struct PARAMETERS_LENGTH {
-    //TODO
+pub struct ParametersLength {
     pub value: String,
 }
-pub struct PARTY_TO_CHARGE {
-    //TODO
+pub struct PartyToChange {
     pub value: String,
 }
 pub struct PIC {
-    //TODO
     pub value: String,
 }
 pub struct PNI {
     pub value: String,
 }
-pub struct PORTED_IN {
-    //TODO
+pub struct PortedIn {
     pub value: String,
 }
 
-pub struct PROTOCOL_IDENTIFICATION {
-    //TODO
+pub struct ProtocolIdentification {
     pub value: String,
 }
 
-pub struct PULSES {
-    //TODO
+pub struct Pulses {
     pub value: String,
 }
 
@@ -554,18 +542,15 @@ pub struct RadioNetworkType {
     pub value: String,
 }
 
-pub struct RATE_ADAPTION {
-    //TODO
+pub struct RateAdaption {
     pub value: String,
 }
 
-pub struct RECORD_LENGTH {
-    //TODO
+pub struct RecordLength {
     pub value: String,
 }
 
-pub struct RECORD_NUMBER {
-    //TODO
+pub struct RecordNumber {
     pub value: String,
 }
 
@@ -577,88 +562,66 @@ pub struct RecordType {
     pub value: String,
 }
 
-pub struct REDIRECTED_INDICATOR {
-    //TODO
+pub struct RedirectedIndicator {
     pub value: String,
 }
 
-pub struct REGIONAL_SUBS_INDICATOR {
-    //TODO
+pub struct RegionalSubsIndicator {
     pub value: String,
 }
 
-pub struct REGIONAL_SUBS_LOCATION_TYPE {
-    //TODO
+pub struct RegionalSubsLocationType {
     pub value: String,
 }
 
-pub struct RELEASE_TIME {
-    //TODO
+pub struct ReleaseTime {
     pub value: String,
 }
 
-pub struct REQ_AIR_INTERFACE_USER_RATE {
-    //TODO
+pub struct ReqAirInterfaceUserRate {
     pub value: String,
 }
-pub struct REQ_NUMBER_OF_CHANNELS {
-    //TODO
+pub struct ReqNumberOfChannels {
     pub value: String,
 }
-pub struct REQ_USER_INITIATED_MOD_IND {
-    //TODO
+pub struct ReqUserInitiatedModInd {
     pub value: String,
 }
-pub struct RESPONSE_TIME {
-    //TODO
+pub struct ResponseTime {
     pub value: String,
 }
-pub struct RESULT_INDICATOR {
-    //TODO
+pub struct ResultIndicator {
     pub value: String,
 }
 pub struct RoutingCategory {
     pub value: String,
 }
-pub struct ROUTING_INFO {
-    //TODO
+pub struct RountingInfo {
     pub value: String,
 }
-
-pub struct ROUTING_NUMBER {
-    //TODO
+pub struct SCFAddress {
     pub value: String,
 }
-pub struct SCF_ADDRESS {
-    //TODO
-    pub value: String,
-}
-pub struct SCP_CONNECTION {
-    //TODO
+pub struct SCPConnection {
     pub value: String,
 }
 pub struct SelectedCodec {
     pub value: String,
 }
-pub struct SERVICE_CODE {
-    //TODO
+pub struct ServiceCode {
     pub value: String,
 }
 
-pub struct SERVICE_IDENTIFIER {
-    //TODO
+pub struct ServiceIdentifier {
     pub value: String,
 }
-pub struct SERVICE_TIME {
-    //TODO
+pub struct ServiceTime {
     pub value: String,
 }
-pub struct SHORTENED_IN_SERVICES {
-    //TODO
+pub struct ShortenedInServices {
     pub value: String,
 }
-pub struct SIP_SIG_MODE {
-    //TODO
+pub struct SIPSigMode {
     pub value: String,
 }
 pub struct SMSCentre {
@@ -673,23 +636,19 @@ pub struct SMSType {
     pub value: String,
 }
 
-pub struct SPEECH_VERSION {
-    //TODO
+pub struct SpeechVersion {
     pub value: String,
 }
 
-pub struct START_TIME {
-    //TODO
+pub struct StartTime {
     pub value: String,
 }
 
-pub struct SS_RECORD_NUMBER {
-    //TODO
+pub struct SSRecordNumber {
     pub value: String,
 }
 
-pub struct STREAM_IDENTIFIER {
-    //TODO
+pub struct StreamIdentifier {
     pub value: String,
 }
 pub struct SubId {
@@ -697,29 +656,20 @@ pub struct SubId {
     // subs_old_ex_id
     pub value: String,
 }
-pub struct SELECTED_CODEC {
-    //TODO
+pub struct SubsNewExId {
     pub value: String,
 }
-pub struct SUBS_NEW_EX_ID {
-    //TODO
+pub struct SubsRoamingStatus {
     pub value: String,
 }
-pub struct SUBS_ROAMING_STATUS {
-    //TODO
+pub struct SupplementaryServicecode {
     pub value: String,
 }
-pub struct SUPPLEMENTARY_SERVICE_CODE {
-    //TODO
-    pub value: String,
-}
-pub struct TAPE_BLOCK_TYPE {
-    //TODO
+pub struct TapeBlockType {
     pub value: String,
 }
 
-pub struct TARIFF_CHANGE_CNT {
-    //TODO
+pub struct TariffChangeCNT {
     pub value: String,
 }
 
@@ -731,13 +681,11 @@ pub struct TeleserviceCode {
     pub value: String,
 }
 
-pub struct TNS_CARRIER_CODE {
-    //TODO
+pub struct TNSCarrierCode {
     pub value: String,
 }
 
-pub struct TNS_CIRCUIT_CODE {
-    //TODO
+pub struct TNSCircuitCode {
     pub value: String,
 }
 
@@ -767,43 +715,35 @@ pub struct TON {
     pub value: String,
 }
 
-pub struct USED_AIR_INTERFACE_USER_RATE {
-    //TODO
+pub struct UsedAirInterfaceUserRate {
     pub value: String,
 }
 
-pub struct USED_CHANNEL_CODING {
-    //TODO
+pub struct UsedChannelCoding {
     pub value: String,
 }
 
-pub struct USED_NUMBER_OF_CHANNELS {
-    //TODO
+pub struct UsedNumberOfChannels {
     pub value: String,
 }
 
-pub struct USED_POSITION_METHOD {
-    //TODO
+pub struct UsedPositionMethod {
     pub value: String,
 }
 
-pub struct USED_UTRAN_POS_METHOD {
-    //TODO
+pub struct UsedUtranPosMethod {
     pub value: String,
 }
 
-pub struct USER_PLANE_INDEX {
-    //TODO
+pub struct UserPlaneIndex {
     pub value: String,
 }
 
-pub struct VERTICAL_ACCURACY {
-    //TODO
+pub struct VerticalAccuracy {
     pub value: String,
 }
 
-pub struct VIRTUAL_MSC_ID {
-    //TODO
+pub struct VirtualMSCId {
     pub value: String,
 }
 pub struct VMSCNumber {

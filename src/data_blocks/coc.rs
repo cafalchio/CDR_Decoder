@@ -1,6 +1,6 @@
 // FORMAT TYPE:      24
 // MESSAGE NUMBER:   dd8c
-// FORMAT TYPE NAME: COC
+// FORMAT TYPE NAME: COC Camel-originated Call
 // RECORD LENGTH:    135
 
 // HEADER:
@@ -13,15 +13,6 @@
 // check_sum                                       W(  1)         8
 // call_reference                                  C(  5)        10
 // exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
