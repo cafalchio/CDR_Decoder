@@ -3666,3 +3666,49 @@ impl RountingInfo {
         &self.value
     }
 }
+
+impl UsedPositionMethod {
+    pub fn new(bytes: &[u8]) -> Self {
+        // from right to left
+        let mut results: Vec<String> = vec![];
+        for byte in bytes.iter().rev() {
+            if *byte == 0xFF {
+                continue;
+            }
+            let positioning: u8 = byte & 0b1111_1000 >> 3;
+            let pos_method: u8 = byte & 0b0000_0111;
+
+            let positioning_value = match positioning {
+                0x00 => "Timing advance",
+                0x01 => "Time of arrival",
+                0x02 => "Angle of arrival",
+                0x03 => "Mobile-assisted enhanced observed time difference",
+                0x04 => "Mobile-based enhanced observed time difference",
+                0x05 => "Mobile-assisted global positioning system",
+                0x06 => "Mobile-based global positioning system",
+                0x07 => "Conventional global positioning system",
+                0x08 => "Mobile-based observed time difference of arrival",
+                0x09 => "Mobile-assisted observed time difference of arrival",
+                _ => "Error",
+            };
+
+            let pos_method_value = match pos_method {
+                0x00 => "unsuccessful",
+                0x01 => "not used",
+                0x02 => "used to verify but not generate location",
+                0x03 => "used to generate location",
+                0x04 => "undetermined",
+                _ => "Error",
+            };
+            results.push(format!("{} - {}", positioning_value, pos_method_value ));
+        }
+        
+
+        Self {
+            value: results.join(" | "),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}

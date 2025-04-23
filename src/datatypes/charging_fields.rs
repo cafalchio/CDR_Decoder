@@ -727,8 +727,7 @@ pub struct UsedNumberOfChannels {
     pub value: String,
 }
 
-pub struct USED_POSITION_METHOD {
-    //TODO
+pub struct UsedPositionMethod {
     pub value: String,
 }
 
