@@ -731,8 +731,7 @@ pub struct UsedPositionMethod {
     pub value: String,
 }
 
-pub struct USED_UTRAN_POS_METHOD {
-    //TODO
+pub struct UsedUtranPosMethod {
     pub value: String,
 }
 

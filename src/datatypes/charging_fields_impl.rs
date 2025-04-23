@@ -3702,8 +3702,46 @@ impl UsedPositionMethod {
             };
             results.push(format!("{} - {}", positioning_value, pos_method_value ));
         }
-        
+        Self {
+            value: results.join(" | "),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 
+impl UsedUtranPosMethod {
+    pub fn new(bytes: &[u8]) -> Self {
+        let mut results: Vec<String> = vec![];
+        for byte in bytes.iter().rev() {
+            if *byte == 0xFF {
+                continue;
+            }
+            let pos_method: u8 = byte & 0b1111_1000;
+            let use_pos_method: u8 = byte & 0b0000_0111;
+
+            let pos_method_value = match pos_method {
+                0x05 => "Mobile assisted GPS",
+                0x06 => "Mobile based GPS",
+                0x07 => "Conventional GPS",
+                0x09 => "OTDOA",
+                0x0A => "IPDL",
+                0x0B => "RTT",
+                0x0C => "Cell ID",
+                _ => "Error",
+            };
+
+            let use_pos_method = match pos_method {
+                0x00 => "unsuccessful",
+                0x01 => "not used",
+                0x02 => "used to verify but not generate location",
+                0x03 => "used to generate location",
+                0x04 => "undetermined",
+                _ => "Error",
+            };
+            results.push(format!("{} - {}", pos_method_value, use_pos_method ));
+        }
         Self {
             value: results.join(" | "),
         }
