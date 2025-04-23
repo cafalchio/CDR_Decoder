@@ -575,44 +575,35 @@ pub struct RecordType {
     pub value: String,
 }
 
-pub struct REDIRECTED_INDICATOR {
-    //TODO
+pub struct RedirectedIndicator {
     pub value: String,
 }
 
-pub struct REGIONAL_SUBS_INDICATOR {
-    //TODO
+pub struct RegionalSubsIndicator {
     pub value: String,
 }
 
-pub struct REGIONAL_SUBS_LOCATION_TYPE {
-    //TODO
+pub struct RegionalSubsLocationType {
     pub value: String,
 }
 
-pub struct RELEASE_TIME {
-    //TODO
+pub struct ReleaseTime {
     pub value: String,
 }
 
-pub struct REQ_AIR_INTERFACE_USER_RATE {
-    //TODO
+pub struct ReqAirInterfaceUserRate {
     pub value: String,
 }
-pub struct REQ_NUMBER_OF_CHANNELS {
-    //TODO
+pub struct ReqNumberOfChannels {
     pub value: String,
 }
-pub struct REQ_USER_INITIATED_MOD_IND {
-    //TODO
+pub struct ReqUserInitiatedModInd {
     pub value: String,
 }
-pub struct RESPONSE_TIME {
-    //TODO
+pub struct ResponseTime {
     pub value: String,
 }
-pub struct RESULT_INDICATOR {
-    //TODO
+pub struct ResultIndicator {
     pub value: String,
 }
 pub struct RoutingCategory {

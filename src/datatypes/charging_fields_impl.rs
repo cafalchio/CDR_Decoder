@@ -2876,3 +2876,161 @@ impl Pulses {
         &self.value
     }
 }
+impl RegionalSubsLocationType {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => {
+                "The calling subscriber's location is unknown, since the call
+                    originates from a trunk circuit or from a PBX."
+            }
+            0xFF => {
+                "The subscriber is not a regional one or no charging area was
+                    found for the originating cell."
+            }
+            0x01 => "The call was initiated from inside the calling party's home area.",
+            0x02 => "The call was initiated from outside the calling party's home area.",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RegionalSubsIndicator {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "no home area charging",
+            0x01 => "home area charging",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RedirectedIndicator {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Not used",
+            0x01 => "Used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl ReleaseTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BcdTimestamp::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl ReqAirInterfaceUserRate {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Not applicable; No meaning is associated with this value.",
+            0x01 => "User rate 9,6 kbit/s",
+            0x02 => "User rate 14,4 kbit/s",
+            0x03 => "User rate 19,2 kbit/s",
+            0x04 => "User rate 21,6 kbit/s",
+            0x05 => "User rate 28,8 kbit/s",
+            0x06 => "User rate 38,4 kbit/s",
+            0x07 => "User rate 43,2 kbit/s",
+            0x08 => "User rate 57,6 kbit/s",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl ReqNumberOfChannels {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "One traffic channel",
+            0x01 => "Two traffic channels",
+            0x02 => "Three traffic channels",
+            0x03 => "Four traffic channels",
+            0x04 => "Five traffic channels",
+            0x05 => "Six traffic channels",
+            0x06 => "Seven traffic channels",
+            0x07 => "Eight traffic channels",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl ReqUserInitiatedModInd {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Not required",
+            0x01 => "Up to one traffic channel may be requested",
+            0x02 => "Up to two traffic channels may be requested",
+            0x03 => "Up to three traffic channels may be requested",
+            0x04 => "Up to four traffic channels may be requested",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl ResponseTime {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Low delay",
+            0x01 => "Delay in tolerance",
+            0xFF => "Not known",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+impl ResultIndicator {
+    pub fn new(bytes: &[u8]) -> Self {
+        let decoded_value = u16::from_le_bytes([bytes[0], bytes[1]]);
+        let value = match decoded_value {
+            0x0000 => "Low delay",
+            0xFFFF => "Not known",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}

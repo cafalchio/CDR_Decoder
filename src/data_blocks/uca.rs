@@ -86,6 +86,7 @@ impl UCA {
         let in_circuit = InCircuit::new(&bytes[70..72]).value; //BCD(  2)        70
         let calling_subs_lac = LAC::new(&bytes[72..74]).value; //  W(  1)        72
         let calling_subs_ci = CI::new(&bytes[74..76]).value; //  W(  1)        74
+
         let basic_service_type = "".to_string(); //  C(  1)        76
         let basic_service_code = "".to_string(); //  C(  1)        77
         let start_time = "".to_string(); //  C(  7)        78
