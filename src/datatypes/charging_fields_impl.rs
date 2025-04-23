@@ -3034,3 +3034,174 @@ impl ResultIndicator {
         &self.value
     }
 }
+
+impl OtherModemType {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Does not exist.",
+            0x01 => "V.32bis modem is requested.",
+            0x02 => "V.34 modem is requested",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OutChannelAllocatedTime {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BcdTimestamp::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OutCircuitGroup {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OutCircuitGroupName {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl OutCircuit {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCDWord::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl ParametersLength {
+    pub fn new(byte: u8) -> Self {
+        Self {
+            value: format!("{}", HByte::new(byte).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl PartyToChange {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Does not exist.",
+            0x01 => "Incoming",
+            0x02 => "First outgoing",
+            0x03..0xFE => "Other outgoing defined by SCP",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl PIC {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_hexs(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl PortedIn {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "Not ported",
+            0x01 => "Ported",
+            0xFF => "Not used",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RateAdaption {
+    pub fn new(byte: u8) -> Self {
+        let value = match byte {
+            0x00 => "no rate adaption",
+            0x01 => "V.110, X.30 rate adaptation",
+            0x02 => "ITU-T X.31 flag stuffing",
+            0x03 => "V.120 rate adaption",
+            0x13 => "H.223 & H.245 (multimedia)",
+            0xFF => "Information is not available.",
+            _ => "ERROR",
+        };
+        Self {
+            value: value.to_string(),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RecordLength {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD2uword::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl RecordNumber {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: format!("{}", BCD2uword::new(bytes).value),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
+
+impl SCFAddress {
+    pub fn new(bytes: &[u8]) -> Self {
+        Self {
+            value: decode_bcds(bytes),
+        }
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}

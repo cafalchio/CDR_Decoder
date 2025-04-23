@@ -424,7 +424,6 @@ pub struct LocationRequestType {
 }
 
 pub struct LocationEstimate {
-    //TODO
     pub value: String,
 }
 
@@ -500,43 +499,34 @@ pub struct OptimalRoutingIndicator {
 pub struct OrigDiallingClass {
     pub value: String,
 }
-pub struct OTHER_MODEM_TYPE {
-    //TODO
+pub struct OtherModemType {
     pub value: String,
 }
-pub struct OUT_CHANNEL_ALLOCATED_TIME {
-    //TODO
+pub struct OutChannelAllocatedTime {
     pub value: String,
 }
-pub struct OUT_CIRCUIT_GROUP {
-    //TODO
+pub struct OutCircuitGroup {
     pub value: String,
 }
-pub struct OUT_CIRCUIT_GROUP_NAME {
-    //TODO
+pub struct OutCircuitGroupName {
     pub value: String,
 }
-pub struct OUT_CIRCUIT {
-    //TODO
+pub struct OutCircuit {
     pub value: String,
 }
-pub struct PARAMETERS_LENGTH {
-    //TODO
+pub struct ParametersLength {
     pub value: String,
 }
-pub struct PARTY_TO_CHARGE {
-    //TODO
+pub struct PartyToChange {
     pub value: String,
 }
 pub struct PIC {
-    //TODO
     pub value: String,
 }
 pub struct PNI {
     pub value: String,
 }
-pub struct PORTED_IN {
-    //TODO
+pub struct PortedIn {
     pub value: String,
 }
 
@@ -552,18 +542,15 @@ pub struct RadioNetworkType {
     pub value: String,
 }
 
-pub struct RATE_ADAPTION {
-    //TODO
+pub struct RateAdaption {
     pub value: String,
 }
 
-pub struct RECORD_LENGTH {
-    //TODO
+pub struct RecordLength {
     pub value: String,
 }
 
-pub struct RECORD_NUMBER {
-    //TODO
+pub struct RecordNumber {
     pub value: String,
 }
 
@@ -613,13 +600,7 @@ pub struct ROUTING_INFO {
     //TODO
     pub value: String,
 }
-
-pub struct ROUTING_NUMBER {
-    //TODO
-    pub value: String,
-}
-pub struct SCF_ADDRESS {
-    //TODO
+pub struct SCFAddress {
     pub value: String,
 }
 pub struct SCP_CONNECTION {
