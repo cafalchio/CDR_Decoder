@@ -41,7 +41,12 @@ pub fn read_file(path: &str) -> Vec<u8> {
 }
 
 pub fn extract_header(bytes: &[u8]) -> Header {
-    Header::new(&bytes[0..25])
+    let mut next_header = 0;
+    while &bytes[next_header] == &0xFF {
+        println!("escape");
+        next_header += 1;
+    }
+    Header::new(&bytes[next_header..next_header+25])
 }
 
 fn read_headers(bytes: &[u8]) {

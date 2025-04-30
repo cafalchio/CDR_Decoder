@@ -4,6 +4,10 @@
 use crate::datatypes::charging_fields::*;
 use crate::datatypes::primitives::*;
 
+fn bcd_to_decimal(bcd: u8) -> u8 {
+    ((bcd >> 4) & 0x0F) * 10 + (bcd & 0x0F)
+}
+
 pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     let mut decoded = String::new();
     for &byte in bcd_bytes.iter() {
@@ -119,7 +123,7 @@ impl ApplicationInfo {
 
 impl RecordType {
     pub fn new(value: u8) -> Self {
-        let value = match value {
+        let value = match bcd_to_decimal(value) {
             0 => "Header".to_string(),
             1 => "Mobile-originated call".to_string(),
             2 => "Mobile-terminated call".to_string(),
