@@ -46,7 +46,7 @@ pub fn extract_header(bytes: &[u8]) -> Header {
         println!("escape");
         next_header += 1;
     }
-    Header::new(&bytes[next_header..next_header+25])
+    Header::new(&bytes[next_header..next_header + 25])
 }
 
 fn read_headers(bytes: &[u8]) {
@@ -62,7 +62,6 @@ fn read_headers(bytes: &[u8]) {
         next_header += 25 + header.record_length as usize;
         counter += 1;
     }
-    println!("Extracted {} Headers", counter);
 }
 
 pub fn read_last_blocks(bytes: &[u8], start_pointer: usize, offset: usize, max_blocks: u32) -> u32 {

@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Header {
-    pub record_length: u16,     // W(1) at offset 0
+    pub record_length: u32,     // W(1) at offset 0
     pub record_type: String,    // BCD(1) at offset 2
     pub record_number: u32,     // BCD(4) at offset 3
     pub record_status: String,  // C(1) at offset 7
@@ -15,7 +15,7 @@ pub struct Header {
 
 impl Header {
     pub fn new(bytes: &[u8]) -> Header {
-        let record_length = HWord::new(&bytes[0..2]).value as u16;
+        let record_length = HWord::new(&bytes[0..2]).value as u32;
         let record_type = RecordType::new(bytes[2]).value;
         let record_number = BCD2uword::new(&bytes[3..7]).value;
         let record_status = RecordStatus::new(bytes[7]).value;

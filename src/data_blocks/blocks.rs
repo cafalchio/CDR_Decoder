@@ -2,7 +2,8 @@
 #![allow(unused_variables)]
 
 use crate::data_blocks::{
-    forw::FORW, header::Header, hlri::HLRI, in2::IN2, loca::LOCA, smmo::SMMO, sups::SUPS, uca::UCA,
+    forw::FORW, header::Header, hlri::HLRI, in2::IN2, loca::LOCA, smmo::SMMO, sups::SUPS,
+    trailer::Trailer, uca::UCA,
 };
 use serde::{Deserialize, Serialize};
 
@@ -16,6 +17,7 @@ pub enum Blocks {
     Forw(FORW),
     Uca(UCA),
     Sups(SUPS),
+    Trailer(Trailer),
 }
 
 impl Blocks {
@@ -30,6 +32,7 @@ impl Blocks {
             "Forwarded call" => Some(Blocks::Forw(FORW::new(data))),
             "Unsuccessful call attempt" => Some(Blocks::Uca(UCA::new(data))),
             "Supplementary service" => Some(Blocks::Sups(SUPS::new(data))),
+            "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
             _ => None,
         }
     }
