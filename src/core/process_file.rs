@@ -54,24 +54,13 @@ fn read_headers(bytes: &[u8]) {
     let mut counter = 0;
     loop {
         let header = extract_header(&bytes[next_header..]);
-        // println!("rec lenght: {}", header.record_length);
-        // println!("record type: {} lenght: {}", header.record_type, header.record_length);
-        // println!("checksum: {}", header.check_sum);
-        // println!("call ref: {}", header.call_reference);
-        // println!("exchange id: {}", header.exchange_id);
-        // println!("status: {}", header.record_status);
         header.record_length;
         header.check_sum;
         header.call_reference;
         header.exchange_id;
         header.record_status;
-
         next_header += 25 + header.record_length as usize;
         counter += 1;
-
-        if header.record_type == "Trailer" {
-            break;
-        }
     }
     println!("Extracted {} Headers", counter);
 }

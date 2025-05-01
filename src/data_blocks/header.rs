@@ -36,30 +36,3 @@ impl Header {
         serde_json::to_string_pretty(self)
     }
 }
-
-
-// impl Header {
-//     pub fn new(bytes: &[u8]) -> Header {
-//         let record_length = u16::from_le_bytes([bytes[0], bytes[1]]);
-//         let record_type = RecordType::new(bytes[2]).value;
-//         let record_number = BCD2uword::new(&bytes[3..7]).value;
-//         let record_status = RecordStatus::new(bytes[7]).value;
-//         let check_sum = HWord::new(&bytes[8..10]).value;
-//         let call_reference = CallReference::new(&bytes[10..15]).value;
-//         let exchange_id = ExchangeId::new(&bytes[15..25]).value;
-        
-//         Header {
-//             record_length,
-//             record_type,
-//             record_number,
-//             record_status,
-//             check_sum,
-//             call_reference,
-//             exchange_id,
-//         }
-//     }
-    
-//     pub fn to_json(&self) -> serde_json::Result<String> {
-//         serde_json::to_string_pretty(self)
-//     }
-// }
