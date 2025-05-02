@@ -1,5 +1,5 @@
-from cdr_decoder import sum_as_string_rs
+from cdr_decoder import extract_cdr_rs
 
-print(sum_as_string_rs(1, 2))
+extract_cdr_rs("data/test_file1.gz")
 
     
