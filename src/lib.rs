@@ -2,12 +2,11 @@ use pyo3::prelude::*;
 pub mod core;
 pub mod data_blocks;
 pub mod datatypes;
-use data_blocks::blocks;
 use core::process_file::*;
+use data_blocks::blocks;
 use std::cmp;
-use std::time::Instant;
 use std::collections::HashMap;
-
+use std::time::Instant;
 
 fn test_cdr_extraction(file: String) {
     let mut all_types: Vec<String> = Vec::new();
