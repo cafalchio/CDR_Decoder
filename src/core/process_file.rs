@@ -65,7 +65,6 @@ pub fn skip_trailer_bytes(bytes: &[u8], mut curr_position: usize) -> usize {
 
 fn read_headers(bytes: &[u8]) {
     let mut next_header: usize = 0;
-    let mut counter = 0;
     loop {
         let header = extract_header(&bytes[next_header..]);
         header.record_length;
@@ -74,7 +73,6 @@ fn read_headers(bytes: &[u8]) {
         header.exchange_id;
         header.record_status;
         next_header += 25 + header.record_length as usize;
-        counter += 1;
     }
 }
 
