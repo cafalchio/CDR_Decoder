@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use serde::{Deserialize, Serialize};
 use crate::datatypes::charging_fields::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Moc {
@@ -115,39 +115,40 @@ impl Moc {
         let calling_imsi: String = IMSI::new(&bytes[28..36]).value; //  C(  8)        28
         let calling_imei: String = IMSI::new(&bytes[36..44]).value; //  C(  8)        36
         let calling_number: String = CallingNumber::new(&bytes[44..54]).value; //  C( 10)        44
-        let calling_category: String = Category::new(bytes[29]).value; //  C(  1)        54
-        let calling_ms_classmark: String = "".to_string(); //  C(  1)        55
-        let called_imsi: String = "".to_string(); //  C(  8)        56
-        let called_imei: String = "".to_string(); //  C(  8)        64
-        let called_number_ton: String = "".to_string(); //  C(  1)        72
-        let called_number: String = "".to_string(); //  C( 12)        73
-        let called_ms_classmark: String = "".to_string(); //  C(  1)        85
-        let dialled_digits_ton: String = "".to_string(); //  C(  1)        86
-        let dialled_digits: String = "".to_string(); //  C( 12)        87
-        let calling_subs_first_lac: String = "".to_string(); //  W(  1)        99
-        let calling_subs_first_ci: String = "".to_string(); //  W(  1)       101
-        let calling_subs_last_ex_id: String = "".to_string(); //  C( 10)       103
-        let calling_subs_last_lac: String = "".to_string(); //  W(  1)       113
-        let calling_subs_last_ci: String = "".to_string(); //  W(  1)       115
-        let out_circuit_group: String = "".to_string(); //BCD(  2)       117
-        let out_circuit: String = "".to_string(); //BCD(  2)       119
-        let basic_service_type: String = "".to_string(); //  C(  1)       121
-        let basic_service_code: String = "".to_string(); //  C(  1)       122
-        let facility_usage: String = "".to_string(); //  C(  4)       123
-        let non_transparency_indicator: String = "".to_string(); //  C(  1)       127
-        let channel_rate_indicator: String = "".to_string(); //  C(  1)       128
-        let in_channel_allocated_time: String = "".to_string(); //  C(  7)       129
-        let charging_start_time: String = "".to_string(); //  C(  7)       136
-        let charging_end_time: String = "".to_string(); //  C(  7)       143
-        let cause_for_termination: String = "".to_string(); // DW(  1)       150
-        let call_type: String = "".to_string(); //  C(  1)       154
-        let orig_mcz_chrg_type: String = "".to_string(); //  C(  1)       155
-        let orig_mcz_duration: String = "".to_string(); //BCD(  3)       156
-        let orig_mcz_tariff_class: String = "".to_string(); //BCD(  3)       159
-        let orig_mcz_pulses: String = "".to_string(); //BCD(  2)       162
-        let called_msrn_ton: String = "".to_string(); //  C(  1)       164
-        let called_msrn: String = "".to_string(); //  C( 12)       165
-        let calling_number_ton: String = "".to_string(); //  C(  1)       177
+        let calling_category: String = Category::new(bytes[54]).value; //  C(  1)        54
+        let calling_ms_classmark: String = MSClassMark::new(bytes[55]).value; //  C(  1)        55
+        let called_imsi: String = IMSI::new(&bytes[56..64]).value; //  C(  8)        56
+        let called_imei: String = IMEI::new(&bytes[64..72]).value; //  C(  8)        64
+        let called_number_ton: String = TON::new(bytes[72]).value; //  C(  1)        72
+        let called_number: String = NUMBER::new(&bytes[73..85]).value; //  C( 12)        73
+        let called_ms_classmark: String = MSClassMark::new(bytes[85]).value; //  C(  1)        85
+        let dialled_digits_ton: String = TON::new(bytes[86]).value; //  C(  1)        86
+        let dialled_digits: String = DialledDigits::new(&bytes[87..99]).value; //  C( 12)        87
+        let calling_subs_first_lac: String = LAC::new(&bytes[99..101]).value; //  W(  1)        99
+        let calling_subs_first_ci: String = CI::new(&bytes[101..103]).value; //  W(  1)       101
+        let calling_subs_last_ex_id: String = LastExId::new(&bytes[103..113]).value; //  C( 10)       103
+        let calling_subs_last_lac: String = LAC::new(&bytes[113..115]).value; //  W(  1)       113
+        let calling_subs_last_ci: String = CI::new(&bytes[115..117]).value; //  W(  1)       115
+        let out_circuit_group: String = OutCircuitGroup::new(&bytes[117..119]).value; //BCD(  2)       117
+        let out_circuit: String = OutCircuit::new(&bytes[119..121]).value; //BCD(  2)       119
+        let basic_service_type: String = BasicServiceType::new(bytes[121]).value; //  C(  1)       121
+        let basic_service_code: String =
+            BasicServiceCode::new(bytes[122], &basic_service_type).value; //  C(  1)       122
+        let facility_usage: String = FacilityUsage::new(&bytes[123..127]).value; //  C(  4)       123
+        let non_transparency_indicator: String = NonTrasnparencyIndicator::new(bytes[127]).value; //  C(  1)       127
+        let channel_rate_indicator: String = ChannelRateIndicator::new(bytes[128]).value; //  C(  1)       128
+        let in_channel_allocated_time: String = InChannelAllocatedTime::new(&bytes[129..136]).value; //  C(  7)       129
+        let charging_start_time: String = ChargingStartTime::new(&bytes[136..143]).value; //  C(  7)       136
+        let charging_end_time: String = ChargingEndtime::new(&bytes[143..150]).value; //  C(  7)       143
+        let cause_for_termination: String = CauseForTermination::new(&bytes[150..154]).value; // DW(  1)       150
+        let call_type: String = CallType::new(bytes[154]).value; //  C(  1)       154
+        let orig_mcz_chrg_type: String = ChargeType::new(bytes[155]).value; //  C(  1)       155
+        let orig_mcz_duration: String = Duration::new(&bytes[156..159]).value; //BCD(  3)       156
+        let orig_mcz_tariff_class: String = TariffClass::new(&bytes[159..162]).value; //BCD(  3)       159
+        let orig_mcz_pulses: String = Pulses::new(&bytes[162..164]).value; //BCD(  2)       162
+        let called_msrn_ton: String = TON::new(bytes[164]).value; //  C(  1)       164
+        let called_msrn: String = MSRN::new(&bytes[165..177]).value; //  C( 12)       165
+        let calling_number_ton: String = TON::new(bytes[177]).value; //  C(  1)       177
         let intermediate_chrg_cause: String = "".to_string(); //  C(  2)       178
         let calling_modify_parameters: String = "".to_string(); //  C( 14)       180
         let orig_mcz_modify_percent: String = "".to_string(); //  W(  1)       194

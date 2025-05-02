@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-use serde::{Deserialize, Serialize};
 use crate::datatypes::charging_fields::*;
+use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
 
@@ -54,50 +54,50 @@ pub struct PTC {
 }
 impl PTC {
     pub fn new(bytes: &[u8]) -> Self {
-        let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value;                //BCD(  1)        25
-        let intermediate_charging_ind = "".to_string();             //  C(  1)        26
-        let number_of_ss_records = "".to_string();              //BCD(  1)        27
-        let calling_number_ton = "".to_string();                //  C(  1)        28
-        let calling_number = "".to_string();                //  C( 12)        29
-        let called_number_ton = "".to_string();             //  C(  1)        41
-        let called_number = "".to_string();             //  C( 12)        42
-        let out_circuit_group = "".to_string();             //BCD(  2)        54
-        let out_circuit = "".to_string();               //BCD(  2)        56
-        let in_channel_allocated_time = "".to_string();             //  C(  7)        58
-        let charging_start_time = "".to_string();               //  C(  7)        65
-        let charging_end_time = "".to_string();             //  C(  7)        72
-        let cause_for_termination = "".to_string();             // DW(  1)        79
-        let call_type = "".to_string();             //  C(  1)        83
-        let ticket_type = "".to_string();               //  C(  1)        84
-        let oaz_chrg_type = "".to_string();             //  C(  1)        85
-        let oaz_duration = "".to_string();              //BCD(  3)        86
-        let oaz_tariff_class = "".to_string();              //BCD(  3)        89
-        let oaz_pulses = "".to_string();                //BCD(  2)        92
-        let called_msrn_ton = "".to_string();               //  C(  1)        94
-        let called_msrn = "".to_string();               //  C( 12)        95
-        let intermediate_chrg_cause = "".to_string();               //  C(  2)       107
-        let leg_call_reference = "".to_string();                //  C(  5)       109
-        let out_channel_allocated_time = "".to_string();                //  C(  7)       114
-        let basic_service_type = "".to_string();                //  C(  1)       121
-        let basic_service_code = "".to_string();                //  C(  1)       122
-        let call_reference_time = "".to_string();               //  C(  7)       123
-        let b_idle_time = "".to_string();               //  C(  7)       130
-        let redirected_indicator = "".to_string();              //  C(  1)       137
-        let number_of_in_records = "".to_string();              //BCD(  1)       138
-        let tns_carrier_code = "".to_string();              //  W(  1)       139
-        let carrier_selection = "".to_string();             //  C(  1)       141
-        let npdb_query_status = "".to_string();             //  C(  1)       142
-        let loc_routing_number = "".to_string();                //  C( 12)       143
-        let scp_connection = "".to_string();                //  C(  1)       155
-        let number_of_all_in_records = "".to_string();              //BCD(  1)       156
-        let loc_routing_number_ton = "".to_string();                //  C(  1)       157
-        let out_bnc_connection_type = "".to_string();               //  C(  1)       158
-        let outside_user_plane_index = "".to_string();              //BCD(  2)       159
-        let outside_control_plane_index = "".to_string();               //BCD(  2)       161
-        let collect_call_indicator = "".to_string();                //  C(  1)       163
-        let outpulsed_number = "".to_string();              //  C( 12)       164
-        let redirecting_number = "".to_string();                //  C( 12)       176
-        let rate_adaption = "".to_string();             //  C(  1)       188
+        let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //BCD(  1)        25
+        let intermediate_charging_ind = "".to_string(); //  C(  1)        26
+        let number_of_ss_records = "".to_string(); //BCD(  1)        27
+        let calling_number_ton = "".to_string(); //  C(  1)        28
+        let calling_number = "".to_string(); //  C( 12)        29
+        let called_number_ton = "".to_string(); //  C(  1)        41
+        let called_number = "".to_string(); //  C( 12)        42
+        let out_circuit_group = "".to_string(); //BCD(  2)        54
+        let out_circuit = "".to_string(); //BCD(  2)        56
+        let in_channel_allocated_time = "".to_string(); //  C(  7)        58
+        let charging_start_time = "".to_string(); //  C(  7)        65
+        let charging_end_time = "".to_string(); //  C(  7)        72
+        let cause_for_termination = "".to_string(); // DW(  1)        79
+        let call_type = "".to_string(); //  C(  1)        83
+        let ticket_type = "".to_string(); //  C(  1)        84
+        let oaz_chrg_type = "".to_string(); //  C(  1)        85
+        let oaz_duration = "".to_string(); //BCD(  3)        86
+        let oaz_tariff_class = "".to_string(); //BCD(  3)        89
+        let oaz_pulses = "".to_string(); //BCD(  2)        92
+        let called_msrn_ton = "".to_string(); //  C(  1)        94
+        let called_msrn = "".to_string(); //  C( 12)        95
+        let intermediate_chrg_cause = "".to_string(); //  C(  2)       107
+        let leg_call_reference = "".to_string(); //  C(  5)       109
+        let out_channel_allocated_time = "".to_string(); //  C(  7)       114
+        let basic_service_type = "".to_string(); //  C(  1)       121
+        let basic_service_code = "".to_string(); //  C(  1)       122
+        let call_reference_time = "".to_string(); //  C(  7)       123
+        let b_idle_time = "".to_string(); //  C(  7)       130
+        let redirected_indicator = "".to_string(); //  C(  1)       137
+        let number_of_in_records = "".to_string(); //BCD(  1)       138
+        let tns_carrier_code = "".to_string(); //  W(  1)       139
+        let carrier_selection = "".to_string(); //  C(  1)       141
+        let npdb_query_status = "".to_string(); //  C(  1)       142
+        let loc_routing_number = "".to_string(); //  C( 12)       143
+        let scp_connection = "".to_string(); //  C(  1)       155
+        let number_of_all_in_records = "".to_string(); //BCD(  1)       156
+        let loc_routing_number_ton = "".to_string(); //  C(  1)       157
+        let out_bnc_connection_type = "".to_string(); //  C(  1)       158
+        let outside_user_plane_index = "".to_string(); //BCD(  2)       159
+        let outside_control_plane_index = "".to_string(); //BCD(  2)       161
+        let collect_call_indicator = "".to_string(); //  C(  1)       163
+        let outpulsed_number = "".to_string(); //  C( 12)       164
+        let redirecting_number = "".to_string(); //  C( 12)       176
+        let rate_adaption = "".to_string(); //  C(  1)       188
 
         Self {
             intermediate_record_number,
@@ -150,7 +150,7 @@ impl PTC {
         serde_json::to_string_pretty(self)
     }
 }
-                                                                                                                        
+
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
@@ -198,4 +198,3 @@ impl PTC {
 // outpulsed_number                                C( 12)       164
 // redirecting_number                              C( 12)       176
 // rate_adaption                                   C(  1)       188
-                                                                                                                            
