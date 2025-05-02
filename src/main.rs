@@ -8,7 +8,6 @@ use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
 
-
 // This function is Work in progress, needs fix
 fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
     // When we reach an unknown or block with lenght 0, we assume the block is
@@ -50,18 +49,7 @@ fn main() {
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
 
-        match blocks::Blocks::new(
-            &header.record_type,
-            &bytes[next_header..next_header + header.record_length as usize],
-        ) {
-            Some(block) => {
-                let json = block.to_json().unwrap();
-                // println!("{}", json);
-            }
-            None => {}
-        }
-
-        if header.record_type == "not found" || header.record_length == 0 {
+        if header.record_type.starts_with("not found") || header.record_length == 0 {
             // TODO: fix skip_error_blocks function to use here.
             println!(
                 "Trying to recover from corrupted or unknown block @{}",
@@ -82,6 +70,19 @@ fn main() {
                 continue;
             }
             next_header += skip;
+            continue;
+        }
+
+        match blocks::Blocks::new(
+            &header.record_type,
+            &bytes[next_header..next_header + header.record_length as usize],
+        ) {
+            Some(block) => {
+                let json = block.to_json().unwrap();
+                // Print all blocks to console
+                // println!("{}", json);
+            }
+            None => {}
         }
 
         match header.record_type.as_str() {
@@ -101,12 +102,13 @@ fn main() {
     for x in all_types {
         *m.entry(x).or_default() += 1;
     }
+    println!("\n----- Summary -----");
     println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
     println!(
         "Bytes left: {} bytes",
         bytes.len().saturating_sub(next_header)
     );
-    println!("---------What to implement first----------");
+    println!("\n----- Counts -----");
     for (key, value) in m.into_iter() {
         println!("{} -> {}", key, value);
     }

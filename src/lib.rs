@@ -5,6 +5,7 @@ pub mod datatypes;
 
 #[pyfunction]
 fn sum_as_string_rs(a: usize, b: usize) -> PyResult<String> {
+    println!("running from rust");
     Ok((a + b).to_string())
 }
 

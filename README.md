@@ -16,11 +16,14 @@
 * RUST
     - cargo install
     - cargo build
-    - cargo run or cargo run --release
+    - cargo run (fast compilation) or cargo run --release (better app performance)
 
 * Maturin (PyO3)
+    - uv venv
+    - source .venv/bin/activate
     - uv sync
-    - maturin develop
+    - maturin develop (will create the python package)
+    - python python/main.py 
 
 * Tauri
     - cd /frontend
