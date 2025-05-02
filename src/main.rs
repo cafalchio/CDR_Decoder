@@ -8,6 +8,30 @@ use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
 
+
+// This function is Work in progress, needs fix
+fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
+    // When we reach an unknown or block with lenght 0, we assume the block is
+    // corrupted (or not implemented as a block type)
+    // This function loops from current_position + (24 to 254)
+    // for each new position, we read the number of blocks we can get without an error
+    // the biggest number of blocks skipped will be considered the correct one and the skip
+    println!("Trying to recover from corrupted or unknown block...");
+    let mut max_blocks_reached = 0;
+    let mut skip = 0;
+    for offset in 24..cmp::min(254, bytes.len() - curr_position) {
+        let nblocks = read_last_blocks(&bytes, curr_position, offset, max_blocks_reached);
+        if nblocks > max_blocks_reached {
+            max_blocks_reached = nblocks;
+            skip = offset;
+        }
+    }
+    if skip == 0 && (bytes.len() - curr_position > 65) {
+        curr_position += 65;
+    }
+    curr_position
+}
+
 fn main() {
     let mut all_types: Vec<String> = Vec::new();
 
@@ -32,38 +56,17 @@ fn main() {
         ) {
             Some(block) => {
                 let json = block.to_json().unwrap();
-                println!("{}", json);
+                // println!("{}", json);
             }
             None => {}
         }
 
-        match header.record_type.as_str() {
-            "Trailer" => {
-                last_trailer = next_header;
-                let mut ff_counter: usize = header.record_length as usize + 1;
-
-                while next_header + ff_counter < bytes.len()
-                    && bytes[next_header + ff_counter] == 0xFF
-                {
-                    ff_counter += 1;
-                }
-                if next_header + ff_counter > bytes.len() {
-                    break;
-                }
-                next_header += ff_counter;
-            }
-            _ => {
-                let advance = header.record_length as usize;
-                if next_header + advance > bytes.len() {
-                    break;
-                }
-                next_header += advance;
-            }
-        }
-
-        // Handle unknown or bad headers
         if header.record_type == "not found" || header.record_length == 0 {
-            println!("Trying to recover from corrupted or unknown block...");
+            // TODO: fix skip_error_blocks function to use here.
+            println!(
+                "Trying to recover from corrupted or unknown block @{}",
+                next_header
+            );
             next_header = last_trailer;
 
             let mut skip = 0;
@@ -74,13 +77,24 @@ fn main() {
                     skip = offset;
                 }
             }
-
             if skip == 0 && (bytes.len() - next_header > 65) {
                 next_header += 65;
                 continue;
             }
-
             next_header += skip;
+        }
+
+        match header.record_type.as_str() {
+            "Trailer" => {
+                last_trailer = next_header;
+                next_header =
+                    skip_trailer_bytes(&bytes, next_header + header.record_length as usize);
+                continue;
+            }
+            _ => {
+                next_header += header.record_length as usize;
+                continue;
+            }
         }
     }
     let mut m: HashMap<String, usize> = HashMap::new();

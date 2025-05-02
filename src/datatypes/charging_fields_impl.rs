@@ -158,7 +158,9 @@ impl RecordType {
             32 => "SIP-originating message".to_string(),
             33 => "SIP-terminating message".to_string(),
             35 => "SIP CDR for registration".to_string(),
-            _ => format!("not found"),
+            _ => format!("Not found code -> {}, byte {}", bcd_to_decimal(value), {
+                value
+            }),
         };
         Self { value: value }
     }

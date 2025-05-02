@@ -41,12 +41,26 @@ pub fn read_file(path: &str) -> Vec<u8> {
 }
 
 pub fn extract_header(bytes: &[u8]) -> Header {
+    // Read Header after FFs if they are present
     let mut next_header = 0;
     while &bytes[next_header] == &0xFF {
         println!("escape");
         next_header += 1;
     }
     Header::new(&bytes[next_header..next_header + 25])
+}
+
+pub fn skip_trailer_bytes(bytes: &[u8], mut curr_position: usize) -> usize {
+    // Starting from the current pointer, we want to count how many FFs
+    // and return the current position after the FFs.
+    // curr_position -> the position of the last byte read
+
+    curr_position += 1;
+    while curr_position < bytes.len() && bytes[curr_position] == 0xFF {
+        curr_position += 1;
+    }
+
+    curr_position
 }
 
 fn read_headers(bytes: &[u8]) {
