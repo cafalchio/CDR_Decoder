@@ -17,7 +17,7 @@ impl Trailer {
         let record_length = HWord::new(&bytes[0..2]).value as u16;
         let record_type = RecordType::new(bytes[2]).value;
         let exchange_id = ExchangeId::new(&bytes[3..13]).value;
-        let end_time = decode_bcds((&bytes[13..20]));
+        let end_time = decode_bcds(&bytes[13..20]);
         let last_record_number = LastRecordNumber::new(&bytes[20..24]).value;
         Self {
             record_length,
