@@ -1,8 +1,8 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-// use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
+use crate::datatypes::charging_fields::*;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Moc {
@@ -109,13 +109,13 @@ pub struct Moc {
 
 impl Moc {
     pub fn new(bytes: &[u8]) -> Self {
-        let intermediate_record_number: String = "".to_string(); //BCD(  1)        25
-        let intermediate_charging_ind: String = "".to_string(); //  C(  1)        26 IntermediateChargingInd
-        let number_of_ss_records: String = "".to_string(); //BCD(  1)        27
-        let calling_imsi: String = "".to_string(); //  C(  8)        28
-        let calling_imei: String = "".to_string(); //  C(  8)        36
-        let calling_number: String = "".to_string(); //  C( 10)        44
-        let calling_category: String = "".to_string(); //  C(  1)        54
+        let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //BCD(  1)        25
+        let intermediate_charging_ind: String = IntermediateChargingInd::new(bytes[26]).value; //  C(  1)        26 IntermediateChargingInd
+        let number_of_ss_records: String = NumberOfSSRecords::new(&bytes[27..28]).value; //BCD(  1)        27
+        let calling_imsi: String = IMSI::new(&bytes[28..36]).value; //  C(  8)        28
+        let calling_imei: String = IMSI::new(&bytes[36..44]).value; //  C(  8)        36
+        let calling_number: String = CallingNumber::new(&bytes[44..54]).value; //  C( 10)        44
+        let calling_category: String = Category::new(bytes[29]).value; //  C(  1)        54
         let calling_ms_classmark: String = "".to_string(); //  C(  1)        55
         let called_imsi: String = "".to_string(); //  C(  8)        56
         let called_imei: String = "".to_string(); //  C(  8)        64
