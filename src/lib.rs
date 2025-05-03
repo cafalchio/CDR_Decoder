@@ -8,7 +8,7 @@ use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
 
-fn test_cdr_extraction(file: String) {
+pub fn test_cdr_extraction(file: String) {
     let mut all_types: Vec<String> = Vec::new();
     println!("Running extraction...");
     let start_time = Instant::now();
