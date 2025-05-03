@@ -25,9 +25,6 @@
     - maturin develop (will create the python package)
     - python python/main.py 
 
-* Tauri
-    - cd /frontend
-    - npm install
 
 * To check instalation:
 - from base folder "cargo test"
