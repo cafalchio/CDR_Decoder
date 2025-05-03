@@ -8,7 +8,28 @@ use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
 
-pub fn test_cdr_extraction(file: String) {
+fn format_summary(
+    cnt: usize,
+    start_time: Instant,
+    bytes: &[u8],
+    next_header: usize,
+    m: HashMap<String, usize>,
+) -> String {
+    let mut output = String::new();
+
+    output += &format!("\n----- Summary -----\n");
+    output += &format!("Ran {} blocks in {:.2?}\n", cnt, Instant::now() - start_time);
+    output += &format!("Bytes left: {} bytes\n", bytes.len().saturating_sub(next_header));
+    output += &format!("\n----- Counts -----\n");
+
+    for (key, value) in m {
+        output += &format!("{} -> {}\n", key, value);
+    }
+
+    output
+}
+
+pub fn test_cdr_extraction(file: String) -> String {
     let mut all_types: Vec<String> = Vec::new();
     println!("Running extraction...");
     let start_time = Instant::now();
@@ -77,16 +98,20 @@ pub fn test_cdr_extraction(file: String) {
     for x in all_types {
         *m.entry(x).or_default() += 1;
     }
-    println!("\n----- Summary -----");
-    println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
-    println!(
-        "Bytes left: {} bytes",
-        bytes.len().saturating_sub(next_header)
-    );
-    println!("\n----- Counts -----");
-    for (key, value) in m.into_iter() {
-        println!("{} -> {}", key, value);
-    }
+    // println!("\n----- Summary -----");
+    // println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
+    // println!(
+    //     "Bytes left: {} bytes",
+    //     bytes.len().saturating_sub(next_header)
+    // );
+    // println!("\n----- Counts -----");
+    // for (key, value) in m.into_iter() {
+    //     println!("{} -> {}", key, value);
+    // }
+
+    let summary = format_summary(cnt, start_time, &bytes, next_header, m);
+    println!("{}", &summary);
+    summary
 }
 
 #[pyfunction]
