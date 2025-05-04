@@ -16,7 +16,42 @@ use crate::datatypes::charging_fields::*;
 // call_reference                                  C(  5)        10
 // exchange_id                                     C( 10)        15
                                                                                                                             
-                                                                                                                            
+use crate::datatypes::charging_fields::*;
+use serde::{Deserialize, Serialize};
+
+#[derive(Serialize, Deserialize, Debug)]
+pub struct IN3 {
+    pub in_record_number: String,
+    pub in_data: String,
+    pub leg_call_reference: String,
+    pub in_channel_allocated_time: String,
+    pub in_data_length: String,
+    pub call_reference_time: String,
+    pub protocol_identification: String,
+}
+impl IN3 {
+    pub fn new(bytes: &[u8]) -> Self {
+        let in_record_number = InRecordNumber::new(&bytes[25]).value;                               //BCD(  1)        25
+        let in_data = InData::new(&bytes[26..336]).value;                                            //  C(310)        26
+        let leg_call_reference = CallReference::new(&bytes[336..341]).value;                          //  C(  5)       336
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[341..348]).value;          //  C(  7)       341
+        let in_data_length = InDataLength::new(&bytes[348..350]).value;                               //  W(  1)       348
+        let call_reference_time = CallReferenceTime::new(&bytes[350..357]).value;                     //  C(  7)       350
+        let protocol_identification = ProtocolIdentification::new(bytes[357]).value;                 //  C(  1)       357
+        Self {
+            in_record_number,
+            in_data,
+            leg_call_reference,
+            in_channel_allocated_time,
+            in_data_length,
+            call_reference_time,
+            protocol_identification,
+        }
+    }
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
+}                                                                                                                            
                                                                                                                             
                                                                                                                             
                                                                                                                             
@@ -35,47 +70,3 @@ use crate::datatypes::charging_fields::*;
 // call_reference_time                             C(  7)       350
 // protocol_identification                         C(  1)       357
                                                                                                                             
-
-pub struct LOCA {
-    pub served_imsi: String,
-    pub subs_old_lac: String,
-    pub subs_old_ex_id: String,
-    pub subs_new_lac: String,
-    pub subs_new_ex_id: String,
-    pub charging_time: String,
-    pub served_number_ton: String,
-    pub served_number: String,
-    pub call_reference_time: String,
-    pub loc_up_indicator: String,
-    pub number_of_in_records: String,
-}
-
-impl LOCA {
-    pub fn new(bytes: &[u8]) -> Self {
-        let served_imsi = IMSI::new(&bytes[25..33]).value;
-        let subs_old_lac = LAC::new(&bytes[33..34]).value;
-        let subs_old_ex_id = "".to_string();
-        let subs_new_lac = "".to_string();
-        let subs_new_ex_id = "".to_string();
-        let charging_time = ChargingTime::new(&bytes[57..64]).value;
-        let served_number_ton = "".to_string();
-        let served_number = "".to_string();
-        let call_reference_time = CallReferenceTime::new(&bytes[77..84]).value;
-        let loc_up_indicator = "".to_string();
-        let number_of_in_records = "".to_string();
-
-        Self {
-            served_imsi,
-            subs_old_lac,
-            subs_old_ex_id,
-            subs_new_lac,
-            subs_new_ex_id,
-            charging_time,
-            served_number_ton,
-            served_number,
-            call_reference_time,
-            loc_up_indicator,
-            number_of_in_records,
-        }
-    }
-}

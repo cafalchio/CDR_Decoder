@@ -20,7 +20,7 @@ impl IN2 {
         let in_data_length = InDataLength::new(&bytes[55..57]).value;
         let call_reference_time = CallReferenceTime::new(&bytes[57..64]).value;
         let protocol_identification = ProtocolIdentification::new(bytes[64]).value;
-        Self {
+        Self {  
             in_record_number,
             in_data,
             leg_call_reference,

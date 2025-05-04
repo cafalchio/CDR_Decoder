@@ -130,7 +130,7 @@ impl UCA {
         let tns_carrier_code = TNSCarrierCode::new(&bytes[214..216]).value;
         let pic = PIC::new(&bytes[216..218]).value;
         let carrier_selection = CarrierSelection::new(bytes[218]).value;
-        let collect_call_indicator = "".to_string();
+        let collect_call_indicator = "".to_string(); // TODO perhaps in the new docs
         let in_bnc_connection_type = BncConnectionType::new(bytes[220]).value;
         let inside_user_plane_index = UserPlaneIndex::new(&bytes[221..223]).value;
         let inside_control_plane_index = ControlPlaneIndex::new(&bytes[223..225]).value;
