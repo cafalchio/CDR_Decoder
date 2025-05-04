@@ -1,81 +1,54 @@
-// FORMAT TYPE:      26
-// MESSAGE NUMBER:   dd8a
-// FORMAT TYPE NAME: IN4
-// RECORD LENGTH:    108
+use crate::datatypes::charging_fields::*;
+use serde::{Deserialize, Serialize};
 
-// HEADER:
-// FIELD NAME                                   DATA TYPE  POSITION
+#[derive(Serialize, Deserialize, Debug)]
+pub struct IN4 {
+    pub in_record_number: String,
+    pub in_data: String,
+    pub leg_call_reference: String,
+    pub in_channel_allocated_time: String,
+    pub in_data_length: String,
+    pub basic_call_state_model: String,
+    pub party_to_charge: String,
+    pub protocol_identification: String,
+    pub call_reference_time: String,
+    pub camel_call_reference: String,
+    pub camel_exchange_id_ton: String,
+    pub camel_exchange_id: String
+}
+impl IN4 {
+    pub fn new(bytes: &[u8]) -> Self {
+        let in_record_number = InRecordNumber::new(&bytes[25]).value;                       //BCD(  1)        25
+        let in_data = InData::new(&bytes[26..66]).value;                                    //  C( 40)        26
+        let leg_call_reference = CallReference::new(&bytes[66..71]).value;                  //  C(  5)        66
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[71..78]).value;  //  C(  7)        71
+        let in_data_length = InDataLength::new(&bytes[78..80]).value;                       //  W(  1)        78
+        let basic_call_state_model = BasicCallStateModel::new(bytes[80]).value;             //  C(  1)        80
+        let party_to_charge = PartyToCharge::new(bytes[81]).value;                     //  C(  1)        81
+        let protocol_identification = ProtocolIdentification::new(bytes[82]).value;    //  C(  1)        82
+        let call_reference_time = CallReferenceTime::new(&bytes[83..90]).value;             //  C(  7)        83
+        let camel_call_reference = CamelCallReference::new(&bytes[90..98]).value; ;         //  C(  8)        90
+        let camel_exchange_id_ton = CamelExchangeId::new(&bytes[98..99]).value;             //  C(  1)        98
+        let camel_exchange_id = CamelExchangeId::new(&bytes[99..107]).value;                //  C(  9)        99
 
-// record_length                                   W(  1)         0
-// record_type                                   BCD(  1)         2
-// record_number                                 BCD(  4)         3
-// record_status                                   C(  1)         7
-// check_sum                                       W(  1)         8
-// call_reference                                  C(  5)        10
-// exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-// DATA:
-// FIELD NAME                                   DATA TYPE  POSITION
-
-// in_record_number                              BCD(  1)        25
-// in_data                                         C( 40)        26
-// leg_call_reference                              C(  5)        66
-// in_channel_allocated_time                       C(  7)        71
-// in_data_length                                  W(  1)        78
-// basic_call_state_model                          C(  1)        80
-// party_to_charge                                 C(  1)        81
-// protocol_identification                         C(  1)        82
-// call_reference_time                             C(  7)        83
-// camel_call_reference                            C(  8)        90
-// camel_exchange_id_ton                           C(  1)        98
-// camel_exchange_id                               C(  9)        99
-                                                                                                                            
-
-// FORMAT TYPE:      28
-// MESSAGE NUMBER:   dd8a
-// FORMAT TYPE NAME: IN5
-// RECORD LENGTH:    228
-
-// HEADER:
-// FIELD NAME                                   DATA TYPE  POSITION
-
-// record_length                                   W(  1)         0
-// record_type                                   BCD(  1)         2
-// record_number                                 BCD(  4)         3
-// record_status                                   C(  1)         7
-// check_sum                                       W(  1)         8
-// call_reference                                  C(  5)        10
-// exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-// DATA:
-// FIELD NAME                                   DATA TYPE  POSITION
-
-// in_record_number                              BCD(  1)        25
-// in_data                                         C(160)        26
-// leg_call_reference                              C(  5)       186
-// in_channel_allocated_time                       C(  7)       191
-// in_data_length                                  W(  1)       198
-// camel_call_reference                            C(  8)       200
-// camel_exchange_id_ton                           C(  1)       208
-// camel_exchange_id                               C(  9)       209
-// basic_call_state_model                          C(  1)       218
-// party_to_charge                                 C(  1)       219
-// protocol_identification                         C(  1)       220
-// call_reference_time                             C(  7)       221
+        Self {           
+            in_record_number,
+            in_data,
+            leg_call_reference,
+            in_channel_allocated_time,
+            in_data_length,
+            basic_call_state_model,
+            party_to_charge,
+            protocol_identification,
+            call_reference_time,
+            camel_call_reference,
+            camel_exchange_id_ton,
+            camel_exchange_id,
+        }
+    }
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
+}
+                                                                                                                   
                                                                                                                             

@@ -519,7 +519,7 @@ pub struct OutCircuit {
 pub struct ParametersLength {
     pub value: String,
 }
-pub struct PartyToChange {
+pub struct PartyToCharge {
     pub value: String,
 }
 pub struct PIC {
