@@ -3093,7 +3093,7 @@ impl ParametersLength {
     }
 }
 
-impl PartyToChange {
+impl PartyToCharge {
     pub fn new(byte: u8) -> Self {
         let value = match byte {
             0x00 => "Does not exist.",
