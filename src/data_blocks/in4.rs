@@ -14,24 +14,24 @@ pub struct IN4 {
     pub call_reference_time: String,
     pub camel_call_reference: String,
     pub camel_exchange_id_ton: String,
-    pub camel_exchange_id: String
+    pub camel_exchange_id: String,
 }
 impl IN4 {
     pub fn new(bytes: &[u8]) -> Self {
-        let in_record_number = InRecordNumber::new(&bytes[25]).value;                       //BCD(  1)        25
-        let in_data = InData::new(&bytes[26..66]).value;                                    //  C( 40)        26
-        let leg_call_reference = CallReference::new(&bytes[66..71]).value;                  //  C(  5)        66
-        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[71..78]).value;  //  C(  7)        71
-        let in_data_length = InDataLength::new(&bytes[78..80]).value;                       //  W(  1)        78
-        let basic_call_state_model = BasicCallStateModel::new(bytes[80]).value;             //  C(  1)        80
-        let party_to_charge = PartyToCharge::new(bytes[81]).value;                     //  C(  1)        81
-        let protocol_identification = ProtocolIdentification::new(bytes[82]).value;    //  C(  1)        82
-        let call_reference_time = CallReferenceTime::new(&bytes[83..90]).value;             //  C(  7)        83
-        let camel_call_reference = CamelCallReference::new(&bytes[90..98]).value; ;         //  C(  8)        90
-        let camel_exchange_id_ton = CamelExchangeId::new(&bytes[98..99]).value;             //  C(  1)        98
-        let camel_exchange_id = CamelExchangeId::new(&bytes[99..107]).value;                //  C(  9)        99
+        let in_record_number = InRecordNumber::new(&bytes[25]).value; //BCD(  1)        25
+        let in_data = InData::new(&bytes[26..66]).value; //  C( 40)        26
+        let leg_call_reference = CallReference::new(&bytes[66..71]).value; //  C(  5)        66
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[71..78]).value; //  C(  7)        71
+        let in_data_length = InDataLength::new(&bytes[78..80]).value; //  W(  1)        78
+        let basic_call_state_model = BasicCallStateModel::new(bytes[80]).value; //  C(  1)        80
+        let party_to_charge = PartyToCharge::new(bytes[81]).value; //  C(  1)        81
+        let protocol_identification = ProtocolIdentification::new(bytes[82]).value; //  C(  1)        82
+        let call_reference_time = CallReferenceTime::new(&bytes[83..90]).value; //  C(  7)        83
+        let camel_call_reference = CamelCallReference::new(&bytes[90..98]).value; //  C(  8)        90
+        let camel_exchange_id_ton = CamelExchangeId::new(&bytes[98..99]).value; //  C(  1)        98
+        let camel_exchange_id = CamelExchangeId::new(&bytes[99..107]).value; //  C(  9)        99
 
-        Self {           
+        Self {
             in_record_number,
             in_data,
             leg_call_reference,
@@ -50,5 +50,3 @@ impl IN4 {
         serde_json::to_string_pretty(self)
     }
 }
-                                                                                                                   
-                                                                                                                            

@@ -18,8 +18,15 @@ fn format_summary(
     let mut output = String::new();
 
     output += &format!("\n----- Summary -----\n");
-    output += &format!("Ran {} blocks in {:.2?}\n", cnt, Instant::now() - start_time);
-    output += &format!("Bytes left: {} bytes\n", bytes.len().saturating_sub(next_header));
+    output += &format!(
+        "Ran {} blocks in {:.2?}\n",
+        cnt,
+        Instant::now() - start_time
+    );
+    output += &format!(
+        "Bytes left: {} bytes\n",
+        bytes.len().saturating_sub(next_header)
+    );
     output += &format!("\n----- Counts -----\n");
 
     for (key, value) in m {

@@ -13,14 +13,15 @@ pub struct IN1 {
 }
 impl IN1 {
     pub fn new(bytes: &[u8]) -> Self {
-        let in_record_number = InRecordNumber::new(&bytes[25]).value;                       //BCD(  1)        25
-        let in_data = InData::new(&bytes[26..87]).value;                                    //  C( 61)        26
-        let leg_call_reference = CallReference::new(&bytes[87..92]).value;                  //  C(  5)        87
-        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[92..99]).value;  //  C(  7)        92
-        let in_data_length = InDataLength::new(&bytes[99..101]).value;                      //  W(  1)        99
-        let call_reference_time = CallReferenceTime::new(&bytes[101..108]).value;           //  C(  7)       101
-        let protocol_identification = ProtocolIdentification::new(bytes[108]).value;   //  C(  1)       108
-        Self {           in_record_number,
+        let in_record_number = InRecordNumber::new(&bytes[25]).value; //BCD(  1)        25
+        let in_data = InData::new(&bytes[26..87]).value; //  C( 61)        26
+        let leg_call_reference = CallReference::new(&bytes[87..92]).value; //  C(  5)        87
+        let in_channel_allocated_time = InChannelAllocatedTime::new(&bytes[92..99]).value; //  C(  7)        92
+        let in_data_length = InDataLength::new(&bytes[99..101]).value; //  W(  1)        99
+        let call_reference_time = CallReferenceTime::new(&bytes[101..108]).value; //  C(  7)       101
+        let protocol_identification = ProtocolIdentification::new(bytes[108]).value; //  C(  1)       108
+        Self {
+            in_record_number,
             in_data,
             leg_call_reference,
             in_channel_allocated_time,
@@ -33,7 +34,7 @@ impl IN1 {
         serde_json::to_string_pretty(self)
     }
 }
-                                                                                                                                                                                                                               
+
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 // in_record_number                              BCD(  1)        25
