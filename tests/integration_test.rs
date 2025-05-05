@@ -125,6 +125,14 @@ mod tests {
         let calling_modify_parameters = ModifyParameters::new(&bytes).value;
         assert_eq!("e1=14, e2=A, e4=64", calling_modify_parameters);
     }
+
+    #[test]
+    fn test_modify_percent() {
+        let bytes:[u8; 2] = [0x06, 0x00];
+        let modify_percent = ModifyPercent::new(&bytes).value;
+        assert_eq!("6%", modify_percent);
+    }
+
     // #[test]
     // fn test_exchange_id(){
     //     let bytes = [0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];

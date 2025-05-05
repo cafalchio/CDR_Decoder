@@ -149,10 +149,10 @@ impl Moc {
         let called_msrn_ton: String = TON::new(bytes[164]).value; //  C(  1)       164
         let called_msrn: String = MSRN::new(&bytes[165..177]).value; //  C( 12)       165
         let calling_number_ton: String = TON::new(bytes[177]).value; //  C(  1)       177
-        let intermediate_chrg_cause: String = "".to_string(); //  C(  2)       178
-        let calling_modify_parameters: String = "".to_string(); //  C( 14)       180
-        let orig_mcz_modify_percent: String = "".to_string(); //  W(  1)       194
-        let orig_mcz_modify_direction: String = "".to_string(); //  C(  1)       196
+        let intermediate_chrg_cause: String = IntermediateChrgCause::new(&bytes[178..180]).value; //  C(  2)       178
+        let calling_modify_parameters: String = ModifyParameters::new(&bytes[180..194]).value; //  C( 14)       180
+        let orig_mcz_modify_percent: String = ModifyPercent::new(&bytes[192..196]).value; //  W(  1)       194
+        let orig_mcz_modify_direction: String = ModifyDirection::new(bytes[196]).value; //  C(  1)       196
         let orig_dialling_class: String = "".to_string(); //  W(  1)       197
         let leg_call_reference: String = "".to_string(); //  C(  5)       199
         let call_reference_time: String = "".to_string(); //  C(  7)       204

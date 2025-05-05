@@ -2349,7 +2349,8 @@ impl ModifyParameters {
 }
 
 impl ModifyPercent {
-    pub fn new(value: u16) -> Self {
+    pub fn new(bytes: &[u8]) -> Self {
+        let value: u16 = u16::from_le_bytes([bytes[0], bytes[1]]);
         let value = match value {
             0x0000 => "No change".to_string(),
             0x0001..=0xFFFE => format!("{}%", value),
