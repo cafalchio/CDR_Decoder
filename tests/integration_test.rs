@@ -51,9 +51,9 @@ mod tests {
 
     #[test]
     fn test_hdword() {
-        let bytes = [0x00, 0x02, 0x00, 0xA0];
-        let hdword = HDWord::new(&bytes);
-        assert_eq!(131232, hdword.value);
+        let bytes = [0x01, 0x01, 0x00, 0x00];
+        let hdword: HDWord = HDWord::new(&bytes);
+        assert_eq!(257, hdword.value);
     }
 
     #[test]
@@ -139,5 +139,19 @@ mod tests {
         let facility_usage = FacilityUsage::new(&bytes).value;
         assert_eq!("call hold, multiparty, camel", facility_usage);
     }
+
+#[test]
+fn test_channel_rate_indicator() {
+    let byte: u8 = 0x18;
+    let channel_rate_indicator = ChannelRateIndicator::new(byte).value;
+    assert_eq!("requested: full rate, used: full rate", channel_rate_indicator);
+}
+
+#[test]
+fn test_camel_call_reference() {
+    let bytes: [u8; 8] = [0x40, 0x04, 0x41, 0x31, 0x00, 0x40, 0x00, 0x00];
+    let camel_call_reference = CamelCallReference::new(&bytes[..]).value;
+    assert_eq!("4004413100400000", camel_call_reference);
+}
 
 }

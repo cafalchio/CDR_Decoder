@@ -31,7 +31,7 @@ pub struct HDWord {
 }
 impl HDWord {
     pub fn new(bytes: &[u8]) -> HDWord {
-        let hdword: u32 = u32::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]);
+        let hdword: u32 = u32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]);
         HDWord { value: hdword }
     }
 }

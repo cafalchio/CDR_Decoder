@@ -27,7 +27,7 @@ pub fn decode_hexs(hex_bytes: &[u8]) -> String {
         if byte == 0xFF {
             continue; // skip 0xFF
         }
-        decoded.push_str(&format!("{}", &byte));
+        decoded.push_str(&format!("{:02X}", &byte));
     }
     decoded
 }
