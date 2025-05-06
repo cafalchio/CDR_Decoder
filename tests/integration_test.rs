@@ -4,7 +4,10 @@ use cdr_decoder::datatypes::primitives::*;
 
 #[cfg(test)]
 mod tests {
+    use std::cell::Cell;
+
     use cdr_decoder::datatypes::primitives::BcdTimestamp;
+    use pyo3::call;
 
     use super::*;
 
@@ -64,7 +67,8 @@ mod tests {
             0x03, 0x00, 0x00, 0x00, // record number
             0x00, // record status
             0xD7, 0x8D, // checksum
-            0x31, 0x41, 0x24, 0x00, 0x00, 0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF,
+            0x31, 0x41, 0x24, 0x00, 0x00, // call reference
+            0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, // exchange id
             0xFF,
             // 0x00, 0x00, 0x00
         ];
@@ -153,5 +157,49 @@ fn test_camel_call_reference() {
     let camel_call_reference = CamelCallReference::new(&bytes[..]).value;
     assert_eq!("4004413100400000", camel_call_reference);
 }
+
+#[test]
+fn test_calling_cell_band() {
+    let byte = 0x01;
+    let calling_cell_band = CellBand::new(byte).value;
+    assert_eq!("GSM", calling_cell_band);
+}
+
+#[test]
+fn test_charge_number() {
+    let bytes: [u8; 12] = [0x94, 0x71, 0x37, 0x11, 0x60, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
+    let charge_number = NUMBER::new(&bytes[..]).value;
+    assert_eq!("4917731106", charge_number);
+}
+
+#[test]
+fn test_charge_number_ton() {
+    let byte = 0x05;
+    let charge_number_ton = TON::new(byte).value;
+    assert_eq!("International", charge_number_ton);
+}
+
+#[test]
+fn test_cug_interlock() {
+    let bytes = [0x03, 0x44, 0x6F, 0x00];
+    let cug_interlock = CugInterlock::new(&bytes).value;
+    assert_eq!("network indicator: 0344, CUG code: 111", cug_interlock);
+}
+
+#[test]
+fn test_orig_mcz_pulses() {
+    let bytes: [u8; 2] = [0x34, 0x12];
+    let orig_mcz_pulses = Pulses::new(&bytes).value;
+    assert_eq!("1234", orig_mcz_pulses);
+}
+
+#[test]
+fn test_orig_mcz_tariff_class() {
+    let bytes: [u8; 3] = [0x01, 0x10, 0x00];
+    let orig_mcz_tariff_class = TariffClass::new(&bytes).value;
+    assert_eq!("001001", orig_mcz_tariff_class);
+}
+
+
 
 }

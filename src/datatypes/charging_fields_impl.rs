@@ -21,6 +21,32 @@ pub fn decode_bcds(bcd_bytes: &[u8]) -> String {
     decoded
 }
 
+pub fn decode_bcds_high_low(bcd_bytes: &[u8]) -> String {
+    let mut decoded = String::new();
+    for &byte in bcd_bytes.iter() {
+        if byte == 0xFF {
+            continue; // skip 0xFF
+        }
+        let high = (byte >> 4) & 0b0000_1111;
+        let low = byte & 0b0000_1111;
+        decoded.push_str(&format!("{}{}", high, low));
+    }
+    decoded
+}
+
+pub fn decode_bcds_reverse(bcd_bytes: &[u8]) -> String {
+    let mut decoded = String::new();
+    for &byte in bcd_bytes.iter().rev() {
+        if byte == 0xFF {
+            continue; // skip 0xFF
+        }
+        let high = (byte >> 4) & 0b0000_1111;
+        let low = byte & 0b0000_1111;
+        decoded.push_str(&format!("{}{}", high, low));
+    }
+    decoded
+}
+
 pub fn decode_hexs(hex_bytes: &[u8]) -> String {
     let mut decoded = String::new();
     for &byte in hex_bytes.iter() {
@@ -421,6 +447,17 @@ impl CugInformation {
     }
 }
 
+impl CugInterlock {
+    pub fn new(bytes: &[u8]) -> Self {
+        let network_code = decode_bcds_high_low(&bytes[0..2]);
+        let interlock = HWord::new(&bytes[2..4]).value;
+        let value =  format!("network indicator: {}, CUG code: {}", network_code, interlock);
+        Self {value : value}
+    }
+    pub fn value(&self) -> &str {
+        &self.value
+    }
+}
 impl CommandType {
     pub fn new(value: u8) -> Self {
         let value = match value {
@@ -2747,7 +2784,7 @@ impl SMSType {
 impl TariffClass {
     pub fn new(bytes: &[u8]) -> Self {
         Self {
-            value: format!("{}", decode_bcds(&bytes)),
+            value: format!("{}", decode_bcds_reverse(&bytes)),
         }
     }
     pub fn value(&self) -> &str {

@@ -206,6 +206,10 @@ pub struct CugOutgoingAccess {
     pub value: String,
 }
 
+pub struct CugInterlock {
+    pub value: String,
+}
+
 pub struct DataLengthInBlock {
     pub value: String,
 }
