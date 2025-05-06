@@ -128,21 +128,16 @@ mod tests {
 
     #[test]
     fn test_modify_percent() {
-        let bytes:[u8; 2] = [0x06, 0x00];
+        let bytes: [u8; 2] = [0x06, 0x00];
         let modify_percent = ModifyPercent::new(&bytes).value;
         assert_eq!("6%", modify_percent);
     }
 
-    // #[test]
-    // fn test_exchange_id(){
-    //     let bytes = [0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
-    //     let exchange_id = ExchangeId::new(&bytes).value;
-    //     assert_eq!("49177387", exchange_id);
-    // }
-    // #[test]
-    // fn test_exchange_id(){
-    //     let bytes = [0x94, 0x71, 0x37, 0x78, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF];
-    //     let exchange_id = ExchangeId::new(&bytes).value;
-    //     assert_eq!("49177387", exchange_id);
-    // }
+    #[test]
+    fn test_facility_usage(){
+        let bytes = [0xA0, 0x00, 0x02, 0x00];
+        let facility_usage = FacilityUsage::new(&bytes).value;
+        assert_eq!("call hold, multiparty, camel", facility_usage);
+    }
+
 }

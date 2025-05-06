@@ -1550,52 +1550,46 @@ impl ExitMSGTrunkGroup {
 
 impl FacilityUsage {
     pub fn new(bytes: &[u8]) -> Self {
-        let value: u32 = HDWord::new(&bytes).value;
-
+        let value: u32 = u32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]);
         let mapping = [
-            (1, "aoc - charging"),
-            (2, "aoc - charging info at end of call"),
-            (3, "aoc - information"),
-            (4, "calling line ID presentation"),
-            (5, "calling line ID restriction"),
-            (6, "call hold"),
-            (7, "call wait"),
-            (8, "multiparty"),
-            (9, "intelligent network"),
-            (10, "call transfer"),
-            (11, "call transfer recall"),
-            (12, "call drop back"),
-            (13, "forwarding"),
-            (14, "call-forwarding overdrive"),
+            (0, "aoc - charging"),
+            (1, "aoc - charging info at end of call"),
+            (2, "aoc - information"),
+            (3, "calling line ID presentation"),
+            (4, "calling line ID restriction"),
+            (5, "call hold"),
+            (6, "call wait"),
+            (7, "multiparty"),
+            (8, "intelligent network"),
+            (9, "call transfer"),
+            (10, "call transfer recall"),
+            (11, "call drop back"),
+            (12, "forwarding"),
+            (13, "call-forwarding overdrive"),
             // 15 and 16 = spare
-            (17, "completion of calls to busy subscribers"),
-            (18, "CAMEL"),
-            (19, "ported in"),
-            (20, "connected line ID presentation"),
-            (21, "connected line ID restriction"),
-            (22, "UUS1 - origination/release of call"),
-            (23, "UUS2 - ringing phase"),
-            (24, "UUS3 - during connection"),
-            (25, "aoc - during the call"),
-            (26, "multicall"),
-            (27, "eMLPP"),
-            (28, "TTY"),
+            (16, "completion of calls to busy subscribers"),
+            (17, "camel"),
+            (18, "ported in"),
+            (19, "connected line ID presentation"),
+            (20, "connected line ID restriction"),
+            (21, "UUS1 - origination/release of call"),
+            (22, "UUS2 - ringing phase"),
+            (23, "UUS3 - during connection"),
+            (24, "aoc - during the call"),
+            (25, "multicall"),
+            (26, "eMLPP"),
+            (27, "TTY"),
             // 29 to 32 = spare
         ];
+        let mut result: Vec<String> = vec![];
 
-        let value = mapping
-            .iter()
-            .filter_map(|(bit, desc)| {
-                if (value >> (bit - 1)) & 1 == 1 {
-                    Some(*desc)
-                } else {
-                    None
-                }
-            })
-            .collect::<Vec<_>>()
-            .join(", ");
+        for (i, val) in mapping.iter() {     
+            if (value >> i & 0b0000_0000_0000_0001) == 1 {
+                result.push(val.to_string());
+            }
+        }
 
-        Self { value }
+        Self { value: result.join(", ") }
     }
 
     pub fn value(&self) -> &str {
