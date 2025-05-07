@@ -58,6 +58,17 @@ pub fn decode_hexs(hex_bytes: &[u8]) -> String {
     decoded
 }
 
+pub fn decode_hexs_to_number(hex_bytes: &[u8]) -> usize {
+    let mut decoded = String::new();
+    for &byte in hex_bytes.iter().rev() {
+        if byte == 0xFF {
+            continue; // skip 0xFF
+        }
+        decoded.push_str(&format!("{:02X}", &byte));
+    }
+    usize::from_str_radix(&decoded, 16).unwrap_or(0)
+}
+
 fn bcd_nibble_to_char(nibble: u8) -> Option<char> {
     match nibble {
         0x0..=0x9 => Some((b'0' + nibble) as char),
@@ -1725,7 +1736,8 @@ impl IntermediateChrgCause {
     pub fn new(bytes: &[u8]) -> Self {
         // Define mapping: (bit position, corresponding description)
         // Note: Only bits 1 through 21 have defined meanings.
-        let value = HDWord::new(&bytes).value;
+
+        let value = decode_hexs_to_number(&bytes);
         let mapping = [
             (1, "Value at the end of the call"),
             (

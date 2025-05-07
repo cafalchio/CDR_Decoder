@@ -36,7 +36,7 @@ fn main() {
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("data/test_file1.gz");
+    let bytes = read_file("/home/cafalchio/Downloads/VL_GNK_MSSDF5_T20250115111432_10650_N_00000.BACKUP.gz");
 
     let mut next_header = 0;
     let mut cnt = 0;
@@ -48,6 +48,7 @@ fn main() {
 
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
+        println!("{}", header.record_type);
 
         if header.record_type.starts_with("not found") || header.record_length == 0 {
             // TODO: fix skip_error_blocks function to use here.

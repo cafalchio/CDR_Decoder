@@ -201,5 +201,19 @@ fn test_orig_mcz_tariff_class() {
 }
 
 
+#[test]
+fn test_intermediate_chrg_cause() {
+    let bytes: [u8; 4] = [0x01, 0x00, 0x00, 0x00];
+    let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes).value;
+    assert_eq!("Value at the end of the call", intermediate_chrg_cause);
+}
+
+#[test]
+fn test_intermediate_chrg_cause_2_bytes() {
+    let bytes: [u8; 2] = [0x01, 0x00];
+    let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes).value;
+    assert_eq!("Value at the end of the call", intermediate_chrg_cause);
+}
+
 
 }
