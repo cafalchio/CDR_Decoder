@@ -111,7 +111,7 @@ impl Moc {
     pub fn new(bytes: &[u8]) -> Self {
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //BCD(  1)        25
         let intermediate_charging_ind: String = IntermediateChargingInd::new(bytes[26]).value; //  C(  1)        26 IntermediateChargingInd
-        let number_of_ss_records: String = NumberOfSSRecords::new(&bytes[27..28]).value; //BCD(  1)        27
+        let number_of_ss_records: String = NumberOfSSRecords::new(bytes[27]).value; //BCD(  1)        27
         let calling_imsi: String = IMSI::new(&bytes[28..36]).value; //  C(  8)        28
         let calling_imei: String = IMSI::new(&bytes[36..44]).value; //  C(  8)        36
         let calling_number: String = CallingNumber::new(&bytes[44..54]).value; //  C( 10)        44

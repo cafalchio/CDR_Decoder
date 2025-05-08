@@ -93,7 +93,7 @@ impl FORW {
     pub fn new(bytes: &[u8]) -> Self {
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value;
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[27]).value;
-        let number_of_ss_records = NumberOfSSRecords::new(&bytes[27..28]).value;
+        let number_of_ss_records = NumberOfSSRecords::new(bytes[27]).value;
         let cause_for_forwarding = CauseForForwarding::new(bytes[28]).value;
         let forwarding_imsi = IMSI::new(&bytes[29..37]).value;
         let forwarding_number = NUMBER::new(&bytes[37..49]).value;
@@ -144,7 +144,7 @@ impl FORW {
         let cug_information = CugInformation::new(bytes[206]).value;
         let hot_billing_record_number = HotBilingRecordNumber::new(&bytes[207..211]).value;
         let spare2 = "".to_string(); //    C(  1)       211
-        let number_of_all_in_records = NumberOfAllInRecords::new(&bytes[212..213]).value;
+        let number_of_all_in_records = NumberOfAllInRecords::new(bytes[212]).value;
         let number_of_in_records = NumberOfInRecords::new(bytes[213]).value;
         let orig_called_number_ton = TON::new(bytes[214]).value;
         let orig_called_number = NUMBER::new(&bytes[215..227]).value;

@@ -2590,9 +2590,9 @@ impl NumberOfForwardings {
 }
 
 impl NumberOfAllInRecords {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: u8) -> Self {
         Self {
-            value: format!("{}", BCD::new(&bytes[0]).value),
+            value: format!("{}", BCD::new(&bytes).value),
         }
     }
     pub fn value(&self) -> &str {
@@ -2612,9 +2612,9 @@ impl NumberOfInRecords {
 }
 
 impl NumberOfSSRecords {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: u8) -> Self {
         Self {
-            value: format!("{}", BCD::new(&bytes[0]).value),
+            value: format!("{}", BCD::new(&bytes).value),
         }
     }
     pub fn value(&self) -> &str {

@@ -36,9 +36,7 @@ fn main() {
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file(
-        "/home/cafalchio/Downloads/VL_GNK_MSSDF5_T20250115111432_10650_N_00000.BACKUP.gz",
-    );
+    let bytes = read_file("/home/cafa/CDR_Decoder/data/test_file1.gz");
 
     let mut next_header = 0;
     let mut cnt = 0;

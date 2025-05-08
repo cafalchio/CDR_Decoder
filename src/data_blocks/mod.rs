@@ -16,7 +16,7 @@ pub mod trailer; // trailer
 pub mod uca; //Unsuccessful Call Attempt
 
 // to be implemented
-// pub mod mtc;      //Mobile-terminated Cal
+pub mod mtc; //Mobile-terminated Cal
 
 // pub mod roam;     //Call to a Roaming Subscriber
 pub mod coc; //Camel-originated Call
