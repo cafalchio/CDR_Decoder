@@ -8,44 +8,44 @@ use serde::{Deserialize, Serialize};
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SMMF {
     // Different from SMMO
-    pub called_imsi: String,                 // C(8)   25
-    pub called_imei: String,                 // C(8)   33
-    pub called_number: String,               // C(12)  41
-    pub called_category: String,             // C(1)   53
-    pub called_ms_classmark: String,         // C(1)   54
-    pub called_subs_lac: String,             // W(1)   55
-    pub called_subs_ci: String,              // W(1)   57
+    pub called_imsi: String,         // C(8)   25
+    pub called_imei: String,         // C(8)   33
+    pub called_number: String,       // C(12)  41
+    pub called_category: String,     // C(1)   53
+    pub called_ms_classmark: String, // C(1)   54
+    pub called_subs_lac: String,     // W(1)   55
+    pub called_subs_ci: String,      // W(1)   57
 
-    pub sms_centre: String,                  // C(10)  59
-    pub incoming_time: String,               // C(7)   69
-    pub cause_for_termination: String,       // DW(1)  76
-    pub msc_type: String,                    // C(1)   80
-    pub calling_number: String,              // C(11)  81
-
-    // Different from SMMO
-    pub called_vmsc_number: String,          // C(10)  92
-
-    pub calling_number_ton: String,          // C(1)   102
-    pub called_number_ton: String,           // C(1)   103
-    pub sms_type: String,                    // C(1)   104
-    pub call_reference_time: String,         // C(7)   105
-    pub hot_billing_record_number: String,   // BCD(4) 112
-    pub tariff_class: String,                // BCD(3) 116
+    pub sms_centre: String,            // C(10)  59
+    pub incoming_time: String,         // C(7)   69
+    pub cause_for_termination: String, // DW(1)  76
+    pub msc_type: String,              // C(1)   80
+    pub calling_number: String,        // C(11)  81
 
     // Different from SMMO
-    pub calling_vmsc_number: String,         // C(10)  119
+    pub called_vmsc_number: String, // C(10)  92
 
-    pub sms_length: String,                  // C(1)   129
-    pub number_of_in_records: String,        // BCD(1) 130
-    pub num_of_concatenated_sms: String,     // C(1)   131
-    pub concatenated_record_number: String,  // C(1)   132
-    pub concatenated_sms_reference: String,  // W(1)   133
-    pub application_info: String,            // C(1)   135
-    pub routing_category: String,            // C(1)   136
-    pub add_routing_category: String,        // W(1)   137
+    pub calling_number_ton: String,        // C(1)   102
+    pub called_number_ton: String,         // C(1)   103
+    pub sms_type: String,                  // C(1)   104
+    pub call_reference_time: String,       // C(7)   105
+    pub hot_billing_record_number: String, // BCD(4) 112
+    pub tariff_class: String,              // BCD(3) 116
 
     // Different from SMMO
-    pub radio_network_type: String,          // C(1)   139
+    pub calling_vmsc_number: String, // C(10)  119
+
+    pub sms_length: String,                 // C(1)   129
+    pub number_of_in_records: String,       // BCD(1) 130
+    pub num_of_concatenated_sms: String,    // C(1)   131
+    pub concatenated_record_number: String, // C(1)   132
+    pub concatenated_sms_reference: String, // W(1)   133
+    pub application_info: String,           // C(1)   135
+    pub routing_category: String,           // C(1)   136
+    pub add_routing_category: String,       // W(1)   137
+
+    // Different from SMMO
+    pub radio_network_type: String, // C(1)   139
 }
 
 impl SMMF {
@@ -144,4 +144,3 @@ impl SMMF {
 // application_info                                C(  1)       141
 // add_routing_category                            W(  1)       142
 // call_reference_time                             C(  7)       144
-                                                                                                                            

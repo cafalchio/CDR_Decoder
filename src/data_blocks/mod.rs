@@ -19,14 +19,14 @@ pub mod uca; //Unsuccessful Call Attempt
 // pub mod mtc;      //Mobile-terminated Cal
 
 // pub mod roam;     //Call to a Roaming Subscriber
-// pub mod coc;      //Camel-originated Call
-// pub mod ctc;      //Camel-terminated Cal
-// pub mod doc;      //Device-originated Call
-// pub mod lcs;      //Location Services
-// pub mod pbxo;     //PBX-originated Cal
-// pub mod pbxt;     //PBX-terminated Call
-// pub mod rcc;      //Remote Charging Control
-pub mod smmt;     //Short Message service (point-to-point), Mobile-terminated AI
-pub mod smmf;     //Short Message service (point-to-point), Mobile-terminated AI
+pub mod coc; //Camel-originated Call
+pub mod ctc; //Camel-terminated Cal
+             // pub mod doc;      //Device-originated Call
+             // pub mod lcs;      //Location Services
+             // pub mod pbxo;     //PBX-originated Cal
+             // pub mod pbxt;     //PBX-terminated Call
+             // pub mod rcc;      //Remote Charging Control
+pub mod smmf;
+pub mod smmt; //Short Message service (point-to-point), Mobile-terminated AI //Short Message service (point-to-point), Mobile-terminated AI
 
 // pub mod ussd;     //Unstructured Supplementary Service Data

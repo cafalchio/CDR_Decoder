@@ -2,22 +2,8 @@
 #![allow(unused_variables)]
 
 use crate::data_blocks::{
-    forw::FORW,
-    header::Header,
-    hlri::HLRI,
-    in1::IN1,
-    in2::IN2,
-    in3::IN3,
-    in4::IN4,
-    loca::LOCA,
-    moc::Moc,
-    ptc::PTC,
-    smmo::SMMO,
-    smmt::SMMT,
-    smmf::SMMF,
-    sups::SUPS,
-    trailer::Trailer,
-    uca::UCA,
+    forw::FORW, header::Header, hlri::HLRI, in1::IN1, in2::IN2, in3::IN3, in4::IN4, loca::LOCA,
+    moc::Moc, ptc::PTC, smmf::SMMF, smmo::SMMO, smmt::SMMT, sups::SUPS, trailer::Trailer, uca::UCA,
 };
 use serde::{Deserialize, Serialize};
 
@@ -27,8 +13,8 @@ pub enum Blocks {
     Loca(LOCA), // Location update
     Hlri(HLRI), //HLR interrogation
     Smmo(SMMO), //"Short Message service (point-to-point), Mobile-originated"
-    Smmt(SMMT), 
-    Smmf(SMMF), 
+    Smmt(SMMT),
+    Smmf(SMMF),
     In1(IN1),
     In2(IN2),
     In3(IN3),

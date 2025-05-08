@@ -462,8 +462,11 @@ impl CugInterlock {
     pub fn new(bytes: &[u8]) -> Self {
         let network_code = decode_bcds_high_low(&bytes[0..2]);
         let interlock = HWord::new(&bytes[2..4]).value;
-        let value =  format!("network indicator: {}, CUG code: {}", network_code, interlock);
-        Self {value : value}
+        let value = format!(
+            "network indicator: {}, CUG code: {}",
+            network_code, interlock
+        );
+        Self { value: value }
     }
     pub fn value(&self) -> &str {
         &self.value
@@ -1631,13 +1634,15 @@ impl FacilityUsage {
         ];
         let mut result: Vec<String> = vec![];
 
-        for (i, val) in mapping.iter() {     
+        for (i, val) in mapping.iter() {
             if (value >> i & 0b0000_0000_0000_0001) == 1 {
                 result.push(val.to_string());
             }
         }
 
-        Self { value: result.join(", ") }
+        Self {
+            value: result.join(", "),
+        }
     }
 
     pub fn value(&self) -> &str {

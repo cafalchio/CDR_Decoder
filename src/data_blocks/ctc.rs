@@ -1,27 +1,99 @@
-// FORMAT TYPE:      25
-// MESSAGE NUMBER:   dd8b
-// FORMAT TYPE NAME: CTC Camel-terminated Call
-// RECORD LENGTH:    135
+use crate::datatypes::{charging_fields::*, primitives::BcdTimestamp};
+use serde::{Deserialize, Serialize};
 
-// HEADER:
-// FIELD NAME                                   DATA TYPE  POSITION
+#[derive(Serialize, Deserialize, Debug)]
+pub struct CTC {
+    // FORMAT TYPE:      25
+    // MESSAGE NUMBER:   dd8b
+    // FORMAT TYPE NAME: CTC Camel-terminated Call
+    // RECORD LENGTH:    135
+    pub intermediate_record_number: String,
+    pub intermediate_charging_ind: String,
+    pub in_channel_allocated_time: String,
+    pub leg_call_reference: String,
+    pub intermediate_chrg_cause: String,
+    pub camel_call_reference: String,
+    pub camel_exchange_id_ton: String,
+    pub camel_exchange_id: String,
+    pub charging_start_time: String,
+    pub charging_end_time: String,
+    pub duration_before_answer: String,
+    pub chargeable_duration: String,
+    pub basic_call_state_model: String,
+    pub scf_address_ton: String,
+    pub scf_address: String,
+    pub camel_service_key: String,
+    pub default_call_handling: String,
+    pub destination_number_ton: String,
+    pub destination_number: String,
+    pub level_of_camel_service: String,
+    pub camel_modification: String,
+    pub camel_modify_parameters: String,
+    pub call_reference_time: String,
+    pub number_of_in_records: String,
+}
 
-// record_length                                   W(  1)         0
-// record_type                                   BCD(  1)         2
-// record_number                                 BCD(  4)         3
-// record_status                                   C(  1)         7
-// check_sum                                       W(  1)         8
-// call_reference                                  C(  5)        10
-// exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
+impl CTC {
+    pub fn new(bytes: &[u8]) -> Self {
+        let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value;
+        let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value;
+        let in_channel_allocated_time = BcdTimestamp::new(&bytes[27..34]).value;
+        // let leg_call_reference = LegCallReference::new(&bytes[34..39]).value;
+        let leg_call_reference = "not implemented".to_string();
+        let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes[39..41]).value;
+        let camel_call_reference = CamelCallReference::new(&bytes[41..49]).value;
+        let camel_exchange_id_ton = TON::new(bytes[49]).value;
+        let camel_exchange_id = CamelExchangeId::new(&bytes[50..59]).value;
+        let charging_start_time = ChargingStartTime::new(&bytes[59..66]).value;
+        let charging_end_time = ChargingEndtime::new(&bytes[66..73]).value;
+        let duration_before_answer = DurationBeforeAnswer::new(&bytes[73..76]).value;
+        let chargeable_duration = Duration::new(&bytes[76..79]).value;
+        let basic_call_state_model = BasicCallStateModel::new(bytes[79]).value;
+        let scf_address_ton = TON::new(bytes[80]).value;
+        let scf_address = SCFAddress::new(&bytes[81..90]).value;
+        let camel_service_key = CamelServiceKey::new(&bytes[90..94]).value;
+        let default_call_handling = DefaultCallHandling::new(bytes[94]).value;
+        let destination_number_ton = TON::new(bytes[95]).value;
+        let destination_number = NUMBER::new(&bytes[96..108]).value;
+        let level_of_camel_service = LevelOfCamelService::new(bytes[108]).value;
+        let camel_modification = CamelModification::new(&bytes[109..113]).value;
+        let camel_modify_parameters = CamelModifyParameters::new(&bytes[113..127]).value;
+        let call_reference_time = CallReferenceTime::new(&bytes[127..134]).value;
+        let number_of_in_records = NumberOfInRecords::new(bytes[134]).value;
+
+        Self {
+            intermediate_record_number,
+            intermediate_charging_ind,
+            in_channel_allocated_time,
+            leg_call_reference,
+            intermediate_chrg_cause,
+            camel_call_reference,
+            camel_exchange_id_ton,
+            camel_exchange_id,
+            charging_start_time,
+            charging_end_time,
+            duration_before_answer,
+            chargeable_duration,
+            basic_call_state_model,
+            scf_address_ton,
+            scf_address,
+            camel_service_key,
+            default_call_handling,
+            destination_number_ton,
+            destination_number,
+            level_of_camel_service,
+            camel_modification,
+            camel_modify_parameters,
+            call_reference_time,
+            number_of_in_records,
+        }
+    }
+
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
+}
+
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
@@ -49,4 +121,3 @@
 // camel_modify_parameters                         C( 14)       113
 // call_reference_time                             C(  7)       127
 // number_of_in_records                          BCD(  1)       134
-                                                                                                                            
