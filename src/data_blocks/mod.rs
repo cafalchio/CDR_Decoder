@@ -26,6 +26,7 @@ pub mod uca; //Unsuccessful Call Attempt
 // pub mod pbxo;     //PBX-originated Cal
 // pub mod pbxt;     //PBX-terminated Call
 // pub mod rcc;      //Remote Charging Control
-// pub mod smmf;     //Short Message service, Mobile-originated with Forwarding
-// pub mod smmt;     //Short Message service (point-to-point), Mobile-terminated
+pub mod smmt;     //Short Message service (point-to-point), Mobile-terminated AI
+pub mod smmf;     //Short Message service (point-to-point), Mobile-terminated AI
+
 // pub mod ussd;     //Unstructured Supplementary Service Data

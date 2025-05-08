@@ -11,8 +11,10 @@ use crate::data_blocks::{
     in4::IN4,
     loca::LOCA,
     moc::Moc,
-    // ptc::PTC,
+    ptc::PTC,
     smmo::SMMO,
+    smmt::SMMT,
+    smmf::SMMF,
     sups::SUPS,
     trailer::Trailer,
     uca::UCA,
@@ -25,6 +27,8 @@ pub enum Blocks {
     Loca(LOCA), // Location update
     Hlri(HLRI), //HLR interrogation
     Smmo(SMMO), //"Short Message service (point-to-point), Mobile-originated"
+    Smmt(SMMT), 
+    Smmf(SMMF), 
     In1(IN1),
     In2(IN2),
     In3(IN3),
@@ -33,7 +37,7 @@ pub enum Blocks {
     Uca(UCA),
     Sups(SUPS),
     Moc(Moc),
-    // Ptc(PTC),
+    Ptc(PTC),
     Trailer(Trailer),
 }
 
@@ -45,6 +49,9 @@ impl Blocks {
             "Short message service (point-to-point), mobile-originated" => {
                 Some(Blocks::Smmo(SMMO::new(data)))
             }
+            "Short message service (point-to-point), mobile-terminated" => {
+                Some(Blocks::Smmt(SMMT::new(data)))
+            }
             "Intelligent network data 1" => Some(Blocks::In1(IN1::new(data))),
             "Intelligent network data 2" => Some(Blocks::In2(IN2::new(data))),
             "Intelligent network data 3" => Some(Blocks::In3(IN3::new(data))),
@@ -53,7 +60,7 @@ impl Blocks {
             "Unsuccessful call attempt" => Some(Blocks::Uca(UCA::new(data))),
             "Supplementary service" => Some(Blocks::Sups(SUPS::new(data))),
             "Mobile-originated call" => Some(Blocks::Moc(Moc::new(data))),
-            // "PSTN-terminated call" => Some(Blocks::Ptc(PTC::new(data))),
+            "PSTN-terminated call" => Some(Blocks::Ptc(PTC::new(data))),
             "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
             _ => None,
         }
