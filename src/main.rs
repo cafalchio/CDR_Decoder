@@ -36,7 +36,9 @@ fn main() {
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("/home/cafa/CDR_Decoder/data/test_file1.gz");
+    let bytes = read_file(
+        "/home/cafalchio/Downloads/VL_GNK_MSSDF5_T20250115111357_22244_N_00000.BACKUP.gz",
+    );
 
     let mut next_header = 0;
     let mut cnt = 0;
@@ -48,7 +50,7 @@ fn main() {
 
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
-        println!("{}", header.record_type);
+        // println!("{}", header.record_type);
 
         if header.record_type.starts_with("not found") || header.record_length == 0 {
             // TODO: fix skip_error_blocks function to use here.
@@ -103,6 +105,11 @@ fn main() {
     for x in all_types {
         *m.entry(x).or_default() += 1;
     }
+
+    // Collect into a vector of (&String, &usize) and sort
+    let mut count_vec: Vec<(&String, &usize)> = m.iter().collect();
+    count_vec.sort_by(|a, b| b.1.cmp(a.1));
+
     println!("\n----- Summary -----");
     println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
     println!(
@@ -110,7 +117,7 @@ fn main() {
         bytes.len().saturating_sub(next_header)
     );
     println!("\n----- Counts -----");
-    for (key, value) in m.into_iter() {
+    for (key, value) in count_vec {
         println!("{} -> {}", key, value);
     }
 }

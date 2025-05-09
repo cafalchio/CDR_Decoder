@@ -2,8 +2,9 @@
 #![allow(unused_variables)]
 
 use crate::data_blocks::{
-    forw::FORW, header::Header, hlri::HLRI, in1::IN1, in2::IN2, in3::IN3, in4::IN4, loca::LOCA,
-    moc::Moc, ptc::PTC, smmf::SMMF, smmo::SMMO, smmt::SMMT, sups::SUPS, trailer::Trailer, uca::UCA,
+    doc::DOC, forw::FORW, header::Header, hlri::HLRI, in1::IN1, in2::IN2, in3::IN3, in4::IN4,
+    loca::LOCA, moc::Moc, ptc::PTC, smmf::SMMF, smmo::SMMO, smmt::SMMT, sups::SUPS,
+    trailer::Trailer, uca::UCA,
 };
 use serde::{Deserialize, Serialize};
 
@@ -24,6 +25,7 @@ pub enum Blocks {
     Sups(SUPS),
     Moc(Moc),
     Ptc(PTC),
+    Doc(DOC),
     Trailer(Trailer),
 }
 
@@ -47,6 +49,7 @@ impl Blocks {
             "Supplementary service" => Some(Blocks::Sups(SUPS::new(data))),
             "Mobile-originated call" => Some(Blocks::Moc(Moc::new(data))),
             "PSTN-terminated call" => Some(Blocks::Ptc(PTC::new(data))),
+            "Device-originated Call" => Some(Blocks::Doc(DOC::new(data))),
             "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
             _ => None,
         }

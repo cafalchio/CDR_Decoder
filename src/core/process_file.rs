@@ -50,7 +50,7 @@ pub fn extract_header(bytes: &[u8]) -> Header {
     // Read Header after FFs if they are present
     let mut next_header = 0;
     while &bytes[next_header] == &0xFF {
-        println!("escape");
+        // println!("escape");
         next_header += 1;
     }
     Header::new(&bytes[next_header..next_header + 25])
