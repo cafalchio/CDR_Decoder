@@ -1,4 +1,5 @@
 use crate::data_blocks::header::Header;
+use colored::*;
 use flate2::read::GzDecoder;
 use std::io::Read;
 use walkdir::{DirEntry, WalkDir};
@@ -32,11 +33,16 @@ pub fn read_multiple_files(path: &str) {
 }
 
 pub fn read_file(path: &str) -> Vec<u8> {
-    // currently reading the entire file in memory as the compress file has 1 to 2Mb
-    let bytes = std::fs::read(path).unwrap();
+    // Read compressed file from disk
+    let bytes = std::fs::read(path)
+        .unwrap_or_else(|e| panic!("{}", format!("Could not open file {}: {}", path, e).red()));
+
+    // Decompress the file
     let mut gz = GzDecoder::new(&bytes[..]);
     let mut file_bytes = Vec::new();
-    gz.read_to_end(&mut file_bytes).unwrap();
+    gz.read_to_end(&mut file_bytes)
+        .unwrap_or_else(|e| panic!("{}", format!("Could not open file {}: {}", path, e).red()));
+
     file_bytes
 }
 

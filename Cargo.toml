@@ -9,6 +9,7 @@ name = "cdr_decoder"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
+colored = "3.0.0"
 flate2 = "1.1.1"
 indicatif = "0.17.11"
 maturin = "1.8.3"

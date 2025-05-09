@@ -4,12 +4,8 @@ use cdr_decoder::datatypes::primitives::*;
 
 #[cfg(test)]
 mod tests {
-    use std::cell::Cell;
-
-    use cdr_decoder::datatypes::primitives::BcdTimestamp;
-    use pyo3::call;
-
     use super::*;
+    use cdr_decoder::datatypes::primitives::BcdTimestamp;
 
     #[test]
     fn test_bcd_value() {
