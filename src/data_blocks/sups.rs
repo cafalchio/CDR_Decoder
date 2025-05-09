@@ -72,7 +72,7 @@ impl SUPS {
         let cause_for_termination = CauseForTermination::new(&bytes[72..76]).value;
         let result_indicator = ResultIndicator::new(&bytes[76..78]).value;
         let parameters_length = ParametersLength::new(bytes[78]).value;
-        let parameters = "".to_string();
+        let parameters = "<not implemented>".to_string();
         let served_number_ton = TON::new(bytes[109]).value;
         let served_ms_classmark = MSClassMark::new(bytes[110]).value;
         let basic_service_type = BasicServiceType::new(bytes[111]).value;

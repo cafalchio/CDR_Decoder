@@ -69,7 +69,7 @@ impl PTC {
         let cause_for_termination = CauseForTermination::new(&bytes[79..83]).value; //       DW(  1)        79
         let call_type = CallType::new(bytes[83]).value; //        C(  1)        83
                                                         // let ticket_type = TickeType::new(bytes[84]).value; //        C(  1)        84
-        let ticket_type = "not implemented".to_string(); //        C(  1)        84
+        let ticket_type = "<not implemented>".to_string(); //        C(  1)        84
         let oaz_chrg_type = ChargeType::new(bytes[85]).value; //        C(  1)        85
         let oaz_duration = Duration::new(&bytes[86..89]).value; //      BCD(  3)        86
         let oaz_tariff_class = TariffClass::new(&bytes[89..92]).value; //      BCD(  3)        89
@@ -78,7 +78,7 @@ impl PTC {
         let called_msrn = MSRN::new(&bytes[95..107]).value; //        C( 12)        95
         let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes[107..109]).value; //        C(  2)       107
                                                                                           // let leg_call_reference = LegCallReference::new(&bytes[109..114]).value; //        C(  5)       109
-        let leg_call_reference = "not implemented".to_string();
+        let leg_call_reference = "<not implemented>".to_string();
         let out_channel_allocated_time = OutChannelAllocatedTime::new(&bytes[114..121]).value; //        C(  7)       114
         let basic_service_type = BasicServiceType::new(bytes[121]).value; //        C(  1)       121
         let basic_service_code = BasicServiceCode::new(bytes[122], &basic_service_type).value; //        C(  1)       122
@@ -97,7 +97,7 @@ impl PTC {
         let outside_user_plane_index = UserPlaneIndex::new(&bytes[159..161]).value; //      BCD(  2)       159
         let outside_control_plane_index = ControlPlaneIndex::new(&bytes[161..163]).value; //      BCD(  2)       161
                                                                                           // let collect_call_indicator = CollectCallIndicator::new(&bytes[163..164]).value; //        C(  1)       163
-        let collect_call_indicator = "not implemented. not found in doc v14".to_string();
+        let collect_call_indicator = "<not implemented>".to_string();
         let outpulsed_number = NUMBER::new(&bytes[164..176]).value; //        C( 12)       164
         let redirecting_number = NUMBER::new(&bytes[176..188]).value; //        C( 12)       176
         let rate_adaption = RateAdaption::new(bytes[188]).value; //        C(  1)       188
