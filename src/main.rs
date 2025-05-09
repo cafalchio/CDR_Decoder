@@ -4,6 +4,7 @@
 mod datatypes;
 use cdr_decoder::core::process_file::*;
 use cdr_decoder::data_blocks::blocks;
+use colored::Colorize;
 use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
@@ -37,7 +38,7 @@ fn main() {
     println!("Running extraction...");
     let start_time = Instant::now();
     let bytes = read_file(
-        "/home/cafalchio/Downloads/VL_GNK_MSSDF5_T20250115111355_10646_N_00000.BACKUP.gz",
+        "/home/cafalchio/Downloads/VL_GNK_MSSDF5_T20250115111415_22246_N_00000.BACKUP.gz",
     );
 
     let mut next_header = 0;
@@ -110,13 +111,13 @@ fn main() {
     let mut count_vec: Vec<(&String, &usize)> = m.iter().collect();
     count_vec.sort_by(|a, b| b.1.cmp(a.1));
 
-    println!("\n----- Summary -----");
+    println!("{}", "\n----- Summary -----".green());
     println!("Ran {} blocks in {:.2?}", cnt, Instant::now() - start_time);
     println!(
         "Bytes left: {} bytes",
         bytes.len().saturating_sub(next_header)
     );
-    println!("\n----- Counts -----");
+    println!("{}", "\n----- Counts -----".green());
     for (key, value) in count_vec {
         println!("{} -> {}", key, value);
     }
