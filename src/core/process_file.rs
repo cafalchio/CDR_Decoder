@@ -53,7 +53,9 @@ pub fn extract_header(bytes: &[u8]) -> Header {
         // println!("escape");
         next_header += 1;
     }
-    Header::new(&bytes[next_header..next_header + 25])
+    let header = Header::new(&bytes[next_header..next_header + 25]);
+    println!("{}", header.to_json().unwrap());
+    header
 }
 
 pub fn skip_trailer_bytes(bytes: &[u8], mut curr_position: usize) -> usize {
