@@ -165,7 +165,7 @@ impl Moc {
         let orig_mcz_change_direction = ChangeDirection::new(bytes[224]).value;
         let calling_charging_area = ChargingArea::new(&bytes[225..227]).value;
         let called_charging_area = ChargingArea::new(&bytes[227..229]).value;
-        let connected_to_number_ton = ChargingArea::new(&bytes[229..230]).value;
+        let connected_to_number_ton = TON::new(bytes[229]).value;
         let connected_to_number = NUMBER::new(&bytes[230..242]).value;
         let cug_interlock = CugInterlock::new(&bytes[242..246]).value;
         let cug_outgoing_access = CugOutgoingAccess::new(bytes[246]).value;
