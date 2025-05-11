@@ -79,7 +79,7 @@ impl POC {
         let called_msrn_ton = TON::new(bytes[94]).value; // C(  1)         94
         let called_msrn = MSRN::new(&bytes[95..107]).value; // C( 12)        95
         let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes[107..109]).value; // C(  2)        107
-        let orig_dialling_class = "<not implemented>".to_string(); // W(  1)        109 — not in example
+        let orig_dialling_class = "<not implemented>".to_string(); // W(  1)        109
         let leg_call_reference = "<not implemented>".to_string();
         let basic_service_type = BasicServiceType::new(bytes[115]).value; // C(  1)        115
         let basic_service_code = BasicServiceCode::new(bytes[116], &basic_service_type).value; // C(  1)        116
@@ -92,17 +92,17 @@ impl POC {
         let scp_connection = SCPConnection::new(bytes[146]).value; // C(  1)       146
         let number_of_all_in_records = NumberOfAllInRecords::new(bytes[147]).value; // BCD(  1)      147
         let loc_routing_number_ton = TON::new(bytes[148]).value; // C(  1)       148
-        let camel_call_reference = CamelCallReference::new(&bytes[149..157]).value; // C(  8)       149 — not in example
-        let camel_exchange_id_ton = TON::new(bytes[149]).value; // C(  1)       157 — not in example
-        let camel_exchange_id = CamelExchangeId::new(&bytes[158..167]).value; // C(  9)       158 — not in example
-        let in_bnc_connection_type = BncConnectionType::new(bytes[167]).value; // C(  1)       167 — not in example
-        let inside_user_plane_index = UserPlaneIndex::new(&bytes[168..170]).value; // BCD(  2)     168 — not in example
-        let inside_control_plane_index = ControlPlaneIndex::new(&bytes[170..172]).value; // BCD(  2)     170 — not in example
-        let collect_call_indicator = "<not implemented>".to_string(); // C(  1)       172 — not in example
+        let camel_call_reference = CamelCallReference::new(&bytes[149..157]).value; // C(  8)       149
+        let camel_exchange_id_ton = TON::new(bytes[149]).value; // C(  1)       157
+        let camel_exchange_id = CamelExchangeId::new(&bytes[158..167]).value; // C(  9)       158
+        let in_bnc_connection_type = BncConnectionType::new(bytes[167]).value; // C(  1)       167
+        let inside_user_plane_index = UserPlaneIndex::new(&bytes[168..170]).value; // BCD(  2)     168
+        let inside_control_plane_index = ControlPlaneIndex::new(&bytes[170..172]).value; // BCD(  2)     170
+        let collect_call_indicator = "<not implemented>".to_string(); // C(  1)       172
         let redirecting_number = NUMBER::new(&bytes[173..185]).value; // C( 12)       173
-        let dialled_digits = DialledDigits::new(&bytes[185..197]).value; // C( 12)       185 — not in example
+        let dialled_digits = DialledDigits::new(&bytes[185..197]).value; // C( 12)       185
         let rate_adaption = RateAdaption::new(bytes[197]).value; // C(  1)       197
-        let calling_pstn_category = CallingPSTNCategory::new(bytes[198]).value; // C(  1)       198 — not in example
+        let calling_pstn_category = CallingPSTNCategory::new(bytes[198]).value; // C(  1)       198
 
         Self {
             intermediate_record_number,

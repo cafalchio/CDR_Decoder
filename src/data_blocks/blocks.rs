@@ -3,7 +3,7 @@
 
 use crate::data_blocks::{
     doc::DOC, forw::FORW, header::Header, hlri::HLRI, in1::IN1, in2::IN2, in3::IN3, in4::IN4,
-    loca::LOCA, moc::Moc, ptc::PTC, smmf::SMMF, smmo::SMMO, smmt::SMMT, sups::SUPS,
+    loca::LOCA, moc::Moc, ptc::PTC, roam::ROAM, smmf::SMMF, smmo::SMMO, smmt::SMMT, sups::SUPS,
     trailer::Trailer, uca::UCA,
 };
 use serde::{Deserialize, Serialize};
@@ -26,6 +26,7 @@ pub enum Blocks {
     Moc(Moc),
     Ptc(PTC),
     Doc(DOC),
+    Roam(ROAM),
     Trailer(Trailer),
 }
 
@@ -50,6 +51,7 @@ impl Blocks {
             "Mobile-originated call" => Some(Blocks::Moc(Moc::new(data))),
             "PSTN-terminated call" => Some(Blocks::Ptc(PTC::new(data))),
             "Device-originated Call" => Some(Blocks::Doc(DOC::new(data))),
+            "Call to a Roaming Subscriber" => Some(Blocks::Roam(ROAM::new(data))),
             "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
             _ => None,
         }
