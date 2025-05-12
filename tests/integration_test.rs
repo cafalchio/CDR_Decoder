@@ -214,4 +214,10 @@ mod tests {
         let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes).value;
         assert_eq!("Value at the end of the call", intermediate_chrg_cause);
     }
+
+    // #[test]
+    // fn test_full_extraction() {
+    //     let test_file = "tests/test_file.bin";
+
+    // }
 }
