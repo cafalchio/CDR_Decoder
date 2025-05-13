@@ -1,7 +1,8 @@
-use pyo3::prelude::*;
 pub mod core;
 pub mod data_blocks;
 pub mod datatypes;
+pub mod database;
+use pyo3::prelude::*;
 use core::process_file::*;
 use data_blocks::blocks;
 use std::cmp;

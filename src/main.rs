@@ -8,7 +8,7 @@ use colored::Colorize;
 use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
-
+use cdr_decoder::database::db::establish_connection;
 // This function is Work in progress, needs fix
 fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
     // When we reach an unknown or block with lenght 0, we assume the block is
@@ -33,11 +33,12 @@ fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
 }
 
 fn main() {
+    establish_connection();
     let mut all_types: Vec<String> = Vec::new();
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP(1).gz");
+    let bytes = read_file("/home/cafalchio/Downloads/VL_GNK_MSSDF5_T20250115111403_10647_N_00000.BACKUP.gz");
 
     let mut next_header = 0;
     let mut cnt = 0;

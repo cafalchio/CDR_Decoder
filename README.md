@@ -53,6 +53,9 @@
 
 - main.rs - File that is called when run cargo run or cargo run --release
 
+
+if compilation fails: sudo apt-get install libpq-dev
+
     
 
 
