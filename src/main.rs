@@ -8,7 +8,7 @@ use colored::Colorize;
 use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
-use cdr_decoder::database::db::establish_connection;
+use cdr_decoder::database::db::*;
 // This function is Work in progress, needs fix
 fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
     // When we reach an unknown or block with lenght 0, we assume the block is
@@ -33,7 +33,9 @@ fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
 }
 
 fn main() {
-    establish_connection();
+    let connection: diesel::PgConnection = establish_connection();
+
+    
     let mut all_types: Vec<String> = Vec::new();
 
     println!("Running extraction...");

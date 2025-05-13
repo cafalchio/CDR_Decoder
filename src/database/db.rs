@@ -13,18 +13,22 @@ pub fn establish_connection() -> PgConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
+// The 2 tables in the DB
 
-
-
-#[derive(Queryable, Serialize, Deserialize, Debug)]
-pub struct CdrFile {
+#[derive(Queryable, Serialize, Deserialize, Debug, Selectable)]
+#[diesel(table_name = crate::database::schema::cdr_files)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
+pub struct CdrFiles {
     pub id: i32,
     pub filename: Option<String>,
-    pub processed_at: Option<NaiveDateTime>,
+    pub processed_at: Option<NaiveDateTime>, 
 }
 
-#[derive(Queryable, Serialize, Deserialize, Debug)]
-pub struct CdrBlock {
+
+#[derive(Queryable, Serialize, Deserialize, Debug, Selectable)]
+#[diesel(table_name = crate::database::schema::cdr_blocks)]
+#[diesel(check_for_backend(diesel::pg::Pg))]
+pub struct CdrBlocks {
     pub id: i32,
     pub file_id: Option<i32>,
     pub block_type: String,
