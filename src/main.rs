@@ -4,6 +4,7 @@
 mod datatypes;
 use cdr_decoder::core::process_file::*;
 use cdr_decoder::data_blocks::blocks;
+use cdr_decoder::database::util::insert_cdr_file;
 use colored::Colorize;
 use std::cmp;
 use std::collections::HashMap;
@@ -33,9 +34,11 @@ fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
 }
 
 fn main() {
-    let connection: diesel::PgConnection = establish_connection();
+    let mut connection: diesel::PgConnection = establish_connection();
+    let file_id = insert_cdr_file(&mut connection, 
+        "VL_GNK_MSSDF5_T20250115111403_10647_N_00000");
+    println!("file id: {:?}" , file_id);
 
-    
     let mut all_types: Vec<String> = Vec::new();
 
     println!("Running extraction...");
@@ -56,10 +59,10 @@ fn main() {
 
         if header.record_type.starts_with("not found") || header.record_length == 0 {
             // TODO: fix skip_error_blocks function to use here.
-            println!(
-                "Trying to recover from corrupted or unknown block @{}",
-                next_header
-            );
+            // println!(
+            //     "Trying to recover from corrupted or unknown block @{}",
+            //     next_header
+            // );
             next_header = last_trailer;
 
             let mut skip = 0;

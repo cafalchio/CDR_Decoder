@@ -54,7 +54,7 @@ pub fn extract_header(bytes: &[u8]) -> Header {
         next_header += 1;
     }
     let header = Header::new(&bytes[next_header..next_header + 25]);
-    println!("{}", header.record_type);
+    // println!("{}", header.record_type);
     // println!("{}", header.to_json().unwrap());
     header
 }
