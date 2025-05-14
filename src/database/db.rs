@@ -1,9 +1,9 @@
-use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use crate::database::schema::{cdr_blocks, cdr_files};
 use chrono::NaiveDateTime;
-use serde_json::Value;
-use crate::database::schema::{cdr_files, cdr_blocks};
+use diesel::prelude::*;
 use dotenvy::dotenv;
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use std::env;
 
 pub fn establish_connection() -> PgConnection {
@@ -13,8 +13,6 @@ pub fn establish_connection() -> PgConnection {
     PgConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
-
-
 
 #[derive(Queryable, Serialize, Deserialize, Debug, Selectable)]
 #[diesel(table_name = cdr_files)]
@@ -46,9 +44,8 @@ pub struct CdrBlocks {
 #[derive(Insertable, Debug)]
 #[diesel(table_name = cdr_blocks)]
 pub struct NewCdrBlock<'a> {
-    pub file_id: Option<i32>,
-    pub block_type: &'a str,
+    pub file_id: i32,
+    pub block_type: String,
     pub block_index: i32,
     pub parsed_data: Option<&'a Value>,
 }
-

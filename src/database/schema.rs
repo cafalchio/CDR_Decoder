@@ -20,7 +20,4 @@ diesel::table! {
 
 diesel::joinable!(cdr_blocks -> cdr_files (file_id));
 
-diesel::allow_tables_to_appear_in_same_query!(
-    cdr_blocks,
-    cdr_files,
-);
+diesel::allow_tables_to_appear_in_same_query!(cdr_blocks, cdr_files,);

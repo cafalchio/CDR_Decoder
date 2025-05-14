@@ -1,10 +1,10 @@
 pub mod core;
 pub mod data_blocks;
-pub mod datatypes;
 pub mod database;
-use pyo3::prelude::*;
+pub mod datatypes;
 use core::process_file::*;
 use data_blocks::blocks;
+use pyo3::prelude::*;
 use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;

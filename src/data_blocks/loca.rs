@@ -1,5 +1,6 @@
 use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 // Location update CDR
 // served_imsi                                     C(  8)        25
 // subs_old_lac                                    W(  1)        33
@@ -57,7 +58,10 @@ impl LOCA {
             number_of_in_records,
         }
     }
-    pub fn to_json(&self) -> serde_json::Result<String> {
+    pub fn to_json_str(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)
+    }
+    pub fn to_json(&self) -> serde_json::Result<Value> {
+        serde_json::to_value(self)
     }
 }

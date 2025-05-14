@@ -4,7 +4,6 @@ use crate::datatypes::primitives::*;
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]
-
 pub struct Trailer {
     pub record_length: u16,  // W(1) at offset 0
     pub record_type: String, // BCD(1) at offset 2

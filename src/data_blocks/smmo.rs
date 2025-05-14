@@ -1,5 +1,6 @@
 use crate::datatypes::charging_fields::*;
 use serde::{Deserialize, Serialize};
+use serde_json::Value;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SMMO {
@@ -115,8 +116,11 @@ impl SMMO {
             radio_network_type,
         }
     }
-    pub fn to_json(&self) -> serde_json::Result<String> {
+    pub fn to_json_str(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)
+    }
+    pub fn to_json(&self) -> serde_json::Result<Value> {
+        serde_json::to_value(self)
     }
 }
 
