@@ -5,6 +5,7 @@ use dotenvy::dotenv;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::env;
+use serde;
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
@@ -41,11 +42,11 @@ pub struct CdrBlocks {
     pub parsed_data: Option<Value>,
 }
 
-#[derive(Insertable, Debug)]
+#[derive(Insertable, Debug, Clone)]
 #[diesel(table_name = cdr_blocks)]
-pub struct NewCdrBlock<'a> {
+pub struct NewCdrBlock {
     pub file_id: i32,
     pub block_type: String,
     pub block_index: i32,
-    pub parsed_data: Option<&'a Value>,
+    pub parsed_data: Option<Value>, // This will be the JSONB field
 }

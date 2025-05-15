@@ -5,7 +5,7 @@ use diesel::prelude::*;
 use diesel::RunQueryDsl;
 use diesel::{insert_into, QueryResult};
 
-use super::db::CdrBlocks;
+const BATCH_SIZE: usize = 1024;
 
 pub fn insert_cdr_file(conn: &mut PgConnection, filename: &str) -> QueryResult<CdrFiles> {
     use crate::database::schema::cdr_files;
@@ -23,15 +23,19 @@ pub fn insert_cdr_file(conn: &mut PgConnection, filename: &str) -> QueryResult<C
         .get_result::<CdrFiles>(conn)
 }
 
-pub fn insert_cdr_block(conn: &mut PgConnection, block: NewCdrBlock) -> QueryResult<CdrBlocks> {
+pub fn insert_cdr_blocks(conn: &mut PgConnection, blocks: Vec<NewCdrBlock>) {
     use crate::database::schema::cdr_blocks;
 
-    insert_into(cdr_blocks::table)
-        .values(NewCdrBlock {
-            file_id: block.file_id,
-            block_type: block.block_type.to_string(), // Convert &str to String
-            block_index: block.block_index,
-            parsed_data: block.parsed_data,
-        })
-        .get_result(conn)
+    // Split the blocks into chunks of size `batch_size`
+    let chunked_blocks = blocks.chunks(BATCH_SIZE);
+
+    // Insert each chunk separately
+    for (i, chunk) in chunked_blocks.enumerate() {
+        println!("saving {} blocks", BATCH_SIZE * i);
+        // Insert the chunk of blocks into the database
+        insert_into(cdr_blocks::table)
+            .values(chunk)
+            .execute(conn)
+            .unwrap(); // You can handle errors more gracefully in production
+    }
 }
