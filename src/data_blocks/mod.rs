@@ -21,11 +21,11 @@ pub mod smmt; //Short Message service (point-to-point), Mobile-terminated
 pub mod sups; //Supplementary Service
 pub mod trailer;
 pub mod uca; //Unsuccessful Call Attempt // trailer //Mobile-terminated Cal
+pub mod ussd;     //Unstructured Supplementary Service Data
+pub mod roam; //Call to a Roaming Subscriber
 
 // to be implemented
-pub mod roam; //Call to a Roaming Subscriber
               // pub mod pbxt;     //PBX-terminated Call
               // pub mod lcs;      //Location Services
               // pub mod pbxo;     //PBX-originated Cal
               // pub mod rcc;      //Remote Charging Control
-              // pub mod ussd;     //Unstructured Supplementary Service Data
