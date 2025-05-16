@@ -37,28 +37,17 @@ fn main() {
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("data/VL_GNK_MSSDF5_T20250115111404_22245_N_00000.BACKUP(1).gz");
-
+    let bytes = read_file("data/test_file1.gz");
     let mut next_header = 0;
     let mut cnt = 0;
     let mut last_trailer = 0;
     let mut max_blocks = 0;
-    let mut block_header_trailler = 0;
+    
     while next_header < bytes.len() {
         cnt += 1;
 
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
-        // println!("{}", header.record_type);
-        if header.record_type == "Header" {
-            block_header_trailler += 1;
-        }
-        if header.record_type == "Trailer" {
-            block_header_trailler -= 1;
-        }
-        if (block_header_trailler < 0) | (block_header_trailler > 1) {
-            println!("ERROR READING FILE -> Wrong number of headers and trailers");
-        }
 
         if header.record_type.starts_with("not found") || header.record_length == 0 {
             // TODO: fix skip_error_blocks function to use here.
@@ -91,7 +80,7 @@ fn main() {
             Some(block) => {
                 let json = block.to_json().unwrap();
                 // Print all blocks to console
-                println!("{}", json);
+                // println!("{}", json);
             }
             None => {}
         }

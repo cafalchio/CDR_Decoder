@@ -2,26 +2,88 @@
 // MESSAGE NUMBER:   e20d
 // FORMAT TYPE NAME: LCS
 // RECORD LENGTH:    164
+use crate::datatypes::{charging_fields::*, primitives::BcdTimestamp};
+use serde::{Deserialize, Serialize};
 
-// HEADER:
-// FIELD NAME                                   DATA TYPE  POSITION
+#[derive(Serialize, Deserialize, Debug)]
+pub struct LCS {
+    pub served_imsi: String,
+    pub served_imei: String,
+    pub service_time: String,
+    pub served_number_ton: String,
+    pub served_number: String,
+    pub served_subs_lac: String,
+    pub served_subs_ci: String,
+    pub location_estimate: String,
+    pub location_request_type: String,
+    pub cause_for_termination: String,
+    pub used_position_method: String,
+    pub response_time: String,
+    pub vertical_accuracy: String,
+    pub horizontal_accuracy: String,
+    pub gmlc_address: String,
+    pub subs_roaming_status: String,
+    pub gps_data_length: String,
+    pub gps_data: String,
+    pub client_external_id: String,
+    pub client_external_id_ton: String,
+    pub age_of_estimate: String,
+    pub radio_network_type: String,
+}
+impl LCS {
+    pub fn new(bytes: &[u8]) -> Self {
+        let served_imsi = IMSI::new(&bytes[25..33]).value; // C(  8)        25
+        let served_imei = IMEI::new(&bytes[33..41]).value; // C(  8)        33
+        let service_time = BcdTimestamp::new(&bytes[41..48]).value; // C(  7)        41
+        let served_number_ton = TON::new(bytes[48]).value; // C(  1)        48
+        let served_number = NUMBER::new(&bytes[49..59]).value; // C( 10)        49
+        let served_subs_lac = LAC::new(&bytes[59..61]).value; // W(  1)        59
+        let served_subs_ci = CI::new(&bytes[61..63]).value; // W(  1)        61
+        let location_estimate = LocationEstimate::new(&bytes[63..83]).value; // C( 20)        63
+        let location_request_type = LocationRequestType::new(bytes[83]).value; // C(  1)        83
+        let cause_for_termination = CauseForTermination::new(&bytes[84..88]).value; //DW(  1)        84
+        let used_position_method = UsedPositionMethod::new(&bytes[88..96]).value; // C(  8)        88
+        let response_time = ResponseTime::new(bytes[96]).value; // C(  1)        96
+        let vertical_accuracy = VerticalAccuracy::new(bytes[97]).value; // C(  1)        97
+        let horizontal_accuracy = HorizontalAccuracy::new(bytes[98]).value; // C(  1)        98
+        let gmlc_address = GMLCAddress::new(&bytes[99..108]).value; // C(  9)        99
+        let subs_roaming_status = SubsRoamingStatus::new(bytes[108]).value; // C(  1)       108
+        let gps_data_length = GPSDataLength::new(bytes[109]).value; // C(  1)       109
+        let gps_data = GPSData::new(&bytes[110..148]).value; // C( 38)       110
+        let client_external_id = ClientExternalId::new(&bytes[148..160]).value; // C( 12)       148
+        let client_external_id_ton = TON::new(bytes[160]).value; // C(  1)       160
+        let age_of_estimate = AgeOfEstimate::new(&bytes[161..163]).value; // W(  1)       161
+        let radio_network_type = RadioNetworkType::new(bytes[163]).value; // C(  1)       163
+        Self {
+            served_imsi,
+            served_imei,
+            service_time,
+            served_number_ton,
+            served_number,
+            served_subs_lac,
+            served_subs_ci,
+            location_estimate,
+            location_request_type,
+            cause_for_termination,
+            used_position_method,
+            response_time,
+            vertical_accuracy,
+            horizontal_accuracy,
+            gmlc_address,
+            subs_roaming_status,
+            gps_data_length,
+            gps_data,
+            client_external_id,
+            client_external_id_ton,
+            age_of_estimate,
+            radio_network_type,
+        }
+    }
+    pub fn to_json(&self) -> serde_json::Result<String> {
+        serde_json::to_string_pretty(self)
+    }
+}
 
-// record_length                                   W(  1)         0
-// record_type                                   BCD(  1)         2
-// record_number                                 BCD(  4)         3
-// record_status                                   C(  1)         7
-// check_sum                                       W(  1)         8
-// call_reference                                  C(  5)        10
-// exchange_id                                     C( 10)        15
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
-                                                                                                                            
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 

@@ -20,20 +20,20 @@ pub struct USSD {
 }
 impl USSD {
     pub fn new(bytes: &[u8]) -> Self {
-            let served_imsi = IMSI::new(&bytes[25..33]).value;     //   C(  8)        25
-            let served_imei = IMEI::new(&bytes[33..41]).value;     //   C(  8)        33
-            let served_number_ton = TON::new(bytes[41]).value;       //   C(  1)        41
-            let served_number = NUMBER::new(&bytes[42..52]).value;       //   C( 10)        42
-            let initiator = Initiator::new(bytes[52]).value;       //   C(  1)        52
-            let action = Action::new(bytes[53]).value;      //   C(  1)        53
-            let start_time = BcdTimestamp::new(&bytes[54..61]).value;      //   C(  7)        54
-            let end_time = BcdTimestamp::new(&bytes[61..68]).value;        //   C(  7)        61
-            let cause_for_termination = CauseForTermination::new(&bytes[68..72]).value;       //  DW(  1)        68
-            let served_subs_lac = LAC::new(&bytes[72..74]).value;     //   W(  1)        72
-            let served_subs_ci = CI::new(&bytes[74..76]).value;      //   W(  1)        74
-            let number_of_transactions = NumberOfTransactions::new(bytes[76]).value;      // BCD(  1)        76
-            let service_code = ServiceCode::new(&bytes[77..87]).value;        //   C( 10)        77
-            let radio_network_type = RadioNetworkType::new(bytes[87]).value;      //   C(  1)        87
+        let served_imsi = IMSI::new(&bytes[25..33]).value; //   C(  8)        25
+        let served_imei = IMEI::new(&bytes[33..41]).value; //   C(  8)        33
+        let served_number_ton = TON::new(bytes[41]).value; //   C(  1)        41
+        let served_number = NUMBER::new(&bytes[42..52]).value; //   C( 10)        42
+        let initiator = Initiator::new(bytes[52]).value; //   C(  1)        52
+        let action = Action::new(bytes[53]).value; //   C(  1)        53
+        let start_time = BcdTimestamp::new(&bytes[54..61]).value; //   C(  7)        54
+        let end_time = BcdTimestamp::new(&bytes[61..68]).value; //   C(  7)        61
+        let cause_for_termination = CauseForTermination::new(&bytes[68..72]).value; //  DW(  1)        68
+        let served_subs_lac = LAC::new(&bytes[72..74]).value; //   W(  1)        72
+        let served_subs_ci = CI::new(&bytes[74..76]).value; //   W(  1)        74
+        let number_of_transactions = NumberOfTransactions::new(bytes[76]).value; // BCD(  1)        76
+        let service_code = ServiceCode::new(&bytes[77..87]).value; //   C( 10)        77
+        let radio_network_type = RadioNetworkType::new(bytes[87]).value; //   C(  1)        87
         Self {
             served_imsi,
             served_imei,
@@ -63,7 +63,7 @@ impl USSD {
 // check_sum                                       W(  1)         8
 // call_reference                                  C(  5)        10
 // exchange_id                                     C( 10)        15
-                                                                                                                            
+
 // DATA:
 // FIELD NAME                                   DATA TYPE  POSITION
 
@@ -81,4 +81,3 @@ impl USSD {
 // number_of_transactions                        BCD(  1)        76
 // service_code                                    C( 10)        77
 // radio_network_type                              C(  1)        87
-    
