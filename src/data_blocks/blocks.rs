@@ -27,6 +27,7 @@ pub enum Blocks {
     Ptc(PTC),
     Doc(DOC),
     Roam(ROAM),
+    Pbxt(PBXT),
     Trailer(Trailer),
 
 }
@@ -53,7 +54,7 @@ impl Blocks {
             "PSTN-terminated call" => Some(Blocks::Ptc(PTC::new(data))),
             "Device-originated Call" => Some(Blocks::Doc(DOC::new(data))),
             "Call to a Roaming Subscriber" => Some(Blocks::Roam(ROAM::new(data))),
-            "PBX-terminated Call" => Some(Blocks::Roam(ROAM::new(data))),
+            "PBX-terminated Call" => Some(Blocks::Pbxt(PBXT::new(data))),
             "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
             _ => None,
         }
