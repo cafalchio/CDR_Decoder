@@ -3,8 +3,8 @@
 
 use crate::data_blocks::{
     doc::DOC, forw::FORW, header::Header, hlri::HLRI, in1::IN1, in2::IN2, in3::IN3, in4::IN4,
-    lcs::LCS, loca::LOCA, moc::Moc, pbxt::PBXT, ptc::PTC, roam::ROAM, smmf::SMMF, smmo::SMMO,
-    smmt::SMMT, sups::SUPS, trailer::Trailer, uca::UCA,
+    lcs::LCS, loca::LOCA, moc::Moc, pbxo::PBXO, pbxt::PBXT, ptc::PTC, roam::ROAM, smmf::SMMF,
+    smmo::SMMO, smmt::SMMT, sups::SUPS, trailer::Trailer, uca::UCA,
 };
 use serde::{Deserialize, Serialize};
 
@@ -29,6 +29,7 @@ pub enum Blocks {
     Roam(ROAM),
     Pbxt(PBXT),
     Lcs(LCS),
+    Pbxo(PBXO),
     Trailer(Trailer),
 }
 
@@ -55,6 +56,7 @@ impl Blocks {
             "Device-originated Call" => Some(Blocks::Doc(DOC::new(data))),
             "Call to a Roaming Subscriber" => Some(Blocks::Roam(ROAM::new(data))),
             "PBX-terminated Call" => Some(Blocks::Pbxt(PBXT::new(data))),
+            "PBX-originated Cal" => Some(Blocks::Pbxo(PBXO::new(data))),
             "Location Services" => Some(Blocks::Lcs(LCS::new(data))),
             "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
 

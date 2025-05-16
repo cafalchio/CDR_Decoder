@@ -42,7 +42,7 @@ fn main() {
     let mut cnt = 0;
     let mut last_trailer = 0;
     let mut max_blocks = 0;
-    
+
     while next_header < bytes.len() {
         cnt += 1;
 
