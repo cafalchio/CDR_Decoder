@@ -68,7 +68,7 @@ mod tests {
             0xFF,
             // 0x00, 0x00, 0x00
         ];
-        let header = Header::new(&bytes);
+        let header = Header::new(&bytes).unwrap();
         assert_eq!(header.record_length, 550);
         assert_eq!(header.record_type, "Mobile-originated call");
         assert_eq!(header.record_number, 3);

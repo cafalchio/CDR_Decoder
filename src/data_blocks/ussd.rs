@@ -19,7 +19,10 @@ pub struct USSD {
     pub radio_network_type: String,
 }
 impl USSD {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 87 {
+            return Err("USSD: insufficient data".into());
+        }
         let served_imsi = IMSI::new(&bytes[25..33]).value; //   C(  8)        25
         let served_imei = IMEI::new(&bytes[33..41]).value; //   C(  8)        33
         let served_number_ton = TON::new(bytes[41]).value; //   C(  1)        41
@@ -34,7 +37,7 @@ impl USSD {
         let number_of_transactions = NumberOfTransactions::new(bytes[76]).value; // BCD(  1)        76
         let service_code = ServiceCode::new(&bytes[77..87]).value; //   C( 10)        77
         let radio_network_type = RadioNetworkType::new(bytes[87]).value; //   C(  1)        87
-        Self {
+        Ok(Self {
             served_imsi,
             served_imei,
             served_number_ton,
@@ -49,7 +52,7 @@ impl USSD {
             number_of_transactions,
             service_code,
             radio_network_type,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

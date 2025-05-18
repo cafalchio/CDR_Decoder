@@ -34,33 +34,35 @@ pub enum Blocks {
 }
 
 impl Blocks {
-    pub fn new(name: &str, data: &[u8]) -> Option<Self> {
+    pub fn new(name: &str, data: &[u8]) -> Result<Self, String> {
         match name {
-            "Location update" => Some(Blocks::Loca(LOCA::new(data))), // 25 - 85 location update
-            "HLR interrogation" => Some(Blocks::Hlri(HLRI::new(data))),
+            "Location update" => LOCA::new(data).map(Blocks::Loca),
+            "HLR interrogation" => HLRI::new(data).map(Blocks::Hlri),
             "Short message service (point-to-point), mobile-originated" => {
-                Some(Blocks::Smmo(SMMO::new(data)))
+                SMMO::new(data).map(Blocks::Smmo)
             }
             "Short message service (point-to-point), mobile-terminated" => {
-                Some(Blocks::Smmt(SMMT::new(data)))
+                SMMT::new(data).map(Blocks::Smmt)
             }
-            "Intelligent network data 1" => Some(Blocks::In1(IN1::new(data))),
-            "Intelligent network data 2" => Some(Blocks::In2(IN2::new(data))),
-            "Intelligent network data 3" => Some(Blocks::In3(IN3::new(data))),
-            "Intelligent network data 4" => Some(Blocks::In4(IN4::new(data))),
-            "Forwarded call" => Some(Blocks::Forw(FORW::new(data))),
-            "Unsuccessful call attempt" => Some(Blocks::Uca(UCA::new(data))),
-            "Supplementary service" => Some(Blocks::Sups(SUPS::new(data))),
-            "Mobile-originated call" => Some(Blocks::Moc(Moc::new(data))),
-            "PSTN-terminated call" => Some(Blocks::Ptc(PTC::new(data))),
-            "Device-originated Call" => Some(Blocks::Doc(DOC::new(data))),
-            "Call to a Roaming Subscriber" => Some(Blocks::Roam(ROAM::new(data))),
-            "PBX-terminated Call" => Some(Blocks::Pbxt(PBXT::new(data))),
-            "PBX-originated Cal" => Some(Blocks::Pbxo(PBXO::new(data))),
-            "Location Services" => Some(Blocks::Lcs(LCS::new(data))),
-            "Trailer" => Some(Blocks::Trailer(Trailer::new(data))),
-
-            _ => None,
+            "Short message service (point-to-point), failure" => {
+                SMMF::new(data).map(Blocks::Smmf)
+            }
+            "Intelligent network data 1" => IN1::new(data).map(Blocks::In1),
+            "Intelligent network data 2" => IN2::new(data).map(Blocks::In2),
+            "Intelligent network data 3" => IN3::new(data).map(Blocks::In3),
+            "Intelligent network data 4" => IN4::new(data).map(Blocks::In4),
+            "Forwarded call" => FORW::new(data).map(Blocks::Forw),
+            "Unsuccessful call attempt" => UCA::new(data).map(Blocks::Uca),
+            "Supplementary service" => SUPS::new(data).map(Blocks::Sups),
+            "Mobile-originated call" => Moc::new(data).map(Blocks::Moc),
+            "PSTN-terminated call" => PTC::new(data).map(Blocks::Ptc),
+            "Device-originated Call" => DOC::new(data).map(Blocks::Doc),
+            "Call to a Roaming Subscriber" => ROAM::new(data).map(Blocks::Roam),
+            "PBX-terminated Call" => PBXT::new(data).map(Blocks::Pbxt),
+            "PBX-originated Cal" => PBXO::new(data).map(Blocks::Pbxo),
+            "Location Services" => LCS::new(data).map(Blocks::Lcs),
+            "Trailer" => Trailer::new(data).map(Blocks::Trailer),
+            _ => Err(format!("Unknown block name: {}", name)),
         }
     }
     pub fn to_json(&self) -> serde_json::Result<String> {

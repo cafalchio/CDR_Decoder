@@ -8,6 +8,7 @@ use colored::Colorize;
 use std::cmp;
 use std::collections::HashMap;
 use std::time::Instant;
+use std::env;
 
 // This function is Work in progress, needs fix
 fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
@@ -33,11 +34,12 @@ fn skip_error_blocks(bytes: &[u8], mut curr_position: usize) -> usize {
 }
 
 fn main() {
+    env::set_var("RUST_BACKTRACE", "1");
     let mut all_types: Vec<String> = Vec::new();
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("data/test_file1.gz");
+    let bytes = read_file("/home/cafalchio/Downloads/ClaroVozNokiaMenu2/VL_GNK_MSSDF5_T20250115112442_10674_N_00000.BACKUP.gz");
     let mut next_header = 0;
     let mut cnt = 0;
     let mut last_trailer = 0;
@@ -48,6 +50,7 @@ fn main() {
 
         let header = extract_header(&bytes[next_header..]);
         all_types.push(header.record_type.clone());
+        // println!("{}", header.record_type);print
 
         if header.record_type.starts_with("not found") || header.record_length == 0 {
             // TODO: fix skip_error_blocks function to use here.
@@ -77,12 +80,12 @@ fn main() {
             &header.record_type,
             &bytes[next_header..next_header + header.record_length as usize],
         ) {
-            Some(block) => {
+            Ok(block) => {
                 let json = block.to_json().unwrap();
                 // Print all blocks to console
                 // println!("{}", json);
             }
-            None => {}
+            Err(_) => {}
         }
 
         match header.record_type.as_str() {

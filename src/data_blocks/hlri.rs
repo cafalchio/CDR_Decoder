@@ -12,22 +12,26 @@ pub struct HLRI {
 }
 
 impl HLRI {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        println!("Reading HLRI");
+        if bytes.len() < 67 {
+            return Err("HLRI: insufficient data".into());
+        }
         let called_imsi = IMSI::new(&bytes[25..33]).value;
         let called_number = NUMBER::new(&bytes[33..43]).value;
         let routing_number = NUMBER::new(&bytes[43..55]).value;
         let charging_time = ChargingTime::new(&bytes[55..62]).value;
         let number_of_forwardings = NumberOfForwardings::new(bytes[62..63][0]).value;
-        let cause_for_termination = CauseForTermination::new(&bytes[63..66]).value;
+        let cause_for_termination = CauseForTermination::new(&bytes[63..67]).value;
 
-        Self {
+        Ok(Self {
             called_imsi,
             called_number,
             routing_number,
             charging_time,
             number_of_forwardings,
             cause_for_termination,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

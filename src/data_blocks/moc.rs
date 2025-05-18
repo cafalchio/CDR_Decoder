@@ -108,7 +108,10 @@ pub struct Moc {
 }
 
 impl Moc {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 321 {
+            return Err("MOC: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //BCD(  1)        25
         let intermediate_charging_ind: String = IntermediateChargingInd::new(bytes[26]).value; //  C(  1)        26 IntermediateChargingInd
         let number_of_ss_records: String = NumberOfSSRecords::new(bytes[27]).value; //BCD(  1)        27
@@ -212,7 +215,7 @@ impl Moc {
         let radio_network_type = RadioNetworkType::new(bytes[320]).value;
         let used_air_interface_user_rate = UsedAirInterfaceUserRate::new(bytes[321]).value;
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -312,7 +315,7 @@ impl Moc {
             called_subs_last_ex_id_ton,
             radio_network_type,
             used_air_interface_user_rate,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

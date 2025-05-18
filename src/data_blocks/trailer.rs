@@ -13,18 +13,21 @@ pub struct Trailer {
     pub last_record_number: String,
 }
 impl Trailer {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 24 {
+            return Err("SMMT: insufficient data".into());
+        }
         let record_length = HWord::new(&bytes[0..2]).value as u16;
         let record_type = RecordType::new(bytes[2]).value;
         let exchange_id = ExchangeId::new(&bytes[3..13]).value;
         let end_time = decode_bcds(&bytes[13..20]);
         let last_record_number = LastRecordNumber::new(&bytes[20..24]).value;
-        Self {
+        Ok(Self {
             record_length,
             record_type,
             exchange_id,
             end_time,
             last_record_number,
-        }
+        })
     }
 }

@@ -30,7 +30,10 @@ pub struct LOCA {
 }
 
 impl LOCA {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 86 {
+            return Err("LOCA: insufficient data".into());
+        }
         let served_imsi = IMSI::new(&bytes[25..33]).value;
         let subs_old_lac = LAC::new(&bytes[33..35]).value;
         let subs_old_ex_id = SubId::new(&bytes[35..45]).value;
@@ -43,7 +46,7 @@ impl LOCA {
         let loc_up_indicator = LocUpIndicator::new(bytes[77]).value;
         let number_of_in_records = NumberOfInRecords::new(bytes[78]).value;
 
-        Self {
+        Ok(Self {
             served_imsi,
             subs_old_lac,
             subs_old_ex_id,
@@ -55,7 +58,7 @@ impl LOCA {
             call_reference_time,
             loc_up_indicator,
             number_of_in_records,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

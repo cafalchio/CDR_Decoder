@@ -14,7 +14,10 @@ pub struct Header {
 }
 
 impl Header {
-    pub fn new(bytes: &[u8]) -> Header {
+    pub fn new(bytes: &[u8]) ->Result<Self, String> {
+        if bytes.len() < 25 {
+            return Err("Header: insufficient data".into());
+        }
         let record_length = HWord::new(&bytes[0..2]).value as u32;
         let record_type = RecordType::new(bytes[2]).value;
         let record_number = BCD2uword::new(&bytes[3..7]).value;
@@ -22,7 +25,7 @@ impl Header {
         let check_sum = HWord::new(&bytes[8..10]).value;
         let call_reference = CallReference::new(&bytes[10..15]).value;
         let exchange_id = ExchangeId::new(&bytes[15..25]).value;
-        Header {
+        Ok(Header {
             record_length,
             record_type,
             record_number,
@@ -30,7 +33,7 @@ impl Header {
             check_sum,
             call_reference,
             exchange_id,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

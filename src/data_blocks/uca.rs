@@ -72,7 +72,10 @@ pub struct UCA {
     pub used_air_interface_user_rate: String,
 }
 impl UCA {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 227 {
+            return Err("SMMT: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..36]).value;
         let intermediate_charging_ind = IntermediateRecordNumber::new(&bytes[26..27]).value;
         let number_of_ss_records = NumberOfInRecords::new(bytes[27]).value;
@@ -137,7 +140,7 @@ impl UCA {
         let radio_network_type = RadioNetworkType::new(bytes[225]).value;
         let used_air_interface_user_rate = UsedAirInterfaceUserRate::new(bytes[226]).value;
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -201,7 +204,7 @@ impl UCA {
             inside_control_plane_index,
             radio_network_type,
             used_air_interface_user_rate,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

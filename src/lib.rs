@@ -80,12 +80,12 @@ pub fn test_cdr_extraction(file: String) -> String {
             &header.record_type,
             &bytes[next_header..next_header + header.record_length as usize],
         ) {
-            Some(block) => {
+            Ok(block) => {
                 let _json = block.to_json().unwrap();
                 // Print all blocks to console
                 // println!("{}", json);
             }
-            None => {}
+            Err(e) => {return e}
         }
 
         match header.record_type.as_str() {

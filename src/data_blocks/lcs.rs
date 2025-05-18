@@ -31,7 +31,10 @@ pub struct LCS {
     pub radio_network_type: String,
 }
 impl LCS {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 164 {
+            return Err("LCS: insufficient data".into());
+        }
         let served_imsi = IMSI::new(&bytes[25..33]).value; // C(  8)        25
         let served_imei = IMEI::new(&bytes[33..41]).value; // C(  8)        33
         let service_time = BcdTimestamp::new(&bytes[41..48]).value; // C(  7)        41
@@ -54,7 +57,7 @@ impl LCS {
         let client_external_id_ton = TON::new(bytes[160]).value; // C(  1)       160
         let age_of_estimate = AgeOfEstimate::new(&bytes[161..163]).value; // W(  1)       161
         let radio_network_type = RadioNetworkType::new(bytes[163]).value; // C(  1)       163
-        Self {
+        Ok(Self {
             served_imsi,
             served_imei,
             service_time,
@@ -77,7 +80,7 @@ impl LCS {
             client_external_id_ton,
             age_of_estimate,
             radio_network_type,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

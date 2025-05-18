@@ -34,7 +34,10 @@ pub struct SMMT {
     pub radio_network_type: String, // same name but OFFSET differs (139 vs 149)
 }
 impl SMMT {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 139 {
+            return Err("SMMT: insufficient data".into());
+        }
         let called_imsi = IMSI::new(&bytes[25..33]).value; //    C(  8)        25
         let called_imei = IMEI::new(&bytes[33..41]).value; //    C(  8)        33
         let called_number = NUMBER::new(&bytes[41..53]).value; //    C( 12)        41
@@ -65,7 +68,7 @@ impl SMMT {
         let add_routing_category = AddRoutingCategory::new(&bytes[137..139]).value; //    W(  1)       137
         let radio_network_type = RadioNetworkType::new(bytes[139]).value; //    C(  1)       139
 
-        Self {
+        Ok(Self {
             called_imsi,
             called_imei,
             called_number,
@@ -95,7 +98,7 @@ impl SMMT {
             routing_category,
             add_routing_category,
             radio_network_type,
-        }
+        })
     }
 
     pub fn to_json(&self) -> serde_json::Result<String> {

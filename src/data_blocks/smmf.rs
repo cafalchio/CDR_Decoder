@@ -49,7 +49,10 @@ pub struct SMMF {
 }
 
 impl SMMF {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 139 {
+            return Err("SMMF: insufficient data".into());
+        }
         let called_imsi = IMSI::new(&bytes[25..33]).value;
         let called_imei = IMEI::new(&bytes[33..41]).value;
         let called_number = NUMBER::new(&bytes[41..53]).value;
@@ -80,7 +83,7 @@ impl SMMF {
         let add_routing_category = AddRoutingCategory::new(&bytes[137..139]).value;
         let radio_network_type = RadioNetworkType::new(bytes[139]).value;
 
-        Self {
+        Ok(Self {
             called_imsi,
             called_imei,
             called_number,
@@ -110,7 +113,7 @@ impl SMMF {
             routing_category,
             add_routing_category,
             radio_network_type,
-        }
+        })
     }
 }
 // DATA:

@@ -47,7 +47,10 @@ pub struct PBXO {
     pub redirecting_number: String,
 }
 impl PBXO {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 185 {
+            return Err("PBXO: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; // BCD(  1)        25
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value; //   C(  1)        26
         let number_of_ss_records = NumberOfSSRecords::new(bytes[27]).value; // BCD(  1)        27
@@ -91,7 +94,7 @@ impl PBXO {
         let collect_call_indicator = "<not implemented>".to_string();
         let redirecting_number = NUMBER::new(&bytes[174..186]).value; //   C( 12)       174
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -133,7 +136,7 @@ impl PBXO {
             camel_exchange_id,
             collect_call_indicator,
             redirecting_number,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

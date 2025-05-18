@@ -90,7 +90,10 @@ pub struct FORW {
     pub rate_adaption: String,
 }
 impl FORW {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 300 {
+            return Err("FORW: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value;
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[27]).value;
         let number_of_ss_records = NumberOfSSRecords::new(bytes[27]).value;
@@ -178,7 +181,7 @@ impl FORW {
         let forwarded_to_last_ex_id_ton = TON::new(bytes[298]).value;
         let radio_network_type = RadioNetworkType::new(bytes[299]).value;
         let rate_adaption = RateAdaption::new(bytes[300]).value;
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -264,7 +267,7 @@ impl FORW {
             forwarded_to_last_ex_id_ton,
             radio_network_type,
             rate_adaption,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

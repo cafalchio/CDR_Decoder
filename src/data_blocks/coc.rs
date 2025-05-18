@@ -34,7 +34,10 @@ pub struct COC {
 }
 
 impl COC {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 135 {
+            return Err("COC: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value;
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value;
         let in_channel_allocated_time = BcdTimestamp::new(&bytes[27..34]).value;
@@ -61,7 +64,7 @@ impl COC {
         let number_of_in_records = NumberOfInRecords::new(bytes[127]).value;
         let call_reference_time = CallReferenceTime::new(&bytes[128..135]).value;
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             in_channel_allocated_time,
@@ -86,7 +89,7 @@ impl COC {
             camel_modify_parameters,
             number_of_in_records,
             call_reference_time,
-        }
+        })
     }
 
     pub fn to_json(&self) -> serde_json::Result<String> {

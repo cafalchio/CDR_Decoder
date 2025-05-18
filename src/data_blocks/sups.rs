@@ -58,7 +58,11 @@ pub struct SUPS {
     pub radio_network_type: String,
 }
 impl SUPS {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 157 {
+            println!("Error reading SUPS, expected 157 bytes, got {} bytes", bytes.len());
+            return Err("SUPS: insufficient data".into());
+        }
         let ss_record_number = SSRecordNumber::new(bytes[25]).value;
         let served_imsi = IMSI::new(&bytes[26..34]).value;
         let served_imei = IMEI::new(&bytes[34..42]).value;
@@ -91,7 +95,7 @@ impl SUPS {
         let add_routing_category = AddRoutingCategory::new(&bytes[154..156]).value;
         let radio_network_type = RadioNetworkType::new(bytes[156]).value;
 
-        Self {
+        Ok(Self {
             ss_record_number,
             served_imsi,
             served_imei,
@@ -123,7 +127,7 @@ impl SUPS {
             camel_exchange_id,
             add_routing_category,
             radio_network_type,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

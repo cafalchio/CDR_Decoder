@@ -39,7 +39,10 @@ pub struct PBXT {
     pub collect_call_indicator: String,
 }
 impl PBXT {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 134 {
+            return Err("PBXT: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //  BCD(  1)        25
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value; //    C(  1)        26
         let number_of_ss_records = NumberOfSSRecords::new(bytes[27]).value; //  BCD(  1)        27
@@ -72,7 +75,7 @@ impl PBXT {
                                                                       // let collect_call_indicator = PNI::new(bytes[36]).value;       //    C(  1)       133
         let collect_call_indicator = "<not implemented>".to_string();
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -102,7 +105,7 @@ impl PBXT {
             number_of_all_in_records,
             redirecting_number,
             collect_call_indicator,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

@@ -53,7 +53,10 @@ pub struct PTC {
     pub rate_adaption: String,
 }
 impl PTC {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 188 {
+            return Err("PTC: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //      BCD(  1)        25
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value; //        C(  1)        26
         let number_of_ss_records = NumberOfSSRecords::new(bytes[28]).value; //      BCD(  1)        27
@@ -102,7 +105,7 @@ impl PTC {
         let redirecting_number = NUMBER::new(&bytes[176..188]).value; //        C( 12)       176
         let rate_adaption = RateAdaption::new(bytes[188]).value; //        C(  1)       188
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -147,7 +150,7 @@ impl PTC {
             outpulsed_number,
             redirecting_number,
             rate_adaption,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

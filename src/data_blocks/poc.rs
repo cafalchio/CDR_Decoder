@@ -55,7 +55,10 @@ pub struct POC {
     pub calling_pstn_category: String,
 }
 impl POC {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 199 {
+            return Err("POC: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; // BCD(  1)        25
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value; // C(  1)         26
         let number_of_ss_records = NumberOfSSRecords::new(bytes[27]).value; // BCD(  1)        27
@@ -104,7 +107,7 @@ impl POC {
         let rate_adaption = RateAdaption::new(bytes[197]).value; // C(  1)       197
         let calling_pstn_category = CallingPSTNCategory::new(bytes[198]).value; // C(  1)       198
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -151,7 +154,7 @@ impl POC {
             dialled_digits,
             rate_adaption,
             calling_pstn_category,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

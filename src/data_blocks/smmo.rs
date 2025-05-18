@@ -40,7 +40,10 @@ pub struct SMMO {
     pub radio_network_type: String,         //    C(  1)       149
 }
 impl SMMO {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 149 {
+            return Err("SMMO: insufficient data".into());
+        }
         let calling_imsi = IMSI::new(&bytes[25..33]).value;
         let calling_imei = IMEI::new(&bytes[33..41]).value;
         let calling_number = NUMBER::new(&bytes[41..51]).value;
@@ -77,7 +80,7 @@ impl SMMO {
         let add_routing_category = AddRoutingCategory::new(&bytes[147..149]).value;
         let radio_network_type = RadioNetworkType::new(bytes[149]).value;
 
-        Self {
+        Ok(Self {
             calling_imsi,
             calling_imei,
             calling_number,
@@ -113,7 +116,7 @@ impl SMMO {
             camel_sms_modification,
             add_routing_category,
             radio_network_type,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

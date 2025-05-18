@@ -55,7 +55,7 @@ pub fn extract_header(bytes: &[u8]) -> Header {
     }
     let header = Header::new(&bytes[next_header..next_header + 25]);
     // println!("{}", header.to_json().unwrap());
-    header
+    header.expect("Could not read header")
 }
 
 pub fn skip_trailer_bytes(bytes: &[u8], mut curr_position: usize) -> usize {

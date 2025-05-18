@@ -29,7 +29,11 @@ pub struct DOC {
 }
 
 impl DOC {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 107 {
+            return Err("DOC: insufficient data".into());
+        }
+        
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; // BCD(  1)        25
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value; //   C(  1)        26
         let intermediate_chrg_cause = IntermediateChrgCause::new(&bytes[27..29]).value; //   C(  2)        27
@@ -55,7 +59,7 @@ impl DOC {
         let service_identifier = ServiceIdentifier::new(bytes[99]).value; //   C(  1)        99
         let call_reference_time = CallReferenceTime::new(&bytes[100..107]).value; //   C(  7)       100
 
-        Self {
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             intermediate_chrg_cause,
@@ -79,7 +83,7 @@ impl DOC {
             device_identifier,
             service_identifier,
             call_reference_time,
-        }
+        })
     }
 
     pub fn to_json(&self) -> serde_json::Result<String> {

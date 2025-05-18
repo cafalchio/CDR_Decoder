@@ -12,7 +12,10 @@ pub struct IN3 {
     pub protocol_identification: String,
 }
 impl IN3 {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 358 {
+            return Err("IN3: insufficient data".into());
+        }
         let in_record_number = InRecordNumber::new(&bytes[25]).value; //BCD(  1)        25
         let in_data = InData::new(&bytes[26..336]).value; //  C(310)        26
         let leg_call_reference = CallReference::new(&bytes[336..341]).value; //  C(  5)       336
@@ -20,7 +23,7 @@ impl IN3 {
         let in_data_length = InDataLength::new(&bytes[348..350]).value; //  W(  1)       348
         let call_reference_time = CallReferenceTime::new(&bytes[350..357]).value; //  C(  7)       350
         let protocol_identification = ProtocolIdentification::new(bytes[357]).value; //  C(  1)       357
-        Self {
+        Ok(Self {
             in_record_number,
             in_data,
             leg_call_reference,
@@ -28,7 +31,7 @@ impl IN3 {
             in_data_length,
             call_reference_time,
             protocol_identification,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)

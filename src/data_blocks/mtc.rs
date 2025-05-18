@@ -88,7 +88,10 @@ pub struct MTC {
 }
 
 impl MTC {
-    pub fn new(bytes: &[u8]) -> Self {
+    pub fn new(bytes: &[u8]) -> Result<Self, String> {
+        if bytes.len() < 272 {
+            return Err("MTC: insufficient data".into());
+        }
         let intermediate_record_number = IntermediateRecordNumber::new(&bytes[25..26]).value; //  BCD(  1)        25
         let intermediate_charging_ind = IntermediateChargingInd::new(bytes[26]).value; //    C(  1)        26
         let number_of_ss_records = NumberOfSSRecords::new(bytes[27]).value; //  BCD(  1)        27
@@ -173,7 +176,8 @@ impl MTC {
         let called_subs_last_ex_id_ton = TON::new(bytes[269]).value; //    C(  1)       269
         let radio_network_type = RadioNetworkType::new(bytes[270]).value; //    C(  1)       270
         let used_air_interface_user_rate = UsedAirInterfaceUserRate::new(bytes[271]).value; //    C(  1)       271
-        Self {
+        
+        Ok(Self {
             intermediate_record_number,
             intermediate_charging_ind,
             number_of_ss_records,
@@ -256,7 +260,7 @@ impl MTC {
             called_subs_last_ex_id_ton,
             radio_network_type,
             used_air_interface_user_rate,
-        }
+        })
     }
     pub fn to_json(&self) -> serde_json::Result<String> {
         serde_json::to_string_pretty(self)
