@@ -1,5 +1,7 @@
 # CDR_Decoder
 
+## Using the  Python library
+* from cdr_decoder import extract_cdr_rs
 
 
 
