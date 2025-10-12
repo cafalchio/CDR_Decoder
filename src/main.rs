@@ -39,7 +39,7 @@ fn main() {
 
     println!("Running extraction...");
     let start_time = Instant::now();
-    let bytes = read_file("/home/cafalchio/Downloads/ClaroVozNokiaMenu2/VL_GNK_MSSDF5_T20250115112442_10674_N_00000.BACKUP.gz");
+    let bytes = read_file("file");
     let mut next_header = 0;
     let mut cnt = 0;
     let mut last_trailer = 0;
