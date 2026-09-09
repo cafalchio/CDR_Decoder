@@ -1,6 +1,6 @@
 # CDR_Decoder
 
-Independent Rust parser for supported telecom Call Detail Record (CDR) formats, with Python bindings.
+Fast, independent Rust parser for supported telecom Call Detail Record (CDR) formats, with Python bindings.
 
 This project is an independent CDR parser and is not affiliated with or developed for any particular agency or organization. CDR formats vary across systems and providers; compatibility is limited to the record formats implemented by this decoder.
 
